@@ -4,6 +4,13 @@ import Settings from './pages/Settings.jsx';
 import AiChat from './pages/AiChat.jsx';
 import Highlights from './pages/Highlights.jsx';
 import Library from './pages/Library.jsx';
+import Practice from './pages/Practice.jsx';
+import Test from './pages/Test.jsx';
+import Mistakes from './pages/Mistakes.jsx';
+import Progress from './pages/Progress.jsx';
+import MedicalIndex from './pages/MedicalIndex.jsx';
+import Browser from './pages/Browser.jsx';
+import Search from './pages/Search.jsx';
 
 const modules = import.meta.glob('./screens/*.jsx', { eager: true });
 
@@ -22,7 +29,7 @@ const ROUTES = {
   '/search': 'SemanticMedicalSearchSynonymEngine',
 };
 
-const LIVE = new Set(['/settings', '/ai', '/highlights', '/library']);
+const LIVE = new Set(['/settings', '/ai', '/highlights', '/library', '/practice', '/test', '/mistakes', '/progress', '/index', '/browser', '/search']);
 
 // Sidebar label (lower-case substring) -> path. Stitch exports every link as href="#".
 const NAV = [
@@ -74,6 +81,13 @@ export default function App() {
       <Route path="/ai" element={<AiChat />} />
       <Route path="/highlights" element={<Highlights />} />
       <Route path="/library" element={<Library />} />
+      <Route path="/practice" element={<Practice />} />
+      <Route path="/test" element={<Test />} />
+      <Route path="/mistakes" element={<Mistakes />} />
+      <Route path="/progress" element={<Progress />} />
+      <Route path="/index" element={<MedicalIndex />} />
+      <Route path="/browser" element={<Browser />} />
+      <Route path="/search" element={<Search />} />
       {Object.entries(ROUTES).filter(([path]) => !LIVE.has(path)).map(([path, name]) => (
         <Route key={path} path={path} element={<Shell name={name} />} />
       ))}

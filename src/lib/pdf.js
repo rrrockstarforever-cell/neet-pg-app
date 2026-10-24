@@ -40,3 +40,31 @@ export async function searchPages(query, limit = 50) {
   }
   return out;
 }
+
+/** OCR every page that has almost no text layer. Updates pages + doc counters in the legacy schema. */
+export async function ocrDocument(doc, onProgress = () => {}) {
+  const { ocrImage, closeOcr } = await import('./ocr.js');
+  const file = await db.getFile(doc.id);
+  if (!file) throw new Error('The stored PDF file is missing.');
+  const pdf = await pdfjs.getDocument({ data: new Uint8Array(await file.arrayBuffer()) }).promise;
+  const pages = (await db.getAll('pages')).filter((p) => p.docId === doc.id);
+  const todo = pages.filter((p) => p.text.trim().length < 40).sort((a, b) => a.page - b.page);
+  let done = 0;
+  try {
+    for (const p of todo) {
+      onProgress(done, todo.length);
+      const page = await pdf.getPage(p.page);
+      const vp = page.getViewport({ scale: 2 });
+      const canvas = document.createElement('canvas'); canvas.width = vp.width; canvas.height = vp.height;
+      await page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
+      const text = (await ocrImage(canvas)).replace(/\s+/g, ' ').trim();
+      await db.put('pages', { docId: doc.id, page: p.page, text, ocr: true });
+      done++;
+    }
+  } finally { await closeOcr(); }
+  const all = (await db.getAll('pages')).filter((p) => p.docId === doc.id);
+  const d = await db.get('docs', doc.id);
+  await db.put('docs', { ...d, ocrPages: (d.ocrPages || 0) + done, needsOcr: all.filter((p) => p.text.trim().length < 40).length, textChars: all.reduce((a, p) => a + p.text.length, 0) });
+  onProgress(todo.length, todo.length);
+  return done;
+}

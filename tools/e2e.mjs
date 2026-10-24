@@ -17,7 +17,13 @@ const stub = http.createServer((req, res) => {
     if (req.method === 'OPTIONS') return res.end();
     lastBody = JSON.parse(b || '{}');
     res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify({ choices: [{ message: { content: 'Stub answer: beta-blockers reduce mortality post-MI.' } }] }));
+    const prompt = JSON.stringify(lastBody.messages ?? '');
+    let content = 'Stub answer: beta-blockers reduce mortality post-MI.';
+    if (/MCQs/.test(prompt)) content = '```json\n' + JSON.stringify([
+      { question: 'Which drug class reduces mortality after STEMI?', options: ['ACE inhibitors only', 'Beta-blockers', 'Antihistamines', 'Loop diuretics'], answerIndex: 1, explanation: 'Beta-blockers reduce mortality and remodeling.', sourcePage: 1 },
+      { question: 'Which score is used for pretest probability of PE?', options: ['CHADS2', 'Wells score', 'APGAR', 'GCS'], answerIndex: 1, explanation: 'Wells score stratifies PE probability.', sourcePage: 2 }]) + '\n```';
+    else if (/distinct medical topics/.test(prompt)) content = JSON.stringify([{ topic: 'Myocardial infarction', page: 1 }, { topic: 'Pulmonary embolism', page: 2 }]);
+    res.end(JSON.stringify({ choices: [{ message: { content } }] }));
   });
 });
 await new Promise((r) => stub.listen(5191, '127.0.0.1', r));
@@ -29,7 +35,7 @@ const page = await browser.newPage();
 await page.setViewport({ width: 1440, height: 900 });
 const errors = [];
 await page.setRequestInterception(true);
-page.on('request', (rq) => (/^http:\/\/127\.0\.0\.1/.test(rq.url()) || rq.url().startsWith('data:') ? rq.continue() : rq.abort()));
+page.on('request', (rq) => (/^http:\/\/127\.0\.0\.1/.test(rq.url()) || rq.url().startsWith('data:') || rq.url().startsWith('blob:') || (SUITE === 'ocr' && /^https:/.test(rq.url())) ? rq.continue() : rq.abort()));
 page.on('framenavigated', (f) => { if (f === page.mainFrame()) console.log('  nav ->', f.url()); });
 page.on('error', (e) => console.log('  PAGE CRASH', e.message));
 page.on('console', (m) => { if (m.type() === 'error') console.log('  console.error', m.text().slice(0, 160)); });
@@ -37,6 +43,17 @@ page.on('pageerror', (e) => errors.push(e.message));
 const B = 'http://127.0.0.1:5190/#';
 await page.goto('http://127.0.0.1:5190/#/library');
 await page.waitForFunction(() => document.body.innerText.includes('Library (PDF'), { timeout: 10000 }).catch(() => {});
+
+const txt = () => page.evaluate(() => document.body.innerText);
+const waitText = (re, ms = 8000) => page.waitForFunction((s) => new RegExp(s, 'i').test(document.body.innerText), { timeout: ms }, re.source).then(() => true, () => false);
+const clickText = (label) => page.evaluate((l) => { const b = [...document.querySelectorAll('button,a')].find((x) => x.textContent.trim().startsWith(l)); if (!b) throw new Error('no button ' + l); b.click(); }, label);
+const setProvider = () => page.evaluate(() => localStorage.setItem('neetpg.ai.settings', JSON.stringify({ active: 'custom', configs: { custom: { apiKey: '', model: 'stub-model', baseUrl: 'http://127.0.0.1:5191/v1', modelChosen: true } } })));
+const importFixture = async () => {
+  await nav('/library'); await new Promise((x) => setTimeout(x, 500));
+  await (await page.$('input[data-testid="pdf-input"]')).uploadFile(new URL('./fixtures/sample.pdf', import.meta.url).pathname.slice(1).replace(/%20/g, ' '));
+  await page.waitForSelector('[data-testid="doc-card"]', { timeout: 15000 });
+};
+const pickOption = async (i) => (await page.$$('[data-testid="option"]'))[i].click();
 const nav = (route) => page.evaluate((r) => { location.hash = r; }, route);
 try {
   if (S('routes')) {
@@ -123,6 +140,88 @@ try {
   await new Promise((x) => setTimeout(x, 800));
   check('document deleted', !(await page.evaluate(() => document.body.innerText)).includes('sample.pdf'));
 
+  }
+
+  if (S('study')) {
+  // Practice: generate MCQs from a stored book through the (stub) AI, practise, miss one, review it in the Mistake Notebook
+  await setProvider(); await importFixture();
+  await nav('/practice'); await page.waitForSelector('[data-testid="generate"]', { timeout: 8000 });
+  for (const [id, v] of [['count', '2'], ['to', '2']]) { await page.click(`[data-testid="${id}"]`); await page.keyboard.down('Control'); await page.keyboard.press('KeyA'); await page.keyboard.up('Control'); await page.keyboard.type(v); }
+  await page.click('[data-testid="generate"]');
+  await page.waitForSelector('[data-testid="set-card"]', { timeout: 10000 }).catch(() => {});
+  check('Practice generated a saved set of 2 questions', /2 questions/.test(await txt()), (await txt()).slice(-160).replace(/\n/g, ' | '));
+  check('AI prompt contained the book text', JSON.stringify(lastBody?.messages ?? '').includes('Myocardial infarction'));
+  await clickText('Practise'); await page.waitForSelector('[data-testid="option"]');
+  await pickOption(0); await page.waitForSelector('[data-testid="next"]');
+  await page.click('[data-testid="next"]'); await page.waitForFunction(() => /Question 2 of 2/.test(document.body.innerText));
+  await pickOption(1); await page.waitForSelector('[data-testid="next"]'); await page.click('[data-testid="next"]');
+  check('Practice score 1 / 2', await waitText(/Score: 1 \/ 2/), (await txt()).slice(0, 120));
+  await nav('/mistakes'); await page.waitForSelector('[data-testid="show-answer"]', { timeout: 8000 }).catch(() => {});
+  check('missed question is due in Mistake Notebook', /Review due \(1\)/.test(await txt()));
+  await page.click('[data-testid="show-answer"]'); await page.click('[data-testid="rate-Good"]');
+  check('rating a card reschedules it (nothing due)', await waitText(/Nothing due/));
+  await clickText('All cards'); await new Promise((x) => setTimeout(x, 400));
+  const rows = await page.$$('[data-testid="card-row"]');
+  check('card kept with next review date', rows.length === 1 && /Next review/.test(await txt()));
+  }
+  if (S('study2')) {
+  // Test runner, progress, search, index, mistakes form, browser page (web build)
+  await setProvider();
+  await page.evaluate(() => localStorage.setItem('neetpg.sets.v1', JSON.stringify([{ id: 's1', createdAt: Date.now(), title: 'Seed set', subject: 'Medicine', questions: [
+    { question: 'Which drug class reduces mortality after STEMI?', options: ['ACE inhibitors only', 'Beta-blockers', 'Antihistamines', 'Loop diuretics'], answerIndex: 1, explanation: 'x' },
+    { question: 'Which score is used for pretest probability of PE?', options: ['CHADS2', 'Wells score', 'APGAR', 'GCS'], answerIndex: 1, explanation: 'y' },
+    { question: 'Third question?', options: ['a', 'b'], answerIndex: 0, explanation: 'z' }] }])));
+  await importFixture();
+  await nav('/test'); await page.waitForSelector('[data-testid="start"]', { timeout: 8000 });
+  await page.click('[data-testid="start"]'); await page.waitForSelector('[data-testid="timer"]');
+  check('timer shows 4:00 for 3 questions', /^\d:\d\d$/.test(await page.$eval('[data-testid="timer"]', (e) => e.textContent)));
+  await pickOption(1); await page.click('[data-testid="t-next"]'); await pickOption(0); await page.click('[data-testid="t-next"]');
+  await page.click('[data-testid="submit"]');
+  check('test marks = +4 -1 (1 right, 1 wrong, 1 skipped = 3/12)', await waitText(/3 \/ 12 marks/), (await txt()).slice(0, 160));
+  await nav('/progress'); await page.waitForSelector('[data-testid="stat-Accuracy"]', { timeout: 8000 });
+  check('Progress accuracy 50% (1 of 2 answered)', (await page.$eval('[data-testid="stat-Accuracy"]', (e) => e.textContent)) === '50%');
+  check('Progress shows subject bar', (await page.$$('[data-testid="bar-row"]')).length >= 1);
+  await page.goto(`${B}/search?q=heart%20attack`); const found = await waitText(/also matching:.*myocardial infarction/);
+  check('Search expands synonyms and finds the book page', found && /sample\.pdf · p\.1/.test(await txt()), (await txt()).slice(0, 200).replace(/\n/g, ' | '));
+  await nav('/index'); await page.waitForSelector('[data-testid="index-doc"]', { timeout: 8000 });
+  await clickText('Build with AI'); const topicsOk = await waitText(/2 topics · AI/);
+  check('Medical Index builds topics with pages (AI)', topicsOk && (await page.$$('[data-testid="topic"]')).length === 2);
+  await clickText('Rebuild (offline)'); 
+  check('offline index builder runs (fixture has no repeated phrases)', await waitText(/0 topics · offline/));
+  await nav('/mistakes'); await page.waitForSelector('button'); await clickText('Add question');
+  await page.type('[data-testid="f-text"]', 'Drug of choice for anaphylaxis?'); await page.type('[data-testid="f-options"]', 'Adrenaline IM\nAtropine\nSteroid');
+  await page.type('[data-testid="f-correct"]', '0'); await page.type('[data-testid="f-chosen"]', '2'); await page.click('[data-testid="f-save"]');
+  await new Promise((x) => setTimeout(x, 600));
+  check('manual question saved and shown among cards', await waitText(/anaphylaxis/));
+  await clickText('Question log'); check('manual question appears in the log as incorrect', await waitText(/incorrect[\s\S]*anaphylaxis/));
+  await nav('/browser'); await page.waitForSelector('[data-testid="browser-web-note"]', { timeout: 8000 }).catch(() => {});
+  check('Clinical Browser page loads (web fallback)', /desktop app/.test(await txt()));
+  }
+
+  if (S('ocr')) {
+  // OCR: build an image-only PDF (no text layer) from a canvas, import it, run OCR, search the recognised text. Needs internet for tesseract language data.
+  const jpg = await page.evaluate(() => { const c = document.createElement('canvas'); c.width = 900; c.height = 300; const g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, 900, 300); g.fillStyle = '#000'; g.font = 'bold 54px Arial'; g.fillText('Pheochromocytoma causes', 30, 120); g.fillText('episodic hypertension', 30, 200); return c.toDataURL('image/jpeg', 0.95).split(',')[1]; });
+  const img = Buffer.from(jpg, 'base64');
+  const parts = []; const offs = []; let len = 0;
+  const add = (b) => { const buf = Buffer.isBuffer(b) ? b : Buffer.from(b, 'latin1'); parts.push(buf); len += buf.length; };
+  const obj = (n, body) => { offs[n] = len; add(`${n} 0 obj\n`); add(body); add('\nendobj\n'); };
+  add('%PDF-1.4\n');
+  obj(1, '<< /Type /Catalog /Pages 2 0 R >>'); obj(2, '<< /Type /Pages /Kids [3 0 R] /Count 1 >>');
+  obj(3, '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 450 150] /Contents 4 0 R /Resources << /XObject << /Im0 5 0 R >> >> >>');
+  const cs = 'q 450 0 0 150 0 0 cm /Im0 Do Q'; obj(4, `<< /Length ${cs.length} >>\nstream\n${cs}\nendstream`);
+  offs[5] = len; add('5 0 obj\n'); add(`<< /Type /XObject /Subtype /Image /Width 900 /Height 300 /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${img.length} >>\nstream\n`); add(img); add('\nendstream\nendobj\n');
+  const xr = len; add(`xref\n0 6\n0000000000 65535 f \n` + [1, 2, 3, 4, 5].map((n) => String(offs[n]).padStart(10, '0') + ' 00000 n \n').join('') + `trailer\n<< /Size 6 /Root 1 0 R >>\nstartxref\n${xr}\n%%EOF\n`);
+  const fs = await import('node:fs'); const scan = new URL('../shots/scan.pdf', import.meta.url).pathname.slice(1).replace(/%20/g, ' ');
+  fs.writeFileSync(scan, Buffer.concat(parts));
+  await nav('/library'); await new Promise((x) => setTimeout(x, 500));
+  await (await page.$('input[data-testid="pdf-input"]')).uploadFile(scan);
+  await page.waitForSelector('[data-testid="doc-card"]', { timeout: 15000 });
+  check('scanned PDF flagged as needing OCR', /1 page\(s\) need OCR/.test(await txt()));
+  await page.click('[data-testid="ocr-btn"]');
+  const okOcr = await page.waitForFunction(() => !document.body.innerText.includes('need OCR') || /OCR failed/.test(document.body.innerText), { timeout: 150000 }).then(() => true, () => false);
+  check('OCR finished', okOcr && !/OCR failed/.test(await txt()), (await txt()).match(/OCR failed[^\n]*/)?.[0] ?? '');
+  await page.type('input[placeholder^="Search the text"]', 'hypertension');
+  check('OCR text is searchable', await waitText(/1 match/, 5000));
   }
   if (S('nav')) {
   // 7. sidebar navigation on a static screen (click delegation) + live page

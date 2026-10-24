@@ -186,6 +186,11 @@ function smoke() {
         r.title = document.title; r.text = document.body.innerText.slice(0, 120);
         return r;
       })()`);
+      res.routes = await win.webContents.executeJavaScript(`(async () => { const o = {}; for (const r of ['library','ai','index','practice','test','mistakes','progress','highlights','settings','search']) { location.hash = '#/' + r; await new Promise(x => setTimeout(x, 500)); o[r] = document.body.innerText.length; } return o; })()`);
+      await win.webContents.executeJavaScript(`location.hash = '#/browser'`);
+      await new Promise((r) => setTimeout(r, 6000));
+      res.browserPage = await win.webContents.executeJavaScript(`(async () => { const t = await window.native.browser.text(); return { title: t.title, url: t.url, area: !!document.querySelector('[data-testid=browser-area]') }; })()`).catch((e) => String(e));
+      await win.webContents.executeJavaScript(`location.hash = '#/library'`);
       await win.webContents.executeJavaScript(`window.native.browser.open('https://example.com/')`);
       await win.webContents.executeJavaScript(`window.native.browser.setBounds({ x: 240, y: 60, width: 900, height: 600 })`);
       await new Promise((r) => setTimeout(r, 4000));

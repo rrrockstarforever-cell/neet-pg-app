@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Layout, { card, btnPrimary, btnGhost, input } from '../components/Layout.jsx';
 import * as db from '../lib/db.js';
-import { importPdf, searchPages } from '../lib/pdf.js';
+import { importPdf, searchPages, ocrDocument } from '../lib/pdf.js';
 
 const SUBJECTS = ['', 'Anatomy', 'Physiology', 'Biochemistry', 'Pathology', 'Pharmacology', 'Microbiology', 'Forensic Medicine', 'PSM', 'ENT', 'Ophthalmology', 'Medicine', 'Surgery', 'Obstetrics & Gynaecology', 'Paediatrics', 'Orthopaedics', 'Dermatology', 'Psychiatry', 'Anaesthesia', 'Radiology'];
 const mb = (n) => (n / 1048576).toFixed(1) + ' MB';
@@ -33,6 +33,12 @@ export default function Library() {
     if (f) window.open(URL.createObjectURL(f), '_blank');
   }
   async function remove(d) { if (confirm(`Delete "${d.name}" and its notes?`)) { await db.deleteDocument(d.id); load(); } }
+  async function ocr(d) {
+    setErrors([]);
+    try { await ocrDocument(d, (n, total) => setProgress({ name: d.name + ' (OCR)', n: n + 1, total })); }
+    catch (e) { setErrors([`OCR failed: ${e.message}. The first run downloads language data, so it needs internet.`]); }
+    setProgress(null); load();
+  }
   async function subject(d, s) { await db.setSubject(d.id, s); load(); }
 
   const grouped = {};
@@ -72,7 +78,7 @@ export default function Library() {
                 <select className={input} value={d.subject || ''} onChange={(e) => subject(d, e.target.value)}>
                   {SUBJECTS.map((s) => <option key={s} value={s}>{s || 'Choose subject…'}</option>)}
                 </select>
-                <div className="flex gap-space-sm"><button className={btnGhost} onClick={() => open(d)}>Open</button><button className={btnGhost} onClick={() => remove(d)}>Delete</button></div>
+                <div className="flex gap-space-sm"><button className={btnGhost} onClick={() => open(d)}>Open</button>{d.needsOcr > 0 && <button data-testid="ocr-btn" className={btnGhost} disabled={!!progress} onClick={() => ocr(d)}>Read pages (OCR)</button>}<button className={btnGhost} onClick={() => remove(d)}>Delete</button></div>
               </div>
             ))}
           </div>
