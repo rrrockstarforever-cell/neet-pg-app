@@ -6,7 +6,7 @@ import { pathToFileURL } from 'node:url';
 import { handleNode } from '../server/api.mjs';
 
 const root = path.resolve(import.meta.dirname, '..', 'dist-new');
-const types = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.woff': 'font/woff', '.woff2': 'font/woff2', '.svg': 'image/svg+xml', '.json': 'application/json' };
+const types = { '.html': 'text/html', '.js': 'text/javascript', '.mjs': 'text/javascript', '.wasm': 'application/wasm', '.css': 'text/css', '.woff': 'font/woff', '.woff2': 'font/woff2', '.svg': 'image/svg+xml', '.json': 'application/json' };
 export function serve(port = 5190) {
   const srv = http.createServer((req, res) => {
     if (req.url.startsWith('/api/')) { req.url = req.url.slice(4); return handleNode(req, res); }

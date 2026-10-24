@@ -45,3 +45,26 @@ export async function summary() {
   const [d, q, c, h, n] = await Promise.all(['docs', 'questions', 'cards', 'highlights', 'notes'].map(count));
   return { docs: d, questions: q, cards: c, highlights: h, notes: n };
 }
+
+export async function putDocument(doc, file, pages) {
+  const tx = (await open()).transaction(['docs', 'files', 'pages'], 'readwrite');
+  tx.objectStore('docs').put(doc);
+  tx.objectStore('files').put(file, doc.id);
+  for (const p of pages) tx.objectStore('pages').put(p);
+  await new Promise((res, rej) => { tx.oncomplete = res; tx.onerror = () => rej(tx.error); tx.onabort = () => rej(tx.error); });
+}
+export const getFile = (id) => get('files', id);
+export async function setSubject(id, subject) {
+  const d = await get('docs', id);
+  if (d) await put('docs', { ...d, subject, subjectSource: 'manual' });
+}
+export async function deleteDocument(id) {
+  const db = await open();
+  const pageKeys = await wrap(db.transaction('pages').objectStore('pages').index('byDoc').getAllKeys(id));
+  const noteKeys = await wrap(db.transaction('notes').objectStore('notes').index('byDoc').getAllKeys(id));
+  const tx = db.transaction(['docs', 'files', 'pages', 'notes'], 'readwrite');
+  tx.objectStore('docs').delete(id); tx.objectStore('files').delete(id);
+  pageKeys.forEach((k) => tx.objectStore('pages').delete(k));
+  noteKeys.forEach((k) => tx.objectStore('notes').delete(k));
+  await new Promise((res, rej) => { tx.oncomplete = res; tx.onerror = () => rej(tx.error); });
+}
