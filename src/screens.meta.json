@@ -1,0 +1,57 @@
+[
+  {
+    "dir": "ai_chat_knowledge_engine",
+    "name": "AiChatKnowledgeEngine",
+    "bodyClass": "bg-background font-body-compact text-on-surface antialiased"
+  },
+  {
+    "dir": "clinical_highlights_saved_passages",
+    "name": "ClinicalHighlightsSavedPassages",
+    "bodyClass": "bg-background font-body-compact text-on-surface antialiased"
+  },
+  {
+    "dir": "clinical_progress_accuracy",
+    "name": "ClinicalProgressAccuracy",
+    "bodyClass": "bg-background text-on-surface font-body-compact text-body-compact"
+  },
+  {
+    "dir": "clinical_research_browser",
+    "name": "ClinicalResearchBrowser",
+    "bodyClass": "bg-background text-on-surface font-body-compact text-body-compact"
+  },
+  {
+    "dir": "library_ocr_knowledge",
+    "name": "LibraryOcrKnowledge",
+    "bodyClass": "bg-background font-body-compact text-on-surface antialiased"
+  },
+  {
+    "dir": "master_medical_index_topics",
+    "name": "MasterMedicalIndexTopics",
+    "bodyClass": "bg-background font-body-compact text-on-surface antialiased"
+  },
+  {
+    "dir": "mistake_notebook_review",
+    "name": "MistakeNotebookReview",
+    "bodyClass": "bg-background text-on-surface font-body-compact text-body-compact"
+  },
+  {
+    "dir": "practice_module_builder",
+    "name": "PracticeModuleBuilder",
+    "bodyClass": "bg-background font-body-compact text-on-surface antialiased"
+  },
+  {
+    "dir": "semantic_medical_search_synonym_engine",
+    "name": "SemanticMedicalSearchSynonymEngine",
+    "bodyClass": "bg-background font-body-compact text-on-surface antialiased"
+  },
+  {
+    "dir": "settings_ai_engine",
+    "name": "SettingsAiEngine",
+    "bodyClass": "bg-background text-on-surface font-body-compact text-body-compact"
+  },
+  {
+    "dir": "test_runner_active_exam",
+    "name": "TestRunnerActiveExam",
+    "bodyClass": "bg-background font-body-compact text-on-surface antialiased"
+  }
+]

@@ -1,0 +1,35 @@
+/* clinical_highlights_saved_passages */
+@layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+/* master_medical_index_topics */
+@layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+/* semantic_medical_search_synonym_engine */
+@layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
