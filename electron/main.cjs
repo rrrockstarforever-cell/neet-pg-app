@@ -190,6 +190,7 @@ function smoke() {
       await win.webContents.executeJavaScript(`location.hash = '#/browser'`);
       await new Promise((r) => setTimeout(r, 6000));
       res.browserPage = await win.webContents.executeJavaScript(`(async () => { const t = await window.native.browser.text(); return { title: t.title, url: t.url, area: !!document.querySelector('[data-testid=browser-area]') }; })()`).catch((e) => String(e));
+      try { const png0 = await win.webContents.executeJavaScript(`window.native.browser.capture()`); res.captureOnBrowserPage = Buffer.from(png0, 'base64').length; } catch (e) { res.captureOnBrowserPage = String(e); }
       await win.webContents.executeJavaScript(`location.hash = '#/library'`);
       await win.webContents.executeJavaScript(`window.native.browser.open('https://example.com/')`);
       await win.webContents.executeJavaScript(`window.native.browser.setBounds({ x: 240, y: 60, width: 900, height: 600 })`);
