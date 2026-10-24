@@ -1,0 +1,15 @@
+{
+  "name": "neet-pg-app",
+  "productName": "NEET PG Prep",
+  "description": "NEET PG / INI-CET preparation app",
+  "author": {
+    "name": "Abhijeet",
+    "email": "abhijeet@localhost"
+  },
+  "homepage": "https://github.com/abhijeet/neet-pg-app",
+  "desktopName": "neet-pg-prep.desktop",
+  "private": true,
+  "version": "0.3.8",
+  "type": "module",
+  "main": "electron/main.cjs"
+}

@@ -1,0 +1,10 @@
+node_modules/
+*.exe
+*.dll
+*.pak
+*.bin
+*.dat
+*.log
+extracted/
+resources/
+nul
