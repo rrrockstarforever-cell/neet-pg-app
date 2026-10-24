@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
-import meta from './screens.meta.json';
+import Settings from './pages/Settings.jsx';
+import AiChat from './pages/AiChat.jsx';
+import Highlights from './pages/Highlights.jsx';
 
 const modules = import.meta.glob('./screens/*.jsx', { eager: true });
 
@@ -18,6 +20,8 @@ const ROUTES = {
   '/settings': 'SettingsAiEngine',
   '/search': 'SemanticMedicalSearchSynonymEngine',
 };
+
+const LIVE = new Set(['/settings', '/ai', '/highlights']);
 
 // Sidebar label (lower-case substring) -> path. Stitch exports every link as href="#".
 const NAV = [
@@ -64,7 +68,11 @@ export default function App() {
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/library" replace />} />
-      {Object.entries(ROUTES).map(([path, name]) => (
+      {/* Live pages (real data / API). Everything else is still a static Stitch screen. */}
+      <Route path="/settings" element={<Settings />} />
+      <Route path="/ai" element={<AiChat />} />
+      <Route path="/highlights" element={<Highlights />} />
+      {Object.entries(ROUTES).filter(([path]) => !LIVE.has(path)).map(([path, name]) => (
         <Route key={path} path={path} element={<Shell name={name} />} />
       ))}
       <Route path="*" element={<Navigate to="/library" replace />} />

@@ -6,7 +6,9 @@ const path = require('node:path');
 const fs = require('node:fs');
 const { pathToFileURL } = require('node:url');
 
-const DIST = path.join(__dirname, '..', 'dist');
+// New Stitch/React build; falls back to the legacy bundle if it has not been built.
+const NEW_DIST = path.join(__dirname, '..', 'dist-new');
+const DIST = fs.existsSync(path.join(NEW_DIST, 'index.html')) && !process.env.NEET_LEGACY_UI ? NEW_DIST : path.join(__dirname, '..', 'dist');
 const DEV_URL = process.env.NEET_DEV_URL; // e.g. http://localhost:5173 for live-reload dev
 
 protocol.registerSchemesAsPrivileged([
