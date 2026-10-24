@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "surface-dim": "#d2daeb", "surface-container-highest": "#dbe3f3", "surface": "#f8f9ff", "on-tertiary-fixed-variant": "#663e00", "tertiary-container": "#3e2300", "on-tertiary-container": "#c7811d", "primary-container": "#13294b", "on-surface": "#141c28", "on-surface-variant": "#44474e", "on-error": "#ffffff", "background": "#f8f9ff", "on-primary": "#ffffff", "on-secondary": "#ffffff", "inverse-primary": "#b2c7f1", "on-error-container": "#93000a", "primary-fixed": "#d7e3ff", "error": "#ba1a1a", "primary": "#001432", "error-container": "#ffdad6", "on-tertiary": "#ffffff", "on-secondary-container": "#007072", "secondary-fixed": "#8ff3f4", "inverse-on-surface": "#ebf1ff", "on-secondary-fixed": "#002020", "surface-variant": "#dbe3f3", "tertiary-fixed-dim": "#ffb963", "surface-container-lowest": "#ffffff", "surface-bright": "#f8f9ff", "tertiary-fixed": "#ffddb9", "surface-container": "#e6eeff", "on-secondary-fixed-variant": "#004f51", "tertiary": "#221100", "outline-variant": "#c4c6cf", "secondary": "#00696b", "primary-fixed-dim": "#b2c7f1", "on-primary-fixed-variant": "#33476a", "on-tertiary-fixed": "#2b1700", "inverse-surface": "#29313d", "on-primary-fixed": "#021b3d", "secondary-fixed-dim": "#72d6d8", "on-background": "#141c28", "surface-tint": "#4b5f84", "on-primary-container": "#7d91b9", "outline": "#74777f", "secondary-container": "#8ff3f4", "surface-container-high": "#e1e8f9", "surface-container-low": "#eff3ff" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "margin": "1rem", "space-md": "0.75rem", "space-xl": "1.5rem", "gutter-desktop": "1.5rem", "space-lg": "1rem", "space-xs": "0.25rem", "gutter-tablet": "1.25rem", "gutter": "1rem", "margin-desktop": "2.25rem", "margin-tablet": "1.5rem", "space-sm": "0.5rem" }, "fontFamily": { "headline-h2": ["Inter"], "badge-label": ["Inter"], "subheading-h3": ["Inter"], "display-lg-mobile": ["Inter"], "display-lg": ["Inter"], "headline-h1": ["Inter"], "body-compact": ["Inter"], "stat-numeral": ["Inter"], "caption-meta": ["Inter"], "body-reading": ["Inter"] }, "fontSize": { "headline-h2": ["18px", { "lineHeight": "24px", "fontWeight": "700" }], "badge-label": ["11px", { "lineHeight": "14px", "fontWeight": "700" }], "subheading-h3": ["16px", { "lineHeight": "22px", "fontWeight": "600" }], "display-lg-mobile": ["24px", { "lineHeight": "30px", "fontWeight": "800" }], "display-lg": ["28px", { "lineHeight": "34px", "fontWeight": "800" }], "headline-h1": ["22px", { "lineHeight": "28px", "fontWeight": "700" }], "body-compact": ["14px", { "lineHeight": "22px", "fontWeight": "400" }], "stat-numeral": ["30px", { "lineHeight": "36px", "fontWeight": "800" }], "caption-meta": ["13px", { "lineHeight": "18px", "fontWeight": "500" }], "body-reading": ["15px", { "lineHeight": "24px", "fontWeight": "400" }] } } } };</script></head><body class="bg-background font-body-compact text-on-surface antialiased"><aside class="fixed left-0 top-0 h-screen w-72 bg-surface-container-low flex flex-col z-50 shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="p-space-lg flex flex-col gap-space-sm bg-surface-container-low"><div class="flex items-center gap-space-sm"><div class="w-9 h-9 rounded-lg bg-primary-container flex items-center justify-center"><span class="material-symbols-outlined text-secondary-fixed text-[20px]">ecg_heart</span></div><div class="flex flex-col"><span class="font-headline-h2 text-headline-h2 tracking-tight text-primary leading-none">PULSE MED</span><span class="font-badge-label text-badge-label text-secondary uppercase tracking-wider">NEET PG / AMC</span></div></div><div class="flex items-center justify-between mt-space-xs px-space-sm py-space-xs bg-surface-container rounded-lg"><span class="font-badge-label text-badge-label uppercase text-on-surface-variant">Target Stream</span><span class="font-badge-label text-badge-label px-space-xs py-0.5 rounded-full bg-secondary text-on-secondary">High-Yield Tier</span></div><div class="grid grid-cols-2 p-1 bg-surface-container rounded-lg gap-1"><button class="py-1.5 text-center font-badge-label text-badge-label rounded bg-surface-container-lowest text-primary shadow-sm font-bold" type="button">NEET / INI</button><button class="py-1.5 text-center font-badge-label text-badge-label rounded text-on-surface-variant hover:text-on-surface transition-colors" type="button">AMC CAT</button></div></div><nav class="flex-1 overflow-y-auto px-space-sm py-space-xs flex flex-col gap-1" data-active-classes="bg-primary text-on-primary font-semibold shadow-sm"><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="library" href="#"><span class="material-symbols-outlined text-[20px]">local_library</span><span class="font-body-compact text-body-compact">Library (PDF &amp; Books)</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="ai-chat-knowledge-engine" href="#"><span class="material-symbols-outlined text-[20px]">neurology</span><span class="font-body-compact text-body-compact">AI Knowledge Engine</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="ask-your-books" href="#"><span class="material-symbols-outlined text-[20px]">menu_book</span><span class="font-body-compact text-body-compact">Ask Your Books (RAG)</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="search-medical-index" href="#"><span class="material-symbols-outlined text-[20px]">clinical_notes</span><span class="font-body-compact text-body-compact">Medical Index</span></a><a aria-current="page" class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg transition-all bg-primary text-on-primary font-semibold shadow-sm" data-path="practice-module-builder" href="#"><span class="material-symbols-outlined text-[20px]">handyman</span><span class="font-body-compact text-body-compact">Practice &amp; Modules</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="test-runner-active-exam" href="#"><span class="material-symbols-outlined text-[20px]">timer</span><span class="font-body-compact text-body-compact">Test Runner &amp; Exam</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="review-mistake-notebook" href="#"><span class="material-symbols-outlined text-[20px]">edit_note</span><span class="font-body-compact text-body-compact">Mistake Notebook</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="performance-analytics" href="#"><span class="material-symbols-outlined text-[20px]">monitoring</span><span class="font-body-compact text-body-compact">Performance Analytics</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="settings-ai-subscriptions" href="#"><span class="material-symbols-outlined text-[20px]">tune</span><span class="font-body-compact text-body-compact">Settings &amp; AI Engine</span></a></nav><div class="p-space-md bg-surface-container-low flex flex-col gap-space-sm"><div class="flex items-center justify-between px-space-sm py-1.5 rounded-lg bg-surface-container-high"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-secondary text-[16px]">schedule</span><span class="font-badge-label text-badge-label text-on-surface">Exam in 58 Days</span></div><div class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-secondary"></span><span class="font-badge-label text-badge-label text-secondary">OCR Live</span></div></div><div class="flex items-center justify-between pt-space-xs px-space-xs"><button class="flex items-center gap-space-xs text-on-surface-variant hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[18px]">contrast</span><span class="font-caption-meta text-caption-meta">Theme</span></button><span class="font-caption-meta text-caption-meta text-on-surface-variant">Pulse v2.4</span></div></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface/85 backdrop-blur-xl z-40 shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="w-full h-16 px-space-xl flex items-center justify-between gap-space-lg"><div class="flex-1 max-w-xl"><div class="flex items-center w-full bg-surface-container px-space-md py-2 rounded-lg gap-space-sm text-on-surface-variant"><span class="material-symbols-outlined text-[20px]">search</span><input class="bg-transparent border-none outline-none font-body-compact text-body-compact text-on-surface placeholder:text-outline w-full" placeholder="Search diseases, high-yield clinical stems, Harrison / Robbins references..." type="text"/></div></div><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-xs px-space-md py-1.5 bg-surface-container rounded-full"><span class="material-symbols-outlined text-secondary text-[18px]">speed</span><span class="font-badge-label text-badge-label text-on-surface uppercase">Pace: 1.1 m/Q</span></div><button class="relative p-2 text-on-surface-variant hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-error"></span></button><div class="flex items-center gap-space-sm pl-space-xs"><div class="flex flex-col text-right hidden sm:flex"><span class="font-caption-meta text-caption-meta font-bold text-on-surface">Dr. Arya Sharma</span><span class="font-badge-label text-badge-label text-on-surface-variant">MBBS - Res ID #9042</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></div></header><main class="relative pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<div class="px-space-xl py-space-lg max-w-[1400px] mx-auto w-full">
+<!-- Module Builder Header -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md mb-space-lg">
+<div class="flex flex-col">
+<div class="flex items-center gap-2 mb-1">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-secondary-container text-on-secondary-fixed text-badge-label font-badge-label uppercase tracking-wider">
+<span class="material-symbols-outlined text-[13px]">bolt</span> Custom Q-Bank v3.2
+          </span>
+<span class="text-caption-meta font-caption-meta text-on-surface-variant flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> NBE Algorithmic Weighting Active
+          </span>
+</div>
+<h1 class="font-display-lg text-display-lg text-primary tracking-tight">Create Custom Clinical Module</h1>
+<p class="font-body-compact text-body-compact text-on-surface-variant max-w-3xl mt-0.5">
+          Configure clinical vignette parameters, NBE / INI-CET &amp; AMC exam patterns, and targeted high-yield question pools with RAG-grounded explanations.
+        </p>
+</div>
+<div class="flex items-center gap-2 self-start md:self-auto">
+<button class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors font-caption-meta text-caption-meta font-semibold" type="button">
+<span class="material-symbols-outlined text-[18px]">history</span>
+          Recent Presets
+        </button>
+<button class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors font-caption-meta text-caption-meta font-semibold" type="button">
+<span class="material-symbols-outlined text-[18px]">restart_alt</span>
+          Reset
+        </button>
+</div>
+</div>
+<!-- Main Builder Split Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- Left Config Columns (8 of 12) -->
+<div class="lg:col-span-8 flex flex-col gap-space-lg">
+<!-- Parameter Card 1: Target Exam & Question Count -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm">
+<div class="flex items-center justify-between mb-space-md">
+<div class="flex items-center gap-2">
+<span class="w-7 h-7 rounded-lg bg-primary text-on-primary flex items-center justify-center font-badge-label text-badge-label">01</span>
+<h2 class="font-headline-h2 text-headline-h2 text-primary">Target Exam Pattern</h2>
+</div>
+<span class="text-caption-meta font-caption-meta text-on-surface-variant">Sets marking rules &amp; stem complexity</span>
+</div>
+<!-- Exam Toggle Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-space-sm mb-space-lg">
+<label class="relative flex flex-col p-space-md rounded-xl bg-surface-container cursor-pointer transition-all hover:bg-surface-container-high has-[:checked]:bg-primary-container has-[:checked]:text-on-primary group">
+<input checked="" class="sr-only" name="target_exam" type="radio" value="neet"/>
+<div class="flex items-center justify-between mb-2">
+<span class="font-subheading-h3 text-subheading-h3 group-has-[:checked]:text-on-primary text-primary">NEET PG</span>
+<span class="material-symbols-outlined text-[20px] text-secondary group-has-[:checked]:text-secondary-fixed">verified</span>
+</div>
+<span class="text-caption-meta font-caption-meta text-on-surface-variant group-has-[:checked]:text-primary-fixed-dim leading-snug">
+                NBE 2025 Pattern (+4 / -1). Single Best Answer &amp; IBQ focus.
+              </span>
+</label>
+<label class="relative flex flex-col p-space-md rounded-xl bg-surface-container cursor-pointer transition-all hover:bg-surface-container-high has-[:checked]:bg-primary-container has-[:checked]:text-on-primary group">
+<input class="sr-only" name="target_exam" type="radio" value="inicet"/>
+<div class="flex items-center justify-between mb-2">
+<span class="font-subheading-h3 text-subheading-h3 group-has-[:checked]:text-on-primary text-primary">INI-CET</span>
+<span class="material-symbols-outlined text-[20px] text-outline group-has-[:checked]:text-secondary-fixed">school</span>
+</div>
+<span class="text-caption-meta font-caption-meta text-on-surface-variant group-has-[:checked]:text-primary-fixed-dim leading-snug">
+                AIIMS &amp; JIPMER format (+1 / -1/3). Multiple-completion &amp; Reason-Assertion.
+              </span>
+</label>
+<label class="relative flex flex-col p-space-md rounded-xl bg-surface-container cursor-pointer transition-all hover:bg-surface-container-high has-[:checked]:bg-primary-container has-[:checked]:text-on-primary group">
+<input class="sr-only" name="target_exam" type="radio" value="amc"/>
+<div class="flex items-center justify-between mb-2">
+<span class="font-subheading-h3 text-subheading-h3 group-has-[:checked]:text-on-primary text-primary">AMC CAT MCQ</span>
+<span class="material-symbols-outlined text-[20px] text-outline group-has-[:checked]:text-secondary-fixed">public</span>
+</div>
+<span class="text-caption-meta font-caption-meta text-on-surface-variant group-has-[:checked]:text-primary-fixed-dim leading-snug">
+                Australian Medical Council format. Clinical reasoning, triage &amp; ethics.
+              </span>
+</label>
+</div>
+<!-- Volume & Difficulty Row -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-lg pt-space-xs">
+<!-- Question Count -->
+<div>
+<div class="flex items-center justify-between mb-2">
+<label class="font-caption-meta text-caption-meta font-bold text-on-surface uppercase tracking-wide">Question Volume</label>
+<span class="text-caption-meta font-caption-meta text-secondary font-semibold" id="countDisplay">50 Questions</span>
+</div>
+<div class="grid grid-cols-6 gap-1 bg-surface-container p-1 rounded-lg">
+<button class="py-1.5 rounded text-caption-meta font-caption-meta font-bold transition-all text-on-surface-variant hover:text-primary" onclick="setCount(10, this)" type="button">10</button>
+<button class="py-1.5 rounded text-caption-meta font-caption-meta font-bold transition-all text-on-surface-variant hover:text-primary" onclick="setCount(20, this)" type="button">20</button>
+<button class="py-1.5 rounded text-caption-meta font-caption-meta font-bold transition-all text-on-surface-variant hover:text-primary" onclick="setCount(30, this)" type="button">30</button>
+<button class="py-1.5 rounded text-caption-meta font-caption-meta font-bold transition-all bg-surface-container-lowest text-primary shadow-sm" onclick="setCount(50, this)" type="button">50</button>
+<button class="py-1.5 rounded text-caption-meta font-caption-meta font-bold transition-all text-on-surface-variant hover:text-primary" onclick="setCount(100, this)" type="button">100</button>
+<button class="py-1.5 rounded text-caption-meta font-caption-meta font-bold transition-all text-on-surface-variant hover:text-primary" onclick="setCount('Custom', this)" type="button">Custom</button>
+</div>
+</div>
+<!-- Difficulty -->
+<div>
+<label class="block font-caption-meta text-caption-meta font-bold text-on-surface uppercase tracking-wide mb-2">Cognitive Tier / Difficulty</label>
+<div class="grid grid-cols-4 gap-1 bg-surface-container p-1 rounded-lg">
+<button class="py-1.5 rounded text-caption-meta font-caption-meta font-semibold transition-all text-on-surface-variant hover:text-primary" type="button">All</button>
+<button class="py-1.5 rounded text-caption-meta font-caption-meta font-bold transition-all bg-surface-container-lowest text-primary shadow-sm flex items-center justify-center gap-1" type="button">
+<span class="w-2 h-2 rounded-full bg-on-tertiary-container"></span>
+                  High-Yield
+                </button>
+<button class="py-1.5 rounded text-caption-meta font-caption-meta font-semibold transition-all text-on-surface-variant hover:text-primary" type="button">Standard</button>
+<button class="py-1.5 rounded text-caption-meta font-caption-meta font-semibold transition-all text-on-surface-variant hover:text-primary" type="button">Basics</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Parameter Card 2: Question Pool Source -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm">
+<div class="flex items-center justify-between mb-space-md">
+<div class="flex items-center gap-2">
+<span class="w-7 h-7 rounded-lg bg-primary text-on-primary flex items-center justify-center font-badge-label text-badge-label">02</span>
+<h2 class="font-headline-h2 text-headline-h2 text-primary">Question Pool Sourcing</h2>
+</div>
+<span class="text-caption-meta font-caption-meta text-on-surface-variant">Select AI generation &amp; uploaded repository sources</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-sm">
+<!-- Source 1 -->
+<label class="flex flex-col p-space-md rounded-xl bg-surface-container hover:bg-surface-container-high cursor-pointer transition-all has-[:checked]:bg-surface-container-highest group">
+<div class="flex items-center justify-between mb-2">
+<div class="w-8 h-8 rounded-lg bg-secondary text-on-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">neurology</span>
+</div>
+<input checked="" class="w-4 h-4 rounded text-secondary accent-secondary" type="checkbox"/>
+</div>
+<span class="font-subheading-h3 text-subheading-h3 text-primary mb-1">AI Clinical Vignettes</span>
+<p class="font-caption-meta text-caption-meta text-on-surface-variant leading-relaxed">
+                Fresh multi-step patient scenarios tailored to 2024–2025 recalled question styles with synthetic diagnostic lab values.
+              </p>
+<div class="mt-3 pt-2 flex items-center justify-between text-badge-label font-badge-label text-secondary">
+<span>12,480 Available</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container-lowest">NBE Engine</span>
+</div>
+</label>
+<!-- Source 2 -->
+<label class="flex flex-col p-space-md rounded-xl bg-surface-container hover:bg-surface-container-high cursor-pointer transition-all has-[:checked]:bg-surface-container-highest group">
+<div class="flex items-center justify-between mb-2">
+<div class="w-8 h-8 rounded-lg bg-primary-container text-secondary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">menu_book</span>
+</div>
+<input checked="" class="w-4 h-4 rounded text-secondary accent-secondary" type="checkbox"/>
+</div>
+<span class="font-subheading-h3 text-subheading-h3 text-primary mb-1">My Uploaded Books (RAG)</span>
+<p class="font-caption-meta text-caption-meta text-on-surface-variant leading-relaxed">
+                Pulled directly from Harrison's 21st, Robbins Path 10th, and Goodman &amp; Gilman indexed in your PDF library.
+              </p>
+<div class="mt-3 pt-2 flex items-center justify-between text-badge-label font-badge-label text-on-surface-variant">
+<span>8 Active Textbooks</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container-lowest text-secondary">98.2% OCR Match</span>
+</div>
+</label>
+<!-- Source 3 -->
+<label class="flex flex-col p-space-md rounded-xl bg-surface-container hover:bg-surface-container-high cursor-pointer transition-all has-[:checked]:bg-surface-container-highest group">
+<div class="flex items-center justify-between mb-2">
+<div class="w-8 h-8 rounded-lg bg-tertiary-container text-on-tertiary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">replay</span>
+</div>
+<input class="w-4 h-4 rounded text-secondary accent-secondary" type="checkbox"/>
+</div>
+<span class="font-subheading-h3 text-subheading-h3 text-primary mb-1">Spaced Mistake Bank</span>
+<p class="font-caption-meta text-caption-meta text-on-surface-variant leading-relaxed">
+                Prioritize your 142 unmastered incorrect MCQs from previous test runs, spaced using Leitner 3-day intervals.
+              </p>
+<div class="mt-3 pt-2 flex items-center justify-between text-badge-label font-badge-label text-error">
+<span>142 Weak Points</span>
+<span class="px-1.5 py-0.5 rounded bg-error-container text-on-error-container">SRS Due</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Parameter Card 3: Question Types Tag Cloud -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm">
+<div class="flex items-center justify-between mb-space-md">
+<div class="flex items-center gap-2">
+<span class="w-7 h-7 rounded-lg bg-primary text-on-primary flex items-center justify-center font-badge-label text-badge-label">03</span>
+<h2 class="font-headline-h2 text-headline-h2 text-primary">Question Formats &amp; Tag Filters</h2>
+</div>
+<div class="flex items-center gap-2">
+<button class="text-caption-meta font-caption-meta text-secondary hover:underline font-semibold" onclick="toggleAllTags(true)" type="button">Select All</button>
+<span class="text-outline-variant">|</span>
+<button class="text-caption-meta font-caption-meta text-on-surface-variant hover:underline" onclick="toggleAllTags(false)" type="button">Clear</button>
+</div>
+</div>
+<p class="font-body-compact text-body-compact text-on-surface-variant mb-space-sm">
+            Include specific question archetypes to simulate real clinical stem structures and cognitive checkpoints:
+          </p>
+<div class="flex flex-wrap gap-2" id="tagCloudContainer">
+<button class="tag-pill inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-secondary text-on-secondary text-caption-meta font-caption-meta font-semibold transition-all shadow-sm" onclick="toggleTag(this)" type="button">
+<span class="material-symbols-outlined text-[16px]">check</span>
+              #ClinicalVignette
+              <span class="ml-1 text-[11px] opacity-80">(85%)</span>
+</button>
+<button class="tag-pill inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-secondary text-on-secondary text-caption-meta font-caption-meta font-semibold transition-all shadow-sm" onclick="toggleTag(this)" type="button">
+<span class="material-symbols-outlined text-[16px]">check</span>
+              #ImageBased (IBQ)
+              <span class="ml-1 text-[11px] opacity-80">(24 Qs)</span>
+</button>
+<button class="tag-pill inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-secondary text-on-secondary text-caption-meta font-caption-meta font-semibold transition-all shadow-sm" onclick="toggleTag(this)" type="button">
+<span class="material-symbols-outlined text-[16px]">check</span>
+              #DrugOfChoice
+              <span class="ml-1 text-[11px] opacity-80">(18 Qs)</span>
+</button>
+<button class="tag-pill inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container text-on-surface hover:bg-surface-container-high text-caption-meta font-caption-meta font-medium transition-all" onclick="toggleTag(this)" type="button">
+<span class="material-symbols-outlined text-[16px] text-outline">add</span>
+              #MultipleStatements (1,2,3)
+            </button>
+<button class="tag-pill inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-secondary text-on-secondary text-caption-meta font-caption-meta font-semibold transition-all shadow-sm" onclick="toggleTag(this)" type="button">
+<span class="material-symbols-outlined text-[16px]">check</span>
+              #InvestigationOfChoice
+            </button>
+<button class="tag-pill inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container text-on-surface hover:bg-surface-container-high text-caption-meta font-caption-meta font-medium transition-all" onclick="toggleTag(this)" type="button">
+<span class="material-symbols-outlined text-[16px] text-outline">add</span>
+              #AssertionReason
+            </button>
+<button class="tag-pill inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container text-on-surface hover:bg-surface-container-high text-caption-meta font-caption-meta font-medium transition-all" onclick="toggleTag(this)" type="button">
+<span class="material-symbols-outlined text-[16px] text-outline">add</span>
+              #MatchTheFollowing
+            </button>
+<button class="tag-pill inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-secondary text-on-secondary text-caption-meta font-caption-meta font-semibold transition-all shadow-sm" onclick="toggleTag(this)" type="button">
+<span class="material-symbols-outlined text-[16px]">check</span>
+              #EmergencyTriage
+            </button>
+<button class="tag-pill inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container text-on-surface hover:bg-surface-container-high text-caption-meta font-caption-meta font-medium transition-all" onclick="toggleTag(this)" type="button">
+<span class="material-symbols-outlined text-[16px] text-outline">add</span>
+              #RecentUpdates (2024)
+            </button>
+<button class="tag-pill inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container text-on-surface hover:bg-surface-container-high text-caption-meta font-caption-meta font-medium transition-all" onclick="toggleTag(this)" type="button">
+<span class="material-symbols-outlined text-[16px] text-outline">add</span>
+              #Eponyms &amp; Criteria
+            </button>
+<button class="tag-pill inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container text-on-surface hover:bg-surface-container-high text-caption-meta font-caption-meta font-medium transition-all" onclick="toggleTag(this)" type="button">
+<span class="material-symbols-outlined text-[16px] text-outline">add</span>
+              #Sequencing &amp; Staging
+            </button>
+</div>
+</div>
+<!-- Parameter Card 4: Granular Specialty & Topic Hierarchy -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-space-md">
+<div class="flex items-center gap-2">
+<span class="w-7 h-7 rounded-lg bg-primary text-on-primary flex items-center justify-center font-badge-label text-badge-label">04</span>
+<div>
+<h2 class="font-headline-h2 text-headline-h2 text-primary">Granular Specialty &amp; Topic Hierarchy</h2>
+<span class="text-caption-meta font-caption-meta text-on-surface-variant">3 Specialties selected • 48 sub-topics active</span>
+</div>
+</div>
+<div class="flex items-center gap-2 bg-surface-container p-1 rounded-lg">
+<button class="px-2.5 py-1 rounded text-badge-label font-badge-label font-bold bg-surface-container-lowest text-primary shadow-sm" type="button">
+                Target Weakness Only
+              </button>
+<button class="px-2.5 py-1 rounded text-badge-label font-badge-label font-medium text-on-surface-variant hover:text-on-surface" type="button">
+                Standard Distribution
+              </button>
+</div>
+</div>
+<!-- Structured Subject Accordion Stack -->
+<div class="flex flex-col gap-2">
+<!-- Subject 1: Pharmacology (Active & Expanded) -->
+<div class="rounded-xl bg-surface-container overflow-hidden transition-all">
+<div class="p-space-md flex items-center justify-between cursor-pointer hover:bg-surface-container-high" onclick="toggleAccordion('pharma-content', 'pharma-icon')">
+<div class="flex items-center gap-space-sm">
+<input checked="" class="w-4 h-4 rounded text-secondary accent-secondary" onclick="event.stopPropagation()" type="checkbox"/>
+<div class="w-7 h-7 rounded bg-secondary-container text-on-secondary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">medication</span>
+</div>
+<div>
+<span class="font-subheading-h3 text-subheading-h3 text-primary">Pharmacology</span>
+<span class="text-badge-label font-badge-label text-on-surface-variant ml-2">(18 Subtopics • 1 Selected)</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container text-badge-label font-badge-label font-bold">
+                    Needs Review (54% Avg)
+                  </span>
+<span class="material-symbols-outlined text-[20px] text-on-surface-variant transition-transform" id="pharma-icon">expand_less</span>
+</div>
+</div>
+<!-- Expanded Subtopics Panel -->
+<div class="px-space-md pb-space-md pt-1 bg-surface-container-low flex flex-col gap-2" id="pharma-content">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-caption-meta font-caption-meta">
+<label class="flex items-center justify-between p-2 rounded-lg bg-surface-container-lowest cursor-pointer hover:bg-surface-container">
+<div class="flex items-center gap-2">
+<input checked="" class="w-3.5 h-3.5 text-secondary accent-secondary" type="checkbox"/>
+<span class="font-semibold text-primary">Antimicrobials &amp; Beta-Lactams</span>
+</div>
+<span class="text-badge-label font-badge-label px-1.5 py-0.5 rounded bg-error text-on-error">High Error Rate</span>
+</label>
+<label class="flex items-center justify-between p-2 rounded-lg bg-surface-container-lowest cursor-pointer hover:bg-surface-container">
+<div class="flex items-center gap-2">
+<input class="w-3.5 h-3.5 text-secondary accent-secondary" type="checkbox"/>
+<span class="text-on-surface">Autonomic Nervous System (ANS)</span>
+</div>
+<span class="text-badge-label font-badge-label text-on-surface-variant">82% Mastery</span>
+</label>
+<label class="flex items-center justify-between p-2 rounded-lg bg-surface-container-lowest cursor-pointer hover:bg-surface-container">
+<div class="flex items-center gap-2">
+<input class="w-3.5 h-3.5 text-secondary accent-secondary" type="checkbox"/>
+<span class="text-on-surface">Cardiovascular &amp; Anti-Arrhythmics</span>
+</div>
+<span class="text-badge-label font-badge-label text-on-surface-variant">71% Mastery</span>
+</label>
+<label class="flex items-center justify-between p-2 rounded-lg bg-surface-container-lowest cursor-pointer hover:bg-surface-container">
+<div class="flex items-center gap-2">
+<input class="w-3.5 h-3.5 text-secondary accent-secondary" type="checkbox"/>
+<span class="text-on-surface">Chemotherapy &amp; Targeted Kinases</span>
+</div>
+<span class="text-badge-label font-badge-label text-on-surface-variant">64% Mastery</span>
+</label>
+</div>
+</div>
+</div>
+<!-- Subject 2: General Medicine -->
+<div class="rounded-xl bg-surface-container overflow-hidden">
+<div class="p-space-md flex items-center justify-between cursor-pointer hover:bg-surface-container-high" onclick="toggleAccordion('med-content', 'med-icon')">
+<div class="flex items-center gap-space-sm">
+<input checked="" class="w-4 h-4 rounded text-secondary accent-secondary" onclick="event.stopPropagation()" type="checkbox"/>
+<div class="w-7 h-7 rounded bg-primary-container text-secondary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">stethoscope</span>
+</div>
+<div>
+<span class="font-subheading-h3 text-subheading-h3 text-primary">General Medicine</span>
+<span class="text-badge-label font-badge-label text-on-surface-variant ml-2">(Cardiology, Nephrology, Neurology)</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-fixed text-badge-label font-badge-label font-bold">
+                    3 Subtopics Selected
+                  </span>
+<span class="material-symbols-outlined text-[20px] text-on-surface-variant transition-transform" id="med-icon">expand_more</span>
+</div>
+</div>
+<div class="hidden px-space-md pb-space-md pt-1 bg-surface-container-low" id="med-content">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-caption-meta font-caption-meta">
+<label class="flex items-center justify-between p-2 rounded-lg bg-surface-container-lowest cursor-pointer">
+<div class="flex items-center gap-2">
+<input checked="" class="w-3.5 h-3.5 text-secondary accent-secondary" type="checkbox"/>
+<span class="font-medium text-primary">Cardiology (STEMI &amp; Valvular Lesions)</span>
+</div>
+<span class="text-badge-label font-badge-label text-secondary font-bold">High Yield</span>
+</label>
+<label class="flex items-center justify-between p-2 rounded-lg bg-surface-container-lowest cursor-pointer">
+<div class="flex items-center gap-2">
+<input checked="" class="w-3.5 h-3.5 text-secondary accent-secondary" type="checkbox"/>
+<span class="font-medium text-primary">Nephrology (Acid-Base &amp; AKI)</span>
+</div>
+<span class="text-badge-label font-badge-label text-secondary font-bold">High Yield</span>
+</label>
+</div>
+</div>
+</div>
+<!-- Subject 3: Pathology & Microbiology -->
+<div class="rounded-xl bg-surface-container overflow-hidden">
+<div class="p-space-md flex items-center justify-between cursor-pointer hover:bg-surface-container-high" onclick="toggleAccordion('path-content', 'path-icon')">
+<div class="flex items-center gap-space-sm">
+<input checked="" class="w-4 h-4 rounded text-secondary accent-secondary" onclick="event.stopPropagation()" type="checkbox"/>
+<div class="w-7 h-7 rounded bg-tertiary-container text-on-tertiary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">biotech</span>
+</div>
+<div>
+<span class="font-subheading-h3 text-subheading-h3 text-primary">Pathology &amp; Microbiology</span>
+<span class="text-badge-label font-badge-label text-on-surface-variant ml-2">(Gram Negatives, Histopathology)</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded-full bg-surface-container-highest text-on-surface text-badge-label font-badge-label">
+                    Robbins Grounded
+                  </span>
+<span class="material-symbols-outlined text-[20px] text-on-surface-variant transition-transform" id="path-icon">expand_more</span>
+</div>
+</div>
+<div class="hidden px-space-md pb-space-md pt-1 bg-surface-container-low" id="path-content">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-caption-meta font-caption-meta">
+<label class="flex items-center justify-between p-2 rounded-lg bg-surface-container-lowest cursor-pointer">
+<div class="flex items-center gap-2">
+<input checked="" class="w-3.5 h-3.5 text-secondary accent-secondary" type="checkbox"/>
+<span class="font-medium text-primary">Bacteriology: Gram Negative Bacilli</span>
+</div>
+</label>
+<label class="flex items-center justify-between p-2 rounded-lg bg-surface-container-lowest cursor-pointer">
+<div class="flex items-center gap-2">
+<input checked="" class="w-3.5 h-3.5 text-secondary accent-secondary" type="checkbox"/>
+<span class="font-medium text-primary">Neoplasia &amp; Oncogene Markers</span>
+</div>
+</label>
+</div>
+</div>
+</div>
+<!-- Subject 4: Other Clinical Disciplines (Collapsed Row) -->
+<div class="p-space-sm bg-surface-container rounded-xl flex items-center justify-between text-caption-meta font-caption-meta text-on-surface-variant">
+<span class="flex items-center gap-2 pl-1">
+<span class="material-symbols-outlined text-[18px]">more_horiz</span>
+                Surgery, OBG, Pediatrics, Forensic Medicine &amp; Anatomy (Optional)
+              </span>
+<button class="text-secondary hover:underline font-bold text-caption-meta font-caption-meta" type="button">
+                + Expand All 16 Subjects
+              </button>
+</div>
+</div>
+</div>
+<!-- Parameter Card 5: Mode Selector & Rules -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm">
+<div class="flex items-center justify-between mb-space-md">
+<div class="flex items-center gap-2">
+<span class="w-7 h-7 rounded-lg bg-primary text-on-primary flex items-center justify-center font-badge-label text-badge-label">05</span>
+<h2 class="font-headline-h2 text-headline-h2 text-primary">Execution Mode &amp; Exam Rules</h2>
+</div>
+<span class="text-caption-meta font-caption-meta text-on-surface-variant">Feedback cadence &amp; penalty logic</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Mode 1: Regular Learning -->
+<label class="relative flex flex-col p-space-md rounded-xl bg-surface-container cursor-pointer transition-all hover:bg-surface-container-high has-[:checked]:bg-surface-container-highest group">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-secondary text-on-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">school</span>
+</div>
+<div>
+<span class="font-subheading-h3 text-subheading-h3 text-primary block leading-none">Practice / Tutor Mode</span>
+<span class="text-badge-label font-badge-label text-secondary font-semibold">Immediate Learning</span>
+</div>
+</div>
+<input checked="" class="w-4 h-4 text-secondary accent-secondary" name="exam_mode" type="radio" value="tutor"/>
+</div>
+<ul class="text-caption-meta font-caption-meta text-on-surface-variant flex flex-col gap-1.5 mt-2">
+<li class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">check_circle</span>
+                  Instant rationale reveals right after answering
+                </li>
+<li class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">check_circle</span>
+                  High-yield board pearls &amp; mnemonics displayed
+                </li>
+<li class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">check_circle</span>
+                  Pause, resume, and annotate at will
+                </li>
+</ul>
+</label>
+<!-- Mode 2: Strict Simulation -->
+<label class="relative flex flex-col p-space-md rounded-xl bg-surface-container cursor-pointer transition-all hover:bg-surface-container-high has-[:checked]:bg-surface-container-highest group">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-primary-container text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">timer</span>
+</div>
+<div>
+<span class="font-subheading-h3 text-subheading-h3 text-primary block leading-none">Exam Simulation</span>
+<span class="text-badge-label font-badge-label text-error font-semibold">Proctored Pressure</span>
+</div>
+</div>
+<input class="w-4 h-4 text-secondary accent-secondary" name="exam_mode" type="radio" value="simulation"/>
+</div>
+<ul class="text-caption-meta font-caption-meta text-on-surface-variant flex flex-col gap-1.5 mt-2">
+<li class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-error">warning</span>
+                  -1 Negative Marking enforced with strict timer
+                </li>
+<li class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-outline">visibility_off</span>
+                  Solutions blinded completely until final submission
+                </li>
+<li class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-outline">analytics</span>
+                  Calculates National Percentile &amp; Speed analytics
+                </li>
+</ul>
+</label>
+</div>
+</div>
+</div>
+<!-- Right Column: Live Summary Sidebar & Launch Pad (4 of 12) -->
+<div class="lg:col-span-4 flex flex-col gap-space-lg lg:sticky lg:top-20">
+<!-- Primary Action Launch Card -->
+<div class="bg-primary text-on-primary rounded-xl p-space-lg shadow-md flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<span class="font-badge-label text-badge-label uppercase tracking-widest text-secondary-fixed">Launch Specification</span>
+<span class="material-symbols-outlined text-secondary-fixed text-[20px]">rocket_launch</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-baseline gap-2">
+<span class="font-stat-numeral text-stat-numeral text-on-primary tracking-tight" id="sidebarCount">50</span>
+<span class="font-headline-h2 text-headline-h2 text-primary-fixed-dim">Questions Ready</span>
+</div>
+<p class="font-caption-meta text-caption-meta text-surface-dim mt-1">
+              Estimated duration: <strong class="text-on-primary">45–55 Minutes</strong> (1.1 min/question NEET-PG pacing target).
+            </p>
+</div>
+<!-- Module Configuration Recap Badges -->
+<div class="p-space-sm bg-primary-container rounded-lg flex flex-col gap-1.5">
+<div class="flex items-center justify-between text-caption-meta font-caption-meta">
+<span class="text-primary-fixed-dim">Selected Exam:</span>
+<span class="font-bold text-on-primary">NEET PG (NBE)</span>
+</div>
+<div class="flex items-center justify-between text-caption-meta font-caption-meta">
+<span class="text-primary-fixed-dim">Primary Domain:</span>
+<span class="font-bold text-on-primary truncate max-w-[160px]">Pharm + Med + Path</span>
+</div>
+<div class="flex items-center justify-between text-caption-meta font-caption-meta">
+<span class="text-primary-fixed-dim">Negative Marking:</span>
+<span class="font-bold text-secondary-fixed">Active (-1 / 4)</span>
+</div>
+<div class="flex items-center justify-between text-caption-meta font-caption-meta">
+<span class="text-primary-fixed-dim">Textbook Citations:</span>
+<span class="font-bold text-on-primary">Harrison 21st &amp; Robbins</span>
+</div>
+</div>
+<button class="w-full h-12 rounded-lg bg-secondary text-on-secondary font-headline-h2 text-headline-h2 flex items-center justify-center gap-2 hover:brightness-105 active:scale-[0.99] transition-all shadow-md" type="button">
+<span>Generate &amp; Launch Module</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+<p class="text-center font-badge-label text-badge-label text-surface-dim">
+            Instant synap-generation grounded in latest clinical guidelines
+          </p>
+</div>
+<!-- Today's Productivity Metrics -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<h3 class="font-subheading-h3 text-subheading-h3 text-primary">Daily Diagnostic Pulse</h3>
+<span class="material-symbols-outlined text-secondary text-[20px]">monitoring</span>
+</div>
+<div class="grid grid-cols-2 gap-space-sm">
+<div class="p-space-sm rounded-lg bg-surface-container flex flex-col">
+<span class="text-badge-label font-badge-label uppercase text-on-surface-variant">Modules Solved</span>
+<div class="flex items-baseline gap-1 mt-1">
+<span class="font-stat-numeral text-stat-numeral text-primary leading-none">3</span>
+<span class="text-caption-meta font-caption-meta text-on-surface-variant font-bold">today</span>
+</div>
+<span class="text-caption-meta font-caption-meta text-secondary mt-1 font-semibold">85 MCQs solved</span>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container flex flex-col">
+<span class="text-badge-label font-badge-label uppercase text-on-surface-variant">Accuracy Rate</span>
+<div class="flex items-baseline gap-1 mt-1">
+<span class="font-stat-numeral text-stat-numeral text-primary leading-none">76.4</span>
+<span class="text-caption-meta font-caption-meta text-primary font-bold">%</span>
+</div>
+<span class="text-caption-meta font-caption-meta text-secondary mt-1 font-semibold">Top 8th Percentile</span>
+</div>
+</div>
+<!-- Mini Accuracy Progress Bar -->
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between text-caption-meta font-caption-meta">
+<span class="text-on-surface-variant">High-Yield Retention Index</span>
+<span class="font-bold text-primary">76.4 / 100</span>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-container overflow-hidden">
+<div class="h-full bg-secondary rounded-full" style="width: 76.4%;"></div>
+</div>
+</div>
+</div>
+<!-- Last Completed Module Quick-Review -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-badge-label text-badge-label uppercase text-on-surface-variant tracking-wider font-bold">Last Module</span>
+<span class="font-badge-label text-badge-label px-2 py-0.5 rounded-full bg-surface-container text-on-surface">2 hours ago</span>
+</div>
+<div>
+<h4 class="font-headline-h2 text-headline-h2 text-primary">INI-CET: Antimicrobial Resistance</h4>
+<div class="flex items-center gap-2 mt-1 text-caption-meta font-caption-meta text-on-surface-variant">
+<span>20 Questions</span>
+<span>•</span>
+<span class="text-error font-bold">6 Incorrects Flagged</span>
+</div>
+</div>
+<div class="p-space-sm rounded-lg bg-error-container/40 flex items-start gap-2 mt-1">
+<span class="material-symbols-outlined text-error text-[18px] shrink-0 mt-0.5">warning</span>
+<span class="text-caption-meta font-caption-meta text-on-surface">
+              High miss frequency in <strong>Carbapenemase (NDM-1)</strong> mechanisms.
+            </span>
+</div>
+<a class="mt-2 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-surface-container text-primary font-caption-meta text-caption-meta font-bold hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+            Review Solutions &amp; Spaced Retest
+          </a>
+</div>
+<!-- High Yield Pedagogical Pearl Callout -->
+<div class="p-space-md rounded-r-lg border-l-4 border-on-tertiary-container bg-tertiary-fixed/30 flex flex-col gap-1">
+<div class="flex items-center gap-1.5 text-on-tertiary-fixed-variant">
+<span class="material-symbols-outlined text-[18px]">lightbulb</span>
+<span class="font-caption-meta text-caption-meta font-bold uppercase tracking-wider">NEET-PG 2025 Pearl</span>
+</div>
+<p class="font-caption-meta text-caption-meta text-on-tertiary-fixed leading-relaxed">
+            NBE questions increasingly use 2-step clinical stems: <em>Diagnosis is implicit</em>, with the stem directly asking for the <em>side effect of the first-line treatment</em>. Ensure #DrugOfChoice is checked!
+          </p>
+</div>
+</div>
+</div>
+</div>
+<script>
+    function setCount(num, btn) {
+      document.getElementById('countDisplay').innerText = num + (num === 'Custom' ? '' : ' Questions');
+      document.getElementById('sidebarCount').innerText = num === 'Custom' ? '?' : num;
+      const parent = btn.parentElement;
+      Array.from(parent.children).forEach(el => {
+        el.className = 'py-1.5 rounded text-caption-meta font-caption-meta font-semibold transition-all text-on-surface-variant hover:text-primary';
+      });
+      btn.className = 'py-1.5 rounded text-caption-meta font-caption-meta font-bold transition-all bg-surface-container-lowest text-primary shadow-sm';
+    }
+
+    function toggleTag(btn) {
+      const isSelected = btn.classList.contains('bg-secondary');
+      const icon = btn.querySelector('.material-symbols-outlined');
+      if (isSelected) {
+        btn.classList.remove('bg-secondary', 'text-on-secondary', 'shadow-sm', 'font-semibold');
+        btn.classList.add('bg-surface-container', 'text-on-surface', 'font-medium');
+        if (icon) {
+          icon.innerText = 'add';
+          icon.classList.add('text-outline');
+        }
+      } else {
+        btn.classList.add('bg-secondary', 'text-on-secondary', 'shadow-sm', 'font-semibold');
+        btn.classList.remove('bg-surface-container', 'text-on-surface', 'font-medium');
+        if (icon) {
+          icon.innerText = 'check';
+          icon.classList.remove('text-outline');
+        }
+      }
+    }
+
+    function toggleAllTags(selectAll) {
+      const pills = document.querySelectorAll('#tagCloudContainer .tag-pill');
+      pills.forEach(btn => {
+        const icon = btn.querySelector('.material-symbols-outlined');
+        if (selectAll) {
+          btn.classList.add('bg-secondary', 'text-on-secondary', 'shadow-sm', 'font-semibold');
+          btn.classList.remove('bg-surface-container', 'text-on-surface', 'font-medium');
+          if (icon) {
+            icon.innerText = 'check';
+            icon.classList.remove('text-outline');
+          }
+        } else {
+          btn.classList.remove('bg-secondary', 'text-on-secondary', 'shadow-sm', 'font-semibold');
+          btn.classList.add('bg-surface-container', 'text-on-surface', 'font-medium');
+          if (icon) {
+            icon.innerText = 'add';
+            icon.classList.add('text-outline');
+          }
+        }
+      });
+    }
+
+    function toggleAccordion(contentId, iconId) {
+      const content = document.getElementById(contentId);
+      const icon = document.getElementById(iconId);
+      if (content.classList.contains('hidden')) {
+        content.classList.remove('hidden');
+        icon.innerText = 'expand_less';
+      } else {
+        content.classList.add('hidden');
+        icon.innerText = 'expand_more';
+      }
+    }
+  </script>
+</div></main></div></body></html>

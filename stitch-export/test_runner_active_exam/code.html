@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "surface-dim": "#d2daeb", "surface-container-highest": "#dbe3f3", "surface": "#f8f9ff", "on-tertiary-fixed-variant": "#663e00", "tertiary-container": "#3e2300", "on-tertiary-container": "#c7811d", "primary-container": "#13294b", "on-surface": "#141c28", "on-surface-variant": "#44474e", "on-error": "#ffffff", "background": "#f8f9ff", "on-primary": "#ffffff", "on-secondary": "#ffffff", "inverse-primary": "#b2c7f1", "on-error-container": "#93000a", "primary-fixed": "#d7e3ff", "error": "#ba1a1a", "primary": "#001432", "error-container": "#ffdad6", "on-tertiary": "#ffffff", "on-secondary-container": "#007072", "secondary-fixed": "#8ff3f4", "inverse-on-surface": "#ebf1ff", "on-secondary-fixed": "#002020", "surface-variant": "#dbe3f3", "tertiary-fixed-dim": "#ffb963", "surface-container-lowest": "#ffffff", "surface-bright": "#f8f9ff", "tertiary-fixed": "#ffddb9", "surface-container": "#e6eeff", "on-secondary-fixed-variant": "#004f51", "tertiary": "#221100", "outline-variant": "#c4c6cf", "secondary": "#00696b", "primary-fixed-dim": "#b2c7f1", "on-primary-fixed-variant": "#33476a", "on-tertiary-fixed": "#2b1700", "inverse-surface": "#29313d", "on-primary-fixed": "#021b3d", "secondary-fixed-dim": "#72d6d8", "on-background": "#141c28", "surface-tint": "#4b5f84", "on-primary-container": "#7d91b9", "outline": "#74777f", "secondary-container": "#8ff3f4", "surface-container-high": "#e1e8f9", "surface-container-low": "#eff3ff" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "margin": "1rem", "space-md": "0.75rem", "space-xl": "1.5rem", "gutter-desktop": "1.5rem", "space-lg": "1rem", "space-xs": "0.25rem", "gutter-tablet": "1.25rem", "gutter": "1rem", "margin-desktop": "2.25rem", "margin-tablet": "1.5rem", "space-sm": "0.5rem" }, "fontFamily": { "headline-h2": ["Inter"], "badge-label": ["Inter"], "subheading-h3": ["Inter"], "display-lg-mobile": ["Inter"], "display-lg": ["Inter"], "headline-h1": ["Inter"], "body-compact": ["Inter"], "stat-numeral": ["Inter"], "caption-meta": ["Inter"], "body-reading": ["Inter"] }, "fontSize": { "headline-h2": ["18px", { "lineHeight": "24px", "fontWeight": "700" }], "badge-label": ["11px", { "lineHeight": "14px", "fontWeight": "700" }], "subheading-h3": ["16px", { "lineHeight": "22px", "fontWeight": "600" }], "display-lg-mobile": ["24px", { "lineHeight": "30px", "fontWeight": "800" }], "display-lg": ["28px", { "lineHeight": "34px", "fontWeight": "800" }], "headline-h1": ["22px", { "lineHeight": "28px", "fontWeight": "700" }], "body-compact": ["14px", { "lineHeight": "22px", "fontWeight": "400" }], "stat-numeral": ["30px", { "lineHeight": "36px", "fontWeight": "800" }], "caption-meta": ["13px", { "lineHeight": "18px", "fontWeight": "500" }], "body-reading": ["15px", { "lineHeight": "24px", "fontWeight": "400" }] } } } };</script></head><body class="bg-background font-body-compact text-on-surface antialiased"><aside class="fixed left-0 top-0 h-screen w-72 bg-surface-container-low flex flex-col z-50 shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="p-space-lg flex flex-col gap-space-sm bg-surface-container-low"><div class="flex items-center gap-space-sm"><div class="w-9 h-9 rounded-lg bg-primary-container flex items-center justify-center"><span class="material-symbols-outlined text-secondary-fixed text-[20px]">ecg_heart</span></div><div class="flex flex-col"><span class="font-headline-h2 text-headline-h2 tracking-tight text-primary leading-none">PULSE MED</span><span class="font-badge-label text-badge-label text-secondary uppercase tracking-wider">NEET PG / AMC</span></div></div><div class="flex items-center justify-between mt-space-xs px-space-sm py-space-xs bg-surface-container rounded-lg"><span class="font-badge-label text-badge-label uppercase text-on-surface-variant">Target Stream</span><span class="font-badge-label text-badge-label px-space-xs py-0.5 rounded-full bg-secondary text-on-secondary">High-Yield Tier</span></div><div class="grid grid-cols-2 p-1 bg-surface-container rounded-lg gap-1"><button class="py-1.5 text-center font-badge-label text-badge-label rounded bg-surface-container-lowest text-primary shadow-sm font-bold" type="button">NEET / INI</button><button class="py-1.5 text-center font-badge-label text-badge-label rounded text-on-surface-variant hover:text-on-surface transition-colors" type="button">AMC CAT</button></div></div><nav class="flex-1 overflow-y-auto px-space-sm py-space-xs flex flex-col gap-1" data-active-classes="bg-primary text-on-primary font-semibold shadow-sm"><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="library" href="#"><span class="material-symbols-outlined text-[20px]">local_library</span><span class="font-body-compact text-body-compact">Library (PDF &amp; Books)</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="ai-chat-knowledge-engine" href="#"><span class="material-symbols-outlined text-[20px]">neurology</span><span class="font-body-compact text-body-compact">AI Knowledge Engine</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="ask-your-books" href="#"><span class="material-symbols-outlined text-[20px]">menu_book</span><span class="font-body-compact text-body-compact">Ask Your Books (RAG)</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="search-medical-index" href="#"><span class="material-symbols-outlined text-[20px]">clinical_notes</span><span class="font-body-compact text-body-compact">Medical Index</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="practice-module-builder" href="#"><span class="material-symbols-outlined text-[20px]">handyman</span><span class="font-body-compact text-body-compact">Practice &amp; Modules</span></a><a aria-current="page" class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg transition-all bg-primary text-on-primary font-semibold shadow-sm" data-path="test-runner-active-exam" href="#"><span class="material-symbols-outlined text-[20px]">timer</span><span class="font-body-compact text-body-compact">Test Runner &amp; Exam</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="review-mistake-notebook" href="#"><span class="material-symbols-outlined text-[20px]">edit_note</span><span class="font-body-compact text-body-compact">Mistake Notebook</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="performance-analytics" href="#"><span class="material-symbols-outlined text-[20px]">monitoring</span><span class="font-body-compact text-body-compact">Performance Analytics</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="settings-ai-subscriptions" href="#"><span class="material-symbols-outlined text-[20px]">tune</span><span class="font-body-compact text-body-compact">Settings &amp; AI Engine</span></a></nav><div class="p-space-md bg-surface-container-low flex flex-col gap-space-sm"><div class="flex items-center justify-between px-space-sm py-1.5 rounded-lg bg-surface-container-high"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-secondary text-[16px]">schedule</span><span class="font-badge-label text-badge-label text-on-surface">Exam in 58 Days</span></div><div class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-secondary"></span><span class="font-badge-label text-badge-label text-secondary">OCR Live</span></div></div><div class="flex items-center justify-between pt-space-xs px-space-xs"><button class="flex items-center gap-space-xs text-on-surface-variant hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[18px]">contrast</span><span class="font-caption-meta text-caption-meta">Theme</span></button><span class="font-caption-meta text-caption-meta text-on-surface-variant">Pulse v2.4</span></div></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface/85 backdrop-blur-xl z-40 shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="w-full h-16 px-space-xl flex items-center justify-between gap-space-lg"><div class="flex-1 max-w-xl"><div class="flex items-center w-full bg-surface-container px-space-md py-2 rounded-lg gap-space-sm text-on-surface-variant"><span class="material-symbols-outlined text-[20px]">search</span><input class="bg-transparent border-none outline-none font-body-compact text-body-compact text-on-surface placeholder:text-outline w-full" placeholder="Search diseases, high-yield clinical stems, Harrison / Robbins references..." type="text"/></div></div><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-xs px-space-md py-1.5 bg-surface-container rounded-full"><span class="material-symbols-outlined text-secondary text-[18px]">speed</span><span class="font-badge-label text-badge-label text-on-surface uppercase">Pace: 1.1 m/Q</span></div><button class="relative p-2 text-on-surface-variant hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-error"></span></button><div class="flex items-center gap-space-sm pl-space-xs"><div class="flex flex-col text-right hidden sm:flex"><span class="font-caption-meta text-caption-meta font-bold text-on-surface">Dr. Arya Sharma</span><span class="font-badge-label text-badge-label text-on-surface-variant">MBBS - Res ID #9042</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></div></header><main class="relative pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<!-- Top Exam Context Ribbon -->
+<section class="w-full bg-surface-container-low px-space-lg sm:px-space-xl py-space-md shadow-sm">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<!-- Breadcrumb & Exam Stream -->
+<div class="flex flex-col gap-1 min-w-0">
+<div class="flex items-center gap-space-xs text-on-surface-variant flex-wrap">
+<span class="font-caption-meta text-caption-meta font-semibold uppercase tracking-wider text-secondary">Pharmacology</span>
+<span class="text-outline-variant font-caption-meta">/</span>
+<span class="font-caption-meta text-caption-meta font-semibold text-on-surface truncate">Antimicrobials: Glycopeptides &amp; Beta-Lactams</span>
+<span class="inline-flex items-center px-space-xs py-0.5 rounded-full bg-primary-container text-secondary-fixed text-badge-label font-badge-label uppercase ml-1">
+            INI-CET / AMC High-Yield
+          </span>
+</div>
+<div class="flex items-center gap-space-md pt-0.5">
+<span class="font-headline-h2 text-headline-h2 text-primary font-bold tracking-tight">Question 10 of 20</span>
+<span class="inline-flex items-center gap-1 font-badge-label text-badge-label px-2 py-0.5 rounded-full bg-secondary-fixed/40 text-on-secondary-fixed-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+            Practice Mode (Auto-Reveal)
+          </span>
+</div>
+</div>
+<!-- Action Items & Timer Cluster -->
+<div class="flex items-center gap-space-sm sm:gap-space-md flex-wrap self-start md:self-auto">
+<!-- Live Chronometer Card -->
+<div class="flex items-center gap-space-sm px-space-md py-2 bg-surface-container-lowest rounded-lg shadow-sm">
+<span class="material-symbols-outlined text-secondary text-[20px]">timer</span>
+<div class="flex flex-col leading-none">
+<span class="font-caption-meta text-caption-meta text-on-surface-variant">Time Elapsed</span>
+<div class="flex items-baseline gap-1.5">
+<span class="font-subheading-h3 text-subheading-h3 text-primary font-mono font-bold" id="exam-timer">14:22</span>
+<span class="font-badge-label text-badge-label text-outline">avg 48s/Q</span>
+</div>
+</div>
+</div>
+<!-- Utility Buttons -->
+<button class="flex items-center gap-1.5 px-space-md py-2.5 rounded-lg bg-surface-container-lowest text-on-surface hover:text-primary transition-all shadow-sm" id="flag-btn" onclick="toggleFlag()" type="button">
+<span class="material-symbols-outlined text-[18px] text-tertiary-fixed-dim" id="flag-icon">bookmark_border</span>
+<span class="font-caption-meta text-caption-meta font-semibold">Flag for Review</span>
+</button>
+<button class="flex items-center gap-1 px-3 py-2.5 rounded-lg bg-surface-container-high text-on-surface-variant hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">pause_circle</span>
+<span class="font-caption-meta text-caption-meta font-medium">Pause</span>
+</button>
+<button class="flex items-center gap-1 px-3 py-2.5 rounded-lg bg-surface-container-high text-error hover:bg-error-container hover:text-on-error-container transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">exit_to_app</span>
+<span class="font-caption-meta text-caption-meta font-medium">End Module</span>
+</button>
+</div>
+</div>
+<!-- Segmented Live Step Progress Track -->
+<div class="max-w-7xl mx-auto mt-space-md pt-space-xs">
+<div class="grid grid-cols-20 gap-1 sm:gap-1.5 h-1.5 w-full">
+<div class="bg-secondary rounded-full" title="Q1 - Correct"></div>
+<div class="bg-secondary rounded-full" title="Q2 - Correct"></div>
+<div class="bg-secondary rounded-full" title="Q3 - Correct"></div>
+<div class="bg-error rounded-full" title="Q4 - Incorrect"></div>
+<div class="bg-secondary rounded-full" title="Q5 - Correct"></div>
+<div class="bg-secondary rounded-full" title="Q6 - Correct"></div>
+<div class="bg-secondary rounded-full" title="Q7 - Correct"></div>
+<div class="bg-tertiary-fixed-dim rounded-full" title="Q8 - Flagged"></div>
+<div class="bg-secondary rounded-full" title="Q9 - Correct"></div>
+<div class="bg-primary rounded-full relative" title="Q10 - Active">
+<span class="absolute -top-1 left-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-secondary-fixed/50 animate-ping"></span>
+</div>
+<div class="bg-surface-container-highest rounded-full" title="Q11"></div>
+<div class="bg-surface-container-highest rounded-full" title="Q12"></div>
+<div class="bg-surface-container-highest rounded-full" title="Q13"></div>
+<div class="bg-surface-container-highest rounded-full" title="Q14"></div>
+<div class="bg-surface-container-highest rounded-full" title="Q15"></div>
+<div class="bg-surface-container-highest rounded-full" title="Q16"></div>
+<div class="bg-surface-container-highest rounded-full" title="Q17"></div>
+<div class="bg-surface-container-highest rounded-full" title="Q18"></div>
+<div class="bg-surface-container-highest rounded-full" title="Q19"></div>
+<div class="bg-surface-container-highest rounded-full" title="Q20"></div>
+</div>
+</div>
+</section>
+<!-- Main Canvas Layout (Reading Pane + High Yield Analysis) -->
+<div class="w-full max-w-5xl mx-auto px-space-md sm:px-space-xl py-space-xl flex flex-col gap-space-xl pb-32">
+<!-- Primary Question Container -->
+<article class="bg-surface-container-lowest rounded-xl p-space-lg sm:p-space-xl shadow-md flex flex-col gap-space-lg relative overflow-hidden">
+<!-- High-Yield Indicator Header -->
+<div class="flex items-center justify-between gap-space-md pb-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="font-caption-meta text-caption-meta font-bold text-primary tracking-wider uppercase">Multiple Statement Clinical MCQ</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="font-caption-meta text-caption-meta text-on-surface-variant">VRE &amp; Resistance Genetics</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[18px]">verified</span>
+<span class="font-badge-label text-badge-label text-secondary font-bold uppercase">Target Accuracy: 68%</span>
+</div>
+</div>
+<!-- Question Stem -->
+<div class="flex flex-col gap-space-md">
+<h1 class="font-headline-h1 text-headline-h1 text-primary tracking-tight">
+          Q10. Regarding glycopeptide resistance mechanisms in <em class="italic">Enterococci</em>, which of the following statements is/are correct?
+        </h1>
+<!-- Clinical Statements Block -->
+<div class="bg-surface-container-low rounded-lg p-space-md sm:p-space-lg flex flex-col gap-space-sm text-on-surface">
+<div class="flex items-start gap-space-sm">
+<span class="w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center font-caption-meta text-caption-meta font-bold text-primary flex-shrink-0">1</span>
+<p class="font-body-reading text-body-reading">The <strong class="font-semibold text-primary">VanA phenotype</strong> confers high-level resistance to both vancomycin and teicoplanin.</p>
+</div>
+<div class="flex items-start gap-space-sm">
+<span class="w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center font-caption-meta text-caption-meta font-bold text-primary flex-shrink-0">2</span>
+<p class="font-body-reading text-body-reading">The <strong class="font-semibold text-primary">VanB phenotype</strong> confers vancomycin resistance while teicoplanin often remains active.</p>
+</div>
+<div class="flex items-start gap-space-sm">
+<span class="w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center font-caption-meta text-caption-meta font-bold text-primary flex-shrink-0">3</span>
+<p class="font-body-reading text-body-reading">The <strong class="font-semibold text-primary">VanC phenotype</strong> is intrinsic to <em class="italic">Enterococcus gallinarum</em> and <em class="italic">Enterococcus casseliflavus</em> and gives low-level vancomycin resistance.</p>
+</div>
+<div class="flex items-start gap-space-sm">
+<span class="w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center font-caption-meta text-caption-meta font-bold text-primary flex-shrink-0">4</span>
+<p class="font-body-reading text-body-reading">The <strong class="font-semibold text-primary">VanA gene cluster</strong> is chromosomally encoded in <em class="italic">Enterococcus faecium</em>.</p>
+</div>
+</div>
+</div>
+<!-- Option Selectors -->
+<fieldset aria-label="MCQ Options" class="flex flex-col gap-space-sm pt-space-xs">
+<!-- Option A -->
+<label class="group flex items-center justify-between p-space-md rounded-lg bg-surface-container-lowest hover:bg-surface-container-low transition-all cursor-pointer">
+<div class="flex items-center gap-space-md">
+<span class="w-8 h-8 rounded-md bg-surface-container flex items-center justify-center font-caption-meta text-caption-meta font-bold text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">A</span>
+<span class="font-body-reading text-body-reading text-on-surface">1 and 2 only</span>
+</div>
+<input class="w-4 h-4 text-secondary accent-secondary" disabled="" name="mcq-q10" type="radio" value="A"/>
+</label>
+<!-- Option B (Selected & Correct) -->
+<label class="group flex items-center justify-between p-space-md rounded-lg bg-secondary-fixed/20 shadow-sm cursor-pointer ring-1 ring-secondary/30">
+<div class="flex items-center gap-space-md">
+<span class="w-8 h-8 rounded-md bg-secondary text-on-secondary flex items-center justify-center font-caption-meta text-caption-meta font-bold shadow-sm">B</span>
+<div class="flex flex-col">
+<span class="font-body-reading text-body-reading text-primary font-semibold">1, 2 and 3 only</span>
+<span class="font-badge-label text-badge-label text-secondary font-bold">Your Response · Correct Choice</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[22px]">check_circle</span>
+<input checked="" class="w-4 h-4 text-secondary accent-secondary" name="mcq-q10" type="radio" value="B"/>
+</div>
+</label>
+<!-- Option C -->
+<label class="group flex items-center justify-between p-space-md rounded-lg bg-surface-container-lowest hover:bg-surface-container-low transition-all cursor-pointer">
+<div class="flex items-center gap-space-md">
+<span class="w-8 h-8 rounded-md bg-surface-container flex items-center justify-center font-caption-meta text-caption-meta font-bold text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">C</span>
+<span class="font-body-reading text-body-reading text-on-surface">2, 3 and 4 only</span>
+</div>
+<input class="w-4 h-4 text-secondary accent-secondary" disabled="" name="mcq-q10" type="radio" value="C"/>
+</label>
+<!-- Option D -->
+<label class="group flex items-center justify-between p-space-md rounded-lg bg-surface-container-lowest hover:bg-surface-container-low transition-all cursor-pointer">
+<div class="flex items-center gap-space-md">
+<span class="w-8 h-8 rounded-md bg-surface-container flex items-center justify-center font-caption-meta text-caption-meta font-bold text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">D</span>
+<span class="font-body-reading text-body-reading text-on-surface">3 and 4 only</span>
+</div>
+<input class="w-4 h-4 text-secondary accent-secondary" disabled="" name="mcq-q10" type="radio" value="D"/>
+</label>
+</fieldset>
+<!-- Confidence & Note Micro-widget -->
+<div class="flex items-center justify-between pt-space-xs text-on-surface-variant font-caption-meta text-caption-meta">
+<div class="flex items-center gap-space-sm">
+<span>Confidence:</span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-primary font-semibold">High (100%)</span>
+</div>
+<button class="flex items-center gap-1 text-secondary hover:underline" type="button">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+          Add Personal High-Yield Note
+        </button>
+</div>
+</article>
+<!-- Expanded Diagnostic Rationale & Educational Deep-Dive Panel -->
+<section class="bg-surface-container-lowest rounded-xl p-space-lg sm:p-space-xl shadow-md flex flex-col gap-space-lg">
+<!-- Status Ribbon Banner -->
+<div class="bg-secondary-fixed/30 rounded-lg p-space-md flex items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-full bg-secondary flex items-center justify-center text-on-secondary shadow-sm">
+<span class="material-symbols-outlined text-[20px]">check</span>
+</div>
+<div class="flex flex-col">
+<span class="font-subheading-h3 text-subheading-h3 text-primary font-bold">Correct Response: Option B (1, 2 and 3 only)</span>
+<span class="font-caption-meta text-caption-meta text-on-secondary-fixed-variant">82% of INI-CET top-centile candidates got this right.</span>
+</div>
+</div>
+<div class="hidden sm:flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+<span class="font-badge-label text-badge-label font-bold uppercase tracking-wider">Faculty Verified</span>
+</div>
+</div>
+<!-- Structured Statement-by-Statement Breakdown -->
+<div class="flex flex-col gap-space-md">
+<h2 class="font-subheading-h3 text-subheading-h3 text-primary font-bold flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[20px]">clinical_notes</span>
+          Diagnostic Rationale &amp; Phenotypic Dissection
+        </h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Statement 1 Analysis -->
+<div class="p-space-md rounded-lg bg-surface-container-low flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-caption-meta text-caption-meta font-bold text-primary">Statement 1: Correct</span>
+<span class="px-1.5 py-0.5 rounded text-badge-label font-badge-label bg-secondary-fixed/50 text-secondary uppercase">VanA</span>
+</div>
+<p class="font-body-compact text-body-compact text-on-surface-variant">
+              The <strong class="text-primary font-semibold">VanA phenotype</strong> yields substitution of the terminal D-Ala-D-Ala cell wall peptidoglycan target with <strong class="text-primary font-semibold">D-Ala-D-Lac</strong>, reducing vancomycin binding affinity ~1,000-fold. It confers inducible, high-level resistance to <em class="italic">both</em> vancomycin (MIC ≥ 64 μg/mL) and teicoplanin (MIC ≥ 16 μg/mL).
+            </p>
+</div>
+<!-- Statement 2 Analysis -->
+<div class="p-space-md rounded-lg bg-surface-container-low flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-caption-meta text-caption-meta font-bold text-primary">Statement 2: Correct</span>
+<span class="px-1.5 py-0.5 rounded text-badge-label font-badge-label bg-secondary-fixed/50 text-secondary uppercase">VanB</span>
+</div>
+<p class="font-body-compact text-body-compact text-on-surface-variant">
+              The <strong class="text-primary font-semibold">VanB phenotype</strong> is inducible strictly by vancomycin, <em class="italic">not</em> teicoplanin. Hence, teicoplanin susceptibility is clinically retained in vitro, although breakout mutations can emerge during monotherapy.
+            </p>
+</div>
+<!-- Statement 3 Analysis -->
+<div class="p-space-md rounded-lg bg-surface-container-low flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-caption-meta text-caption-meta font-bold text-primary">Statement 3: Correct</span>
+<span class="px-1.5 py-0.5 rounded text-badge-label font-badge-label bg-secondary-fixed/50 text-secondary uppercase">VanC (Intrinsic)</span>
+</div>
+<p class="font-body-compact text-body-compact text-on-surface-variant">
+<strong class="text-primary font-semibold">VanC</strong> is intrinsic, chromosomal, non-transferable resistance seen specifically in motile enterococci (<em class="italic">E. gallinarum</em>, <em class="italic">E. casseliflavus</em>). It utilizes a <strong class="text-primary font-semibold">D-Ala-D-Ser</strong> ligase causing low-level resistance (MIC 2–32 μg/mL). Teicoplanin remains universally susceptible.
+            </p>
+</div>
+<!-- Statement 4 Analysis (Error explanation) -->
+<div class="p-space-md rounded-lg bg-error-container/40 flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-caption-meta text-caption-meta font-bold text-error">Statement 4: Incorrect</span>
+<span class="px-1.5 py-0.5 rounded text-badge-label font-badge-label bg-error text-on-error uppercase">Trap Point</span>
+</div>
+<p class="font-body-compact text-body-compact text-on-surface-variant">
+              The VanA resistance determinant is carried on the <strong class="text-primary font-semibold">Tn1546 transposon</strong> located primarily on conjugative <strong class="text-error font-semibold">plasmids</strong> (readily transferable to <em class="italic">Staphylococcus aureus</em> creating VRSA), <em class="italic">not</em> inherently chromosomal.
+            </p>
+</div>
+</div>
+</div>
+<!-- High-Yield Callout Pearl Banner -->
+<div class="rounded-lg p-space-md sm:p-space-lg bg-tertiary-fixed/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-md">
+<div class="flex items-start gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-tertiary-container text-tertiary-fixed-dim flex items-center justify-center flex-shrink-0 mt-0.5 sm:mt-0">
+<span class="material-symbols-outlined text-[20px]">lightbulb</span>
+</div>
+<div class="flex flex-col">
+<span class="font-badge-label text-badge-label uppercase text-on-tertiary-fixed-variant tracking-wider font-bold">Exam Board Pearl</span>
+<p class="font-body-reading text-body-reading text-on-surface font-medium">
+              Drug of Choice for VanA VRE bacteremia: <strong class="text-primary font-bold">Linezolid</strong> (Oxazolidinone: 50S subunit inhibitor) or <strong class="text-primary font-bold">Daptomycin</strong> (cyclic lipopeptide for bactericidal clearance, contraindicated in pneumonia due to pulmonary surfactant inactivation).
+            </p>
+</div>
+</div>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-lowest text-primary font-caption-meta text-caption-meta font-semibold shadow-sm hover:bg-surface transition-colors flex items-center gap-1 flex-shrink-0" type="button">
+<span class="material-symbols-outlined text-[16px] text-tertiary-fixed-dim">stars</span>
+          Save to Notebook
+        </button>
+</div>
+<!-- Source References & Citation Accordion Footer -->
+<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-sm pt-space-xs text-on-surface-variant font-caption-meta text-caption-meta">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="material-symbols-outlined text-[16px]">menu_book</span>
+<span class="font-semibold text-primary">Harrison's Internal Medicine 21st Ed.</span>
+<span>· Ch. 142 (Enterococcal Infections, pp. 1120-1124)</span>
+<span class="text-outline-variant">|</span>
+<span>Robbins Pathology 10th Ed. · p. 344</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="hover:text-primary transition-colors flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[16px]">help_outline</span>
+            Contest Question
+          </button>
+<span>·</span>
+<button class="hover:text-primary transition-colors flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[16px]">share</span>
+            Share Stem
+          </button>
+</div>
+</div>
+</section>
+<!-- Up Next Queue / Question Previews (Scrolling Context) -->
+<div class="flex flex-col gap-space-md pt-space-md">
+<div class="flex items-center justify-between">
+<span class="font-subheading-h3 text-subheading-h3 text-primary font-bold">Coming Up Next in This Block</span>
+<span class="font-caption-meta text-caption-meta text-on-surface-variant">10 Questions Remaining</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Q11 Preview Card -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between gap-space-sm">
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-badge-label text-badge-label px-2 py-0.5 rounded bg-surface-container font-bold text-primary uppercase">Q11 · Clinical Vignette</span>
+<span class="font-caption-meta text-caption-meta text-outline">Est. 55s</span>
+</div>
+<p class="font-body-compact text-body-compact text-on-surface font-medium line-clamp-2">
+              A 26-year-old female receiving combined oral contraceptive pills (OCPs) is diagnosed with active pulmonary tuberculosis and initiated on standard 4-drug HRZE regimen...
+            </p>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant font-caption-meta text-caption-meta pt-space-xs">
+<span class="text-secondary font-semibold">Enzyme Induction · Rifampin</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</div>
+</div>
+<!-- Q12 Preview Card -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between gap-space-sm">
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-badge-label text-badge-label px-2 py-0.5 rounded bg-surface-container font-bold text-primary uppercase">Q12 · Pediatric Pharmacology</span>
+<span class="font-caption-meta text-caption-meta text-outline">Est. 40s</span>
+</div>
+<p class="font-body-compact text-body-compact text-on-surface font-medium line-clamp-2">
+              Why is Ceftriaxone strictly avoided in neonates under 28 days of age, with Cefotaxime preferred as the 3rd generation cephalosporin of choice?
+            </p>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant font-caption-meta text-caption-meta pt-space-xs">
+<span class="text-secondary font-semibold">Bilirubin Encephalopathy / Kernicterus</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Floating Sticky Navigation Dock -->
+<aside class="fixed bottom-0 left-72 right-0 bg-surface/90 backdrop-blur-md shadow-lg z-40 py-3 px-space-xl">
+<div class="max-w-5xl mx-auto flex items-center justify-between gap-space-md">
+<!-- Previous Question CTA -->
+<button class="flex items-center gap-2 px-space-md py-2.5 rounded-lg bg-surface-container-lowest text-on-surface hover:bg-surface-container-high transition-all shadow-sm" type="button">
+<span class="material-symbols-outlined text-[20px]">chevron_left</span>
+<span class="font-body-compact text-body-compact font-semibold hidden sm:inline">Previous Question (Q9)</span>
+<span class="font-body-compact text-body-compact font-semibold sm:hidden">Prev</span>
+</button>
+<!-- Center Question Matrix Quick-Jump -->
+<div class="flex items-center gap-1.5 hidden md:flex">
+<span class="font-caption-meta text-caption-meta text-on-surface-variant">Jump to:</span>
+<button class="w-8 h-8 rounded text-caption-meta font-caption-meta bg-secondary text-on-secondary font-bold" type="button">10</button>
+<button class="w-8 h-8 rounded text-caption-meta font-caption-meta bg-surface-container-high hover:bg-surface-container-highest text-on-surface" type="button">11</button>
+<button class="w-8 h-8 rounded text-caption-meta font-caption-meta bg-surface-container-high hover:bg-surface-container-highest text-on-surface" type="button">12</button>
+<button class="w-8 h-8 rounded text-caption-meta font-caption-meta bg-surface-container-high hover:bg-surface-container-highest text-on-surface" type="button">13</button>
+</div>
+<!-- Next & Submit Action Cluster -->
+<div class="flex items-center gap-space-sm">
+<button class="flex items-center gap-2 px-space-lg py-2.5 rounded-lg bg-secondary text-on-secondary hover:brightness-105 transition-all shadow-sm" type="button">
+<span class="font-body-compact text-body-compact font-semibold">Next Question (Q11)</span>
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+<button class="hidden lg:flex items-center gap-2 px-space-md py-2.5 rounded-lg bg-primary text-on-primary hover:bg-primary-container transition-all shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px]">analytics</span>
+<span class="font-body-compact text-body-compact font-bold">Submit Test</span>
+</button>
+</div>
+</div>
+</aside>
+<!-- Inline Active State Logic -->
+<script>
+    let flagged = false;
+    function toggleFlag() {
+      flagged = !flagged;
+      const btn = document.getElementById('flag-btn');
+      const icon = document.getElementById('flag-icon');
+      if (flagged) {
+        btn.classList.add('bg-tertiary-fixed', 'text-on-tertiary-fixed');
+        icon.innerText = 'bookmark';
+        icon.classList.remove('text-tertiary-fixed-dim');
+      } else {
+        btn.classList.remove('bg-tertiary-fixed', 'text-on-tertiary-fixed');
+        icon.innerText = 'bookmark_border';
+        icon.classList.add('text-tertiary-fixed-dim');
+      }
+    }
+
+    // Dynamic timer increment
+    let totalSeconds = 862; // 14m 22s
+    const timerElem = document.getElementById('exam-timer');
+    if (timerElem) {
+      setInterval(() => {
+        totalSeconds++;
+        const mins = String(Math.floor(totalSeconds / 60)).padStart(2, '0');
+        const secs = String(totalSeconds % 60).padStart(2, '0');
+        timerElem.innerText = `${mins}:${secs}`;
+      }, 1000);
+    }
+  </script>
+</div></main></div></body></html>

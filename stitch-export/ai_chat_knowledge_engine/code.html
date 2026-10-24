@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "surface-dim": "#d2daeb", "surface-container-highest": "#dbe3f3", "surface": "#f8f9ff", "on-tertiary-fixed-variant": "#663e00", "tertiary-container": "#3e2300", "on-tertiary-container": "#c7811d", "primary-container": "#13294b", "on-surface": "#141c28", "on-surface-variant": "#44474e", "on-error": "#ffffff", "background": "#f8f9ff", "on-primary": "#ffffff", "on-secondary": "#ffffff", "inverse-primary": "#b2c7f1", "on-error-container": "#93000a", "primary-fixed": "#d7e3ff", "error": "#ba1a1a", "primary": "#001432", "error-container": "#ffdad6", "on-tertiary": "#ffffff", "on-secondary-container": "#007072", "secondary-fixed": "#8ff3f4", "inverse-on-surface": "#ebf1ff", "on-secondary-fixed": "#002020", "surface-variant": "#dbe3f3", "tertiary-fixed-dim": "#ffb963", "surface-container-lowest": "#ffffff", "surface-bright": "#f8f9ff", "tertiary-fixed": "#ffddb9", "surface-container": "#e6eeff", "on-secondary-fixed-variant": "#004f51", "tertiary": "#221100", "outline-variant": "#c4c6cf", "secondary": "#00696b", "primary-fixed-dim": "#b2c7f1", "on-primary-fixed-variant": "#33476a", "on-tertiary-fixed": "#2b1700", "inverse-surface": "#29313d", "on-primary-fixed": "#021b3d", "secondary-fixed-dim": "#72d6d8", "on-background": "#141c28", "surface-tint": "#4b5f84", "on-primary-container": "#7d91b9", "outline": "#74777f", "secondary-container": "#8ff3f4", "surface-container-high": "#e1e8f9", "surface-container-low": "#eff3ff" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "margin": "1rem", "space-md": "0.75rem", "space-xl": "1.5rem", "gutter-desktop": "1.5rem", "space-lg": "1rem", "space-xs": "0.25rem", "gutter-tablet": "1.25rem", "gutter": "1rem", "margin-desktop": "2.25rem", "margin-tablet": "1.5rem", "space-sm": "0.5rem" }, "fontFamily": { "headline-h2": ["Inter"], "badge-label": ["Inter"], "subheading-h3": ["Inter"], "display-lg-mobile": ["Inter"], "display-lg": ["Inter"], "headline-h1": ["Inter"], "body-compact": ["Inter"], "stat-numeral": ["Inter"], "caption-meta": ["Inter"], "body-reading": ["Inter"] }, "fontSize": { "headline-h2": ["18px", { "lineHeight": "24px", "fontWeight": "700" }], "badge-label": ["11px", { "lineHeight": "14px", "fontWeight": "700" }], "subheading-h3": ["16px", { "lineHeight": "22px", "fontWeight": "600" }], "display-lg-mobile": ["24px", { "lineHeight": "30px", "fontWeight": "800" }], "display-lg": ["28px", { "lineHeight": "34px", "fontWeight": "800" }], "headline-h1": ["22px", { "lineHeight": "28px", "fontWeight": "700" }], "body-compact": ["14px", { "lineHeight": "22px", "fontWeight": "400" }], "stat-numeral": ["30px", { "lineHeight": "36px", "fontWeight": "800" }], "caption-meta": ["13px", { "lineHeight": "18px", "fontWeight": "500" }], "body-reading": ["15px", { "lineHeight": "24px", "fontWeight": "400" }] } } } };</script></head><body class="bg-background font-body-compact text-on-surface antialiased"><aside class="fixed left-0 top-0 h-screen w-72 bg-surface-container-low flex flex-col z-50 shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="p-space-lg flex flex-col gap-space-sm bg-surface-container-low"><div class="flex items-center gap-space-sm"><div class="w-9 h-9 rounded-lg bg-primary-container flex items-center justify-center"><span class="material-symbols-outlined text-secondary-fixed text-[20px]">ecg_heart</span></div><div class="flex flex-col"><span class="font-headline-h2 text-headline-h2 tracking-tight text-primary leading-none">PULSE MED</span><span class="font-badge-label text-badge-label text-secondary uppercase tracking-wider">NEET PG / AMC</span></div></div><div class="flex items-center justify-between mt-space-xs px-space-sm py-space-xs bg-surface-container rounded-lg"><span class="font-badge-label text-badge-label uppercase text-on-surface-variant">Target Stream</span><span class="font-badge-label text-badge-label px-space-xs py-0.5 rounded-full bg-secondary text-on-secondary">High-Yield Tier</span></div><div class="grid grid-cols-2 p-1 bg-surface-container rounded-lg gap-1"><button class="py-1.5 text-center font-badge-label text-badge-label rounded bg-surface-container-lowest text-primary shadow-sm font-bold" type="button">NEET / INI</button><button class="py-1.5 text-center font-badge-label text-badge-label rounded text-on-surface-variant hover:text-on-surface transition-colors" type="button">AMC CAT</button></div></div><nav class="flex-1 overflow-y-auto px-space-sm py-space-xs flex flex-col gap-1" data-active-classes="bg-primary text-on-primary font-semibold shadow-sm"><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="library" href="#"><span class="material-symbols-outlined text-[20px]">local_library</span><span class="font-body-compact text-body-compact">Library (PDF &amp; Books)</span></a><a aria-current="page" class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg transition-all bg-primary text-on-primary font-semibold shadow-sm" data-path="ai-chat-knowledge-engine" href="#"><span class="material-symbols-outlined text-[20px]">neurology</span><span class="font-body-compact text-body-compact">AI Knowledge Engine</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="ask-your-books" href="#"><span class="material-symbols-outlined text-[20px]">menu_book</span><span class="font-body-compact text-body-compact">Ask Your Books (RAG)</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="search-medical-index" href="#"><span class="material-symbols-outlined text-[20px]">clinical_notes</span><span class="font-body-compact text-body-compact">Medical Index</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="practice-module-builder" href="#"><span class="material-symbols-outlined text-[20px]">handyman</span><span class="font-body-compact text-body-compact">Practice &amp; Modules</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="test-runner-active-exam" href="#"><span class="material-symbols-outlined text-[20px]">timer</span><span class="font-body-compact text-body-compact">Test Runner &amp; Exam</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="review-mistake-notebook" href="#"><span class="material-symbols-outlined text-[20px]">edit_note</span><span class="font-body-compact text-body-compact">Mistake Notebook</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="performance-analytics" href="#"><span class="material-symbols-outlined text-[20px]">monitoring</span><span class="font-body-compact text-body-compact">Performance Analytics</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="settings-ai-subscriptions" href="#"><span class="material-symbols-outlined text-[20px]">tune</span><span class="font-body-compact text-body-compact">Settings &amp; AI Engine</span></a></nav><div class="p-space-md bg-surface-container-low flex flex-col gap-space-sm"><div class="flex items-center justify-between px-space-sm py-1.5 rounded-lg bg-surface-container-high"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-secondary text-[16px]">schedule</span><span class="font-badge-label text-badge-label text-on-surface">Exam in 58 Days</span></div><div class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-secondary"></span><span class="font-badge-label text-badge-label text-secondary">OCR Live</span></div></div><div class="flex items-center justify-between pt-space-xs px-space-xs"><button class="flex items-center gap-space-xs text-on-surface-variant hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[18px]">contrast</span><span class="font-caption-meta text-caption-meta">Theme</span></button><span class="font-caption-meta text-caption-meta text-on-surface-variant">Pulse v2.4</span></div></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface/85 backdrop-blur-xl z-40 shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="w-full h-16 px-space-xl flex items-center justify-between gap-space-lg"><div class="flex-1 max-w-xl"><div class="flex items-center w-full bg-surface-container px-space-md py-2 rounded-lg gap-space-sm text-on-surface-variant"><span class="material-symbols-outlined text-[20px]">search</span><input class="bg-transparent border-none outline-none font-body-compact text-body-compact text-on-surface placeholder:text-outline w-full" placeholder="Search diseases, high-yield clinical stems, Harrison / Robbins references..." type="text"/></div></div><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-xs px-space-md py-1.5 bg-surface-container rounded-full"><span class="material-symbols-outlined text-secondary text-[18px]">speed</span><span class="font-badge-label text-badge-label text-on-surface uppercase">Pace: 1.1 m/Q</span></div><button class="relative p-2 text-on-surface-variant hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-error"></span></button><div class="flex items-center gap-space-sm pl-space-xs"><div class="flex flex-col text-right hidden sm:flex"><span class="font-caption-meta text-caption-meta font-bold text-on-surface">Dr. Arya Sharma</span><span class="font-badge-label text-badge-label text-on-surface-variant">MBBS - Res ID #9042</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></div></header><main class="relative pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<!-- Top Context & Mode Bar -->
+<div class="px-gutter-desktop py-space-md bg-surface-container-low flex flex-col md:flex-row md:items-center md:justify-between gap-space-md shadow-sm">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-on-primary shadow-sm">
+<span class="material-symbols-outlined text-[24px]">neurology</span>
+</div>
+<div>
+<div class="flex items-center gap-space-sm">
+<span class="font-subheading-h3 text-subheading-h3 text-on-surface">AI Medical Tutor &amp; Clinical Reasoning Partner</span>
+<span class="px-2 py-0.5 rounded-full bg-secondary text-on-secondary font-badge-label text-badge-label tracking-wide uppercase">v3.4 Hybrid RAG</span>
+</div>
+<p class="font-caption-meta text-caption-meta text-on-surface-variant">Query your indexed textbooks, generate custom NBE/AMC clinical vignettes, and train custom prompt patterns.</p>
+</div>
+</div>
+<!-- Active Stream Quick Metric Pills -->
+<div class="flex items-center gap-space-sm flex-wrap">
+<div class="flex items-center gap-space-xs px-space-md py-1.5 bg-surface-container-lowest rounded-lg shadow-sm">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-caption-meta text-caption-meta text-on-surface-variant font-medium">Indexed Knowledge:</span>
+<span class="font-badge-label text-badge-label text-on-surface">14 Textbooks &amp; 384 Notes</span>
+</div>
+<div class="flex items-center gap-space-xs px-space-md py-1.5 bg-surface-container-lowest rounded-lg shadow-sm">
+<span class="material-symbols-outlined text-secondary text-[16px]">verified</span>
+<span class="font-caption-meta text-caption-meta text-on-surface">NBE 2024 Blueprint</span>
+</div>
+<button class="flex items-center gap-space-xs px-space-md py-1.5 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors font-badge-label text-badge-label uppercase" id="toggle-drawer-btn">
+<span class="material-symbols-outlined text-[16px]">rule_settings</span>
+<span>Learned Rules &amp; Persona</span>
+</button>
+</div>
+</div>
+<!-- Main Split Layout -->
+<div class="flex flex-1 overflow-hidden relative">
+<!-- Left Chat & Knowledge Workspace -->
+<div class="flex-1 flex flex-col min-w-0 max-w-full lg:max-w-[calc(100%-380px)] xl:max-w-[calc(100%-420px)] transition-all duration-300">
+<!-- Interactive Conversation Thread Container -->
+<div class="flex-1 overflow-y-auto px-gutter-desktop py-space-xl space-y-space-xl pb-32">
+<!-- Conversation Date Marker -->
+<div class="flex items-center justify-center my-space-xs">
+<div class="flex items-center gap-space-sm px-space-md py-1 rounded-full bg-surface-container text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px]">auto_stories</span>
+<span class="font-badge-label text-badge-label uppercase tracking-wider">Session Active • Cross-Exam Synced (AMC Part 1 + NEET-PG)</span>
+</div>
+</div>
+<!-- 1. Previous User Query Card -->
+<div class="flex gap-space-md max-w-3xl ml-auto justify-end">
+<div class="flex flex-col items-end gap-space-xs max-w-2xl">
+<div class="flex items-center gap-space-xs text-on-surface-variant">
+<span class="font-caption-meta text-caption-meta font-bold">You (Resident #9042)</span>
+<span class="text-outline">•</span>
+<span class="font-badge-label text-badge-label text-outline">08:14 AM</span>
+</div>
+<div class="bg-primary text-on-primary p-space-lg rounded-2xl rounded-tr-xs shadow-md">
+<p class="font-body-reading text-body-reading">
+                Make 10 INI-CET MCQs on Antimicrobial Resistance mechanisms based on the attached Marrow Pharmacology chapter. Focus on beta-lactamase classification (Ambler Classes A–D), carbapenem-resistant Enterobacteriaceae (CRE), and polymyxin resistance (mcr-1).
+              </p>
+<div class="mt-space-md pt-space-sm flex items-center gap-space-sm text-secondary-fixed">
+<span class="material-symbols-outlined text-[18px]">attachment</span>
+<span class="font-badge-label text-badge-label">Attached: Marrow_Pharm_Antimicrobial_Ch14_Rev3.pdf (14.2 MB)</span>
+</div>
+</div>
+</div>
+<div class="w-9 h-9 rounded-lg bg-surface-container-high flex items-center justify-center text-primary shrink-0 mt-1 shadow-sm">
+<span class="material-symbols-outlined text-[20px]">person</span>
+</div>
+</div>
+<!-- 2. AI Reasoning & Response Card -->
+<div class="flex gap-space-md max-w-4xl mr-auto">
+<div class="w-9 h-9 rounded-lg bg-primary-container flex items-center justify-center text-secondary-fixed shrink-0 mt-1 shadow-sm">
+<span class="material-symbols-outlined text-[20px]">neurology</span>
+</div>
+<div class="flex flex-col gap-space-sm flex-1 min-w-0">
+<div class="flex items-center gap-space-sm">
+<span class="font-caption-meta text-caption-meta font-bold text-on-surface">Pulse AI Engine • Claude 3.5 Sonnet RAG</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-secondary font-badge-label text-badge-label font-bold">INI-CET High-Yield</span>
+<span class="font-caption-meta text-caption-meta text-on-surface-variant ml-auto">Synthesized in 1.4s</span>
+</div>
+<!-- Main Response Box -->
+<div class="bg-surface-container-lowest p-space-xl rounded-2xl rounded-tl-xs shadow-md space-y-space-lg text-on-surface">
+<!-- Thought/Reasoning Disclosure Accordion -->
+<details class="group bg-surface-container-low rounded-xl p-space-md transition-all open:bg-surface-container">
+<summary class="flex items-center justify-between cursor-pointer list-none select-none">
+<div class="flex items-center gap-space-sm text-secondary">
+<span class="material-symbols-outlined text-[18px]">psychology</span>
+<span class="font-badge-label text-badge-label uppercase font-bold tracking-wider">Clinical Reasoning Chain (RAG Vector Lookup)</span>
+</div>
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<div class="mt-space-md pt-space-sm space-y-space-xs font-caption-meta text-caption-meta text-on-surface-variant">
+<p>• Indexed Marrow Ch.14 vectors verified against Harrison 21st Ed. (Chapter 140, p. 1102) &amp; Katzung 15th Ed.</p>
+<p>• Target: INI-CET Multi-Step Diagnostic / Therapeutic Stem style with molecular phenotype association.</p>
+<p>• High-Yield Focus applied: Class D Oxacillinases (OXA-48), Metallo-β-lactamases (NDM-1, VIM, IMP), and colistin resistance via plasmid-mediated <em>mcr-1</em> phosphoethanolamine transferase.</p>
+</div>
+</details>
+<!-- Vignette Stem 1 -->
+<div>
+<div class="flex items-center justify-between mb-space-sm">
+<span class="px-space-sm py-0.5 rounded bg-surface-container text-on-surface font-badge-label text-badge-label uppercase font-bold">Vignette 1 of 10 • INI-CET Nov Tier</span>
+<span class="font-badge-label text-badge-label text-secondary font-semibold">Concept: Metallo-β-Lactamase vs Monobactam</span>
+</div>
+<p class="font-body-reading text-body-reading leading-relaxed">
+                  A 62-year-old male with septic shock secondary to acute necrotizing pancreatitis in the ICU develops bacteremia. Blood cultures grow <em>Klebsiella pneumoniae</em> resistant to all carbapenems, extended-spectrum cephalosporins, and fluoroquinolones. Molecular phenotyping detects the <strong>NDM-1 (New Delhi metallo-β-lactamase)</strong> gene. Which of the following antimicrobial regimens represents the most rational evidence-based therapy that exploits the intrinsic molecular resistance profile of this specific enzyme class?
+                </p>
+</div>
+<!-- Options Grid -->
+<div class="space-y-space-sm">
+<!-- Option A -->
+<button class="w-full text-left p-space-md rounded-xl bg-surface hover:bg-surface-container-high transition-all flex items-start gap-space-md group" type="button">
+<span class="w-6 h-6 rounded bg-surface-container-high text-on-surface-variant group-hover:bg-primary group-hover:text-on-primary flex items-center justify-center font-badge-label text-badge-label font-bold shrink-0 transition-colors">A</span>
+<span class="font-body-compact text-body-compact text-on-surface">Ceftazidime-avibactam monotherapy</span>
+</button>
+<!-- Option B (Correct marked for illustration) -->
+<div class="w-full text-left p-space-md rounded-xl bg-surface-container-highest transition-all flex items-start gap-space-md shadow-sm">
+<span class="w-6 h-6 rounded bg-secondary text-on-secondary flex items-center justify-center font-badge-label text-badge-label font-bold shrink-0">B</span>
+<div class="flex-1 min-w-0">
+<span class="font-body-compact text-body-compact font-semibold text-secondary">Aztreonam + Ceftazidime-avibactam combination</span>
+<span class="inline-block ml-2 px-2 py-0.5 rounded-full bg-secondary text-on-secondary font-badge-label text-badge-label">Correct Key</span>
+</div>
+</div>
+<!-- Option C -->
+<button class="w-full text-left p-space-md rounded-xl bg-surface hover:bg-surface-container-high transition-all flex items-start gap-space-md group" type="button">
+<span class="w-6 h-6 rounded bg-surface-container-high text-on-surface-variant group-hover:bg-primary group-hover:text-on-primary flex items-center justify-center font-badge-label text-badge-label font-bold shrink-0 transition-colors">C</span>
+<span class="font-body-compact text-body-compact text-on-surface">Meropenem-vaborbactam high-dose infusion</span>
+</button>
+<!-- Option D -->
+<button class="w-full text-left p-space-md rounded-xl bg-surface hover:bg-surface-container-high transition-all flex items-start gap-space-md group" type="button">
+<span class="w-6 h-6 rounded bg-surface-container-high text-on-surface-variant group-hover:bg-primary group-hover:text-on-primary flex items-center justify-center font-badge-label text-badge-label font-bold shrink-0 transition-colors">D</span>
+<span class="font-body-compact text-body-compact text-on-surface">Imipenem-cilastatin-relebactam monotherapy</span>
+</button>
+</div>
+<!-- High-Yield Callout (Amber Board Pearl) -->
+<div class="p-space-lg rounded-r-xl bg-tertiary-fixed/30 text-on-tertiary-fixed shadow-sm space-y-space-xs">
+<div class="flex items-center gap-space-xs font-badge-label text-badge-label uppercase tracking-wider font-bold text-on-tertiary-fixed-variant">
+<span class="material-symbols-outlined text-[16px]">tips_and_updates</span>
+<span>Board Pearl • Ambler Class B Metallo-Enzyme Traps</span>
+</div>
+<p class="font-body-compact text-body-compact">
+<strong>NDM-1, VIM, &amp; IMP</strong> are zinc-dependent metallo-β-lactamases (Ambler Class B). They hydrolyze all carbapenems and β-lactams <em>except aztreonam</em>. However, clinical strains co-produce ESBLs or AmpC that hydrolyze aztreonam. Pairing <strong>Aztreonam + Avibactam</strong> (from CAZ-AVI) protects aztreonam from companion ESBLs while aztreonam evades the NDM metallo-carbapenemase!
+                </p>
+<div class="pt-space-xs flex items-center gap-space-md font-caption-meta text-caption-meta text-on-tertiary-fixed-variant">
+<span>Citation: Marrow Pharm Ch.14 (p. 219)</span>
+<span>•</span>
+<span>Harrison 21e Ch.140 (p. 1104)</span>
+</div>
+</div>
+<!-- Action Bar for AI Vignette -->
+<div class="flex items-center justify-between pt-space-xs">
+<div class="flex items-center gap-space-xs">
+<button class="flex items-center gap-1 px-space-md py-1.5 rounded-lg bg-surface hover:bg-surface-container text-on-surface-variant font-caption-meta text-caption-meta transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[16px]">edit_note</span>
+<span>Send to Mistake Notebook</span>
+</button>
+<button class="flex items-center gap-1 px-space-md py-1.5 rounded-lg bg-surface hover:bg-surface-container text-on-surface-variant font-caption-meta text-caption-meta transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+<span>Copy Stem</span>
+</button>
+<button class="flex items-center gap-1 px-space-md py-1.5 rounded-lg bg-surface hover:bg-surface-container text-on-surface-variant font-caption-meta text-caption-meta transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[16px]">bookmark_add</span>
+<span>Save to Flashcards</span>
+</button>
+</div>
+<div class="flex items-center gap-space-xs text-on-surface-variant">
+<button class="p-1.5 rounded hover:bg-surface-container transition-colors" type="button"><span class="material-symbols-outlined text-[18px]">thumb_up</span></button>
+<button class="p-1.5 rounded hover:bg-surface-container transition-colors" type="button"><span class="material-symbols-outlined text-[18px]">thumb_down</span></button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Quick Starter Chips (High Yield Medical Prompts) -->
+<div class="pt-space-md">
+<div class="flex items-center gap-space-xs text-on-surface-variant mb-space-sm">
+<span class="material-symbols-outlined text-[16px]">bolt</span>
+<span class="font-badge-label text-badge-label uppercase font-bold tracking-wider">Fast Clinical Reasoning Starters</span>
+</div>
+<div class="flex flex-wrap gap-space-sm">
+<button class="flex items-center gap-space-xs px-space-md py-2 rounded-full bg-surface-container-lowest hover:bg-surface-container text-on-surface font-caption-meta text-caption-meta shadow-sm transition-all text-left" onclick="document.getElementById('ai-prompt-input').value = 'Compare Postpartum Hemorrhage (PPH) medical vs surgical management protocols in India (FOGSI) vs Australia (RANZCOG/AMC). Highlight first-line uterotonics and balloon tamponade triggers.';" type="button">
+<span class="material-symbols-outlined text-secondary text-[16px]">compare_arrows</span>
+<span>Compare PPH management: India (FOGSI) vs Australia (AMC)</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-2 rounded-full bg-surface-container-lowest hover:bg-surface-container text-on-surface font-caption-meta text-caption-meta shadow-sm transition-all text-left" onclick="document.getElementById('ai-prompt-input').value = 'Provide a high-yield algorithmic differential for acute pediatric stridor: Croup vs Epiglottitis vs Bacterial Tracheitis vs Foreign Body. Include X-ray signs (Steeple vs Thumb) and emergency airway steps.';" type="button">
+<span class="material-symbols-outlined text-secondary text-[16px]">child_care</span>
+<span>High-yield differential for pediatric stridor &amp; airway triage</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-2 rounded-full bg-surface-container-lowest hover:bg-surface-container text-on-surface font-caption-meta text-caption-meta shadow-sm transition-all text-left" onclick="document.getElementById('ai-prompt-input').value = 'Synthesize Robbins Pathology 10th Ed chapter on Glomerulonephritis. Create a comparative table of Nephritic vs Nephrotic syndromes with light microscopy, electron microscopy (hump vs spike), and immunofluorescence patterns.';" type="button">
+<span class="material-symbols-outlined text-secondary text-[16px]">biotech</span>
+<span>Synthesize Robbins Pathology on Glomerulonephritis</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-2 rounded-full bg-surface-container-lowest hover:bg-surface-container text-on-surface font-caption-meta text-caption-meta shadow-sm transition-all text-left" onclick="document.getElementById('ai-prompt-input').value = 'Generate 5 AMC Part 1 clinical emergency scenarios on rural snake envenomation (Brown snake vs Red-bellied black snake) with Pressure Immobilization Bandage protocols.';" type="button">
+<span class="material-symbols-outlined text-secondary text-[16px]">emergency</span>
+<span>Generate 5 AMC Part 1 Rural Snake Envenomation Stems</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Docked Bottom Advanced Clinical Prompt Dock -->
+<div class="fixed bottom-0 left-72 right-0 lg:right-[380px] xl:right-[420px] p-space-md bg-surface/90 backdrop-blur-md z-30 transition-all duration-300">
+<div class="max-w-4xl mx-auto bg-surface-container-lowest rounded-2xl shadow-xl overflow-hidden p-space-md flex flex-col gap-space-sm">
+<!-- Mode Toolbar & Document Attachment Chips -->
+<div class="flex items-center justify-between gap-space-sm overflow-x-auto pb-1">
+<div class="flex items-center gap-space-xs shrink-0">
+<button class="flex items-center gap-1 px-space-sm py-1.5 rounded-lg bg-surface hover:bg-surface-container text-on-surface-variant font-badge-label text-badge-label uppercase font-bold transition-all" type="button">
+<span class="material-symbols-outlined text-[16px] text-secondary">attach_file</span>
+<span>+ Attach PDF/Book</span>
+</button>
+<button class="flex items-center gap-1 px-space-sm py-1.5 rounded-lg bg-surface-container-high text-primary font-badge-label text-badge-label uppercase font-bold transition-all" id="toggle-reasoning-btn" type="button">
+<span class="material-symbols-outlined text-[16px] text-secondary">psychology</span>
+<span>💡 Deep Reasoning</span>
+</button>
+<button class="flex items-center gap-1 px-space-sm py-1.5 rounded-lg bg-surface hover:bg-surface-container text-on-surface-variant font-badge-label text-badge-label uppercase font-bold transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">menu_book</span>
+<span>🔍 Search Textbooks</span>
+</button>
+<button class="flex items-center gap-1 px-space-sm py-1.5 rounded-lg bg-surface hover:bg-surface-container text-on-surface-variant font-badge-label text-badge-label uppercase font-bold transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">assignment</span>
+<span>📖 Books &amp; MCQs</span>
+</button>
+<button class="flex items-center gap-1 px-space-sm py-1.5 rounded-lg bg-secondary/10 text-secondary hover:bg-secondary/20 font-badge-label text-badge-label uppercase font-bold transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">target</span>
+<span>🎯 Generate Vignettes</span>
+</button>
+</div>
+<!-- Model Switcher Selector -->
+<div class="flex items-center gap-space-xs shrink-0">
+<span class="font-badge-label text-badge-label uppercase text-on-surface-variant hidden sm:inline">Engine:</span>
+<div class="relative inline-block">
+<select class="bg-surface-container-high text-on-surface font-caption-meta text-caption-meta font-bold rounded-lg px-2.5 py-1.5 appearance-none pr-7 cursor-pointer outline-none">
+<option selected="">Claude 3.5 Sonnet (Pro Bridge)</option>
+<option>OpenAI GPT-4o (Clinical Multi-modal)</option>
+<option>Ollama Local (DeepSeek-R1 32B Medical)</option>
+<option>Gemini 1.5 Pro (2M Context RAG)</option>
+</select>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant absolute right-1.5 top-2 pointer-events-none">arrow_drop_down</span>
+</div>
+</div>
+</div>
+<!-- Input Textarea & Submit Controls -->
+<div class="relative flex items-end gap-space-sm pt-space-xs">
+<textarea class="w-full bg-surface rounded-xl p-space-md font-body-reading text-body-reading text-on-surface placeholder:text-outline outline-none resize-none max-h-36" id="ai-prompt-input" placeholder="Ask a medical query, request exam vignette cases, or synthesize high-yield chapter notes..." rows="2"></textarea>
+<div class="flex items-center gap-space-xs pb-1 shrink-0">
+<!-- Dictation Button -->
+<button class="p-2.5 rounded-xl bg-surface hover:bg-surface-container text-on-surface-variant transition-colors shadow-sm" title="Audio Dictation" type="button">
+<span class="material-symbols-outlined text-[20px]">mic</span>
+</button>
+<!-- Submit / Send -->
+<button class="p-2.5 rounded-xl bg-secondary text-on-secondary hover:brightness-105 transition-all shadow-md flex items-center justify-center" type="button">
+<span class="material-symbols-outlined text-[20px]">send</span>
+</button>
+</div>
+</div>
+<!-- Bottom Micro-Status Bar -->
+<div class="flex items-center justify-between text-on-surface-variant font-badge-label text-badge-label pt-0.5">
+<div class="flex items-center gap-space-md">
+<span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Grounded in 14 Textbooks</span>
+<span class="hidden sm:inline">•</span>
+<span class="hidden sm:inline text-outline">RAG Confidence Score: 98.4%</span>
+</div>
+<div class="flex items-center gap-space-xs text-outline">
+<span>Shift + Return for line break</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right-Hand Drawer: Learned Pedagogical Patterns & Rules -->
+<aside class="w-[380px] xl:w-[420px] bg-surface-container-low flex flex-col shrink-0 h-[calc(100vh-64px-58px)] sticky top-0 overflow-y-auto p-space-lg gap-space-lg shadow-sm" id="pattern-drawer">
+<!-- Drawer Header -->
+<div class="flex items-center justify-between pb-space-xs">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">psychology_alt</span>
+</div>
+<div>
+<span class="font-subheading-h3 text-subheading-h3 text-on-surface">Learned Prompt Engine</span>
+<span class="block font-caption-meta text-caption-meta text-on-surface-variant">Active Rules &amp; Exam Personas</span>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-secondary text-on-secondary font-badge-label text-badge-label">Active</span>
+</div>
+<!-- Active Persona Card -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm space-y-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-badge-label text-badge-label uppercase text-secondary font-bold tracking-wider">Active System Persona</span>
+<button class="text-on-surface-variant hover:text-secondary font-caption-meta text-caption-meta font-medium" type="button">Switch</button>
+</div>
+<div class="p-space-sm rounded-lg bg-surface">
+<div class="flex items-center gap-space-xs mb-1">
+<span class="material-symbols-outlined text-secondary text-[18px]">clinical_notes</span>
+<span class="font-caption-meta text-caption-meta font-bold text-on-surface">AMC Part 1 — Hard Clinical Reasoning</span>
+</div>
+<p class="font-badge-label text-badge-label text-on-surface-variant leading-relaxed">
+            Australian GP/ED/hospital vignettes, 5 options, recall + next step triage, mandatory child-protection, elder safety, &amp; intimate partner violence (IPV) protocols.
+          </p>
+</div>
+</div>
+<!-- Question Difficulty Slider & Metric -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm space-y-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-badge-label text-badge-label uppercase text-on-surface-variant font-bold tracking-wider">Difficulty Setting</span>
+<span class="px-2 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-badge-label text-badge-label font-bold">Hardest (Topper Tier)</span>
+</div>
+<input class="w-full accent-secondary cursor-pointer h-2 bg-surface-container rounded-lg" max="5" min="1" type="range" value="5"/>
+<div class="flex justify-between font-badge-label text-badge-label text-on-surface-variant">
+<span>Standard Recall</span>
+<span>Core Clinical</span>
+<span class="font-bold text-secondary">Second-Order Ddx</span>
+</div>
+<p class="font-caption-meta text-caption-meta text-on-surface-variant bg-surface p-space-sm rounded-lg">
+          Incorporates second-order diagnostic steps, closer distractor ratios (85% discriminator power), and lab value borderline ambiguities.
+        </p>
+</div>
+<!-- Custom System Rules List -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm space-y-space-md">
+<div class="flex items-center justify-between">
+<span class="font-badge-label text-badge-label uppercase text-on-surface font-bold tracking-wider">Custom Exam Rules (4 Active)</span>
+<button class="flex items-center gap-1 text-secondary font-badge-label text-badge-label font-bold" type="button">
+<span class="material-symbols-outlined text-[14px]">add</span>
+<span>Add Rule</span>
+</button>
+</div>
+<div class="space-y-space-sm">
+<!-- Rule 1 -->
+<div class="p-space-sm rounded-lg bg-surface flex items-start justify-between gap-space-sm">
+<div class="flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[16px] mt-0.5">check_circle</span>
+<div>
+<span class="font-caption-meta text-caption-meta font-bold text-on-surface block">Prioritize Australian Guidelines</span>
+<span class="font-badge-label text-badge-label text-on-surface-variant">Ground questions in eTG (Therapeutic Guidelines), RACGP Red Book, and Australian Resuscitation Council (ARC).</span>
+</div>
+</div>
+<button class="text-outline hover:text-error transition-colors" type="button"><span class="material-symbols-outlined text-[16px]">close</span></button>
+</div>
+<!-- Rule 2 -->
+<div class="p-space-sm rounded-lg bg-surface flex items-start justify-between gap-space-sm">
+<div class="flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[16px] mt-0.5">check_circle</span>
+<div>
+<span class="font-caption-meta text-caption-meta font-bold text-on-surface block">Avoid Obsolete Trivia</span>
+<span class="font-badge-label text-badge-label text-on-surface-variant">Always test clinical rationale, initial investigation, and confirmatory gold-standard instead of drug dosage memory.</span>
+</div>
+</div>
+<button class="text-outline hover:text-error transition-colors" type="button"><span class="material-symbols-outlined text-[16px]">close</span></button>
+</div>
+<!-- Rule 3 -->
+<div class="p-space-sm rounded-lg bg-surface flex items-start justify-between gap-space-sm">
+<div class="flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[16px] mt-0.5">check_circle</span>
+<div>
+<span class="font-caption-meta text-caption-meta font-bold text-on-surface block">Vignette Demographics Diversity</span>
+<span class="font-badge-label text-badge-label text-on-surface-variant">Randomize age, multicultural background, and rural/remote Aboriginal health contexts (AMS protocols).</span>
+</div>
+</div>
+<button class="text-outline hover:text-error transition-colors" type="button"><span class="material-symbols-outlined text-[16px]">close</span></button>
+</div>
+<!-- Rule 4 -->
+<div class="p-space-sm rounded-lg bg-surface flex items-start justify-between gap-space-sm">
+<div class="flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[16px] mt-0.5">check_circle</span>
+<div>
+<span class="font-caption-meta text-caption-meta font-bold text-on-surface block">Distractor Diagnostic Rationale</span>
+<span class="font-badge-label text-badge-label text-on-surface-variant">Require an unambiguous explanation why each incorrect distractor is contraindicated or inferior.</span>
+</div>
+</div>
+<button class="text-outline hover:text-error transition-colors" type="button"><span class="material-symbols-outlined text-[16px]">close</span></button>
+</div>
+</div>
+</div>
+<!-- Pattern File Management & Import/Export -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm space-y-space-sm">
+<span class="font-badge-label text-badge-label uppercase text-on-surface-variant font-bold tracking-wider">Pattern Rule Repository</span>
+<div class="grid grid-cols-2 gap-space-sm">
+<button class="flex items-center justify-center gap-1 p-2 rounded-lg bg-surface hover:bg-surface-container text-on-surface font-caption-meta text-caption-meta font-bold transition-all shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px]">file_upload</span>
+<span>Import .json</span>
+</button>
+<button class="flex items-center justify-center gap-1 p-2 rounded-lg bg-surface hover:bg-surface-container text-on-surface font-caption-meta text-caption-meta font-bold transition-all shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px]">file_download</span>
+<span>Export Rules</span>
+</button>
+</div>
+</div>
+<!-- Spaced Repetition Integration Mini-Card -->
+<div class="p-space-md rounded-xl bg-surface-container-high flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[22px]">sync_saved_locally</span>
+<div>
+<span class="font-caption-meta text-caption-meta font-bold text-on-surface">Auto-Sync to Anki &amp; SRS</span>
+<span class="block font-badge-label text-badge-label text-on-surface-variant">New AI vignettes sync directly to your deck</span>
+</div>
+</div>
+<input checked="" class="w-4 h-4 accent-secondary rounded cursor-pointer" type="checkbox"/>
+</div>
+</aside>
+</div>
+</div>
+<script>
+  // Simple micro-interaction for Deep Reasoning toggle and Drawer Collapse
+  (function() {
+    const reasoningBtn = document.getElementById('toggle-reasoning-btn');
+    if (reasoningBtn) {
+      reasoningBtn.addEventListener('click', function() {
+        const isActive = this.classList.contains('bg-primary');
+        if (isActive) {
+          this.classList.remove('bg-primary', 'text-on-primary');
+          this.classList.add('bg-surface-container-high', 'text-primary');
+        } else {
+          this.classList.add('bg-primary', 'text-on-primary');
+          this.classList.remove('bg-surface-container-high', 'text-primary');
+        }
+      });
+    }
+
+    const drawerBtn = document.getElementById('toggle-drawer-btn');
+    const drawer = document.getElementById('pattern-drawer');
+    if (drawerBtn && drawer) {
+      drawerBtn.addEventListener('click', function() {
+        drawer.classList.toggle('hidden');
+      });
+    }
+  })();
+</script></main></div></body></html>

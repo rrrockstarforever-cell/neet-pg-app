@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="web_dashboard" name="shell-type"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+  </style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-dim": "#d2daeb",
+            "surface-container-highest": "#dbe3f3",
+            "surface": "#f8f9ff",
+            "on-tertiary-fixed-variant": "#663e00",
+            "tertiary-container": "#3e2300",
+            "on-tertiary-container": "#c7811d",
+            "primary-container": "#13294b",
+            "on-surface": "#141c28",
+            "on-surface-variant": "#44474e",
+            "on-error": "#ffffff",
+            "background": "#f8f9ff",
+            "on-primary": "#ffffff",
+            "on-secondary": "#ffffff",
+            "inverse-primary": "#b2c7f1",
+            "on-error-container": "#93000a",
+            "primary-fixed": "#d7e3ff",
+            "error": "#ba1a1a",
+            "primary": "#001432",
+            "error-container": "#ffdad6",
+            "on-tertiary": "#ffffff",
+            "on-secondary-container": "#007072",
+            "secondary-fixed": "#8ff3f4",
+            "inverse-on-surface": "#ebf1ff",
+            "on-secondary-fixed": "#002020",
+            "surface-variant": "#dbe3f3",
+            "tertiary-fixed-dim": "#ffb963",
+            "surface-container-lowest": "#ffffff",
+            "surface-bright": "#f8f9ff",
+            "tertiary-fixed": "#ffddb9",
+            "surface-container": "#e6eeff",
+            "on-secondary-fixed-variant": "#004f51",
+            "tertiary": "#221100",
+            "outline-variant": "#c4c6cf",
+            "secondary": "#00696b",
+            "primary-fixed-dim": "#b2c7f1",
+            "on-primary-fixed-variant": "#33476a",
+            "on-tertiary-fixed": "#2b1700",
+            "inverse-surface": "#29313d",
+            "on-primary-fixed": "#021b3d",
+            "secondary-fixed-dim": "#72d6d8",
+            "on-background": "#141c28",
+            "surface-tint": "#4b5f84",
+            "on-primary-container": "#7d91b9",
+            "outline": "#74777f",
+            "secondary-container": "#8ff3f4",
+            "surface-container-high": "#e1e8f9",
+            "surface-container-low": "#eff3ff"
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          spacing: {
+            "margin": "1rem",
+            "space-md": "0.75rem",
+            "space-xl": "1.5rem",
+            "gutter-desktop": "1.5rem",
+            "space-lg": "1rem",
+            "space-xs": "0.25rem",
+            "gutter-tablet": "1.25rem",
+            "gutter": "1rem",
+            "margin-desktop": "2.25rem",
+            "margin-tablet": "1.5rem",
+            "space-sm": "0.5rem"
+          },
+          fontFamily: {
+            "headline-h2": ["Inter"],
+            "badge-label": ["Inter"],
+            "subheading-h3": ["Inter"],
+            "display-lg-mobile": ["Inter"],
+            "display-lg": ["Inter"],
+            "headline-h1": ["Inter"],
+            "body-compact": ["Inter"],
+            "stat-numeral": ["Inter"],
+            "caption-meta": ["Inter"],
+            "body-reading": ["Inter"]
+          },
+          fontSize: {
+            "headline-h2": ["18px", { "lineHeight": "24px", "fontWeight": "700" }],
+            "badge-label": ["11px", { "lineHeight": "14px", "fontWeight": "700" }],
+            "subheading-h3": ["16px", { "lineHeight": "22px", "fontWeight": "600" }],
+            "display-lg-mobile": ["24px", { "lineHeight": "30px", "fontWeight": "800" }],
+            "display-lg": ["28px", { "lineHeight": "34px", "fontWeight": "800" }],
+            "headline-h1": ["22px", { "lineHeight": "28px", "fontWeight": "700" }],
+            "body-compact": ["14px", { "lineHeight": "22px", "fontWeight": "400" }],
+            "stat-numeral": ["30px", { "lineHeight": "36px", "fontWeight": "800" }],
+            "caption-meta": ["13px", { "lineHeight": "18px", "fontWeight": "500" }],
+            "body-reading": ["15px", { "lineHeight": "24px", "fontWeight": "400" }]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-background font-body-compact text-on-surface antialiased">
+<!-- Desktop Sidebar Navigation -->
+<aside class="fixed left-0 top-0 h-screen w-72 bg-surface-container-low flex flex-col z-50 border-r border-[#e2e8f0]/80 shadow-[0_1px_8px_rgba(0,0,0,0.03)]">
+<!-- Brand & Exam Toggle -->
+<div class="p-space-lg flex flex-col gap-space-sm bg-surface-container-low border-b border-[#e2e8f0]/70">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-primary-container flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-secondary-fixed text-[20px]">ecg_heart</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-h2 text-headline-h2 tracking-tight text-primary leading-none">PULSE MED</span>
+<span class="font-badge-label text-[10px] text-secondary uppercase tracking-widest font-bold">NEET PG / AMC CAT</span>
+</div>
+</div>
+<!-- Exam Selector Switch -->
+<div class="grid grid-cols-2 p-1 bg-surface-container rounded-lg gap-1 mt-1">
+<button class="py-1.5 text-center font-badge-label text-badge-label rounded bg-surface-container-lowest text-primary shadow-sm font-bold flex items-center justify-center gap-1" type="button">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+          NEET PG
+        </button>
+<button class="py-1.5 text-center font-badge-label text-badge-label rounded text-on-surface-variant hover:text-on-surface transition-colors" type="button">
+          AMC CLINICAL
+        </button>
+</div>
+<div class="flex items-center justify-between px-space-sm py-1 bg-surface-container/60 rounded text-[11px] text-on-surface-variant">
+<span>Target Stream</span>
+<span class="font-bold text-secondary">High-Yield Tier · RAG Active</span>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex-1 overflow-y-auto px-space-sm py-space-sm flex flex-col gap-0.5" data-active-classes="bg-primary text-on-primary font-semibold shadow-sm">
+<a class="flex items-center gap-space-sm px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="library" href="#">
+<span class="material-symbols-outlined text-[20px]">local_library</span>
+<span class="font-body-compact text-body-compact flex-1">Library (PDF &amp; Books)</span>
+<span class="text-[10px] px-1.5 py-0.5 rounded bg-white/20 font-bold">8</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="ai-chat-knowledge-engine" href="#">
+<span class="material-symbols-outlined text-[20px]">neurology</span>
+<span class="font-body-compact text-body-compact">AI Knowledge Engine</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="ask-your-books" href="#">
+<span class="material-symbols-outlined text-[20px]">menu_book</span>
+<span class="font-body-compact text-body-compact">Ask Your Books (RAG)</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="search-medical-index" href="#">
+<span class="material-symbols-outlined text-[20px]">clinical_notes</span>
+<span class="font-body-compact text-body-compact">Medical Index &amp; Topics</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="practice-module-builder" href="#">
+<span class="material-symbols-outlined text-[20px]">handyman</span>
+<span class="font-body-compact text-body-compact">Practice &amp; Modules</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="test-runner-active-exam" href="#">
+<span class="material-symbols-outlined text-[20px]">timer</span>
+<span class="font-body-compact text-body-compact">Test Runner &amp; Exam</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="review-mistake-notebook" href="#">
+<span class="material-symbols-outlined text-[20px]">edit_note</span>
+<span class="font-body-compact text-body-compact">Mistake Notebook &amp; Review</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="performance-analytics" href="#">
+<span class="material-symbols-outlined text-[20px]">monitoring</span>
+<span class="font-body-compact text-body-compact">Performance Analytics</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="highlights-saved" href="#">
+<span class="material-symbols-outlined text-[20px]">bookmark</span>
+<span class="font-body-compact text-body-compact">Highlights &amp; Saved</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="clinical-browser" href="#">
+<span class="material-symbols-outlined text-[20px]">travel_explore</span>
+<span class="font-body-compact text-body-compact">Clinical Browser</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="settings-ai-subscriptions" href="#">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+<span class="font-body-compact text-body-compact">Settings &amp; AI Engine</span>
+</a>
+</nav>
+<!-- Bottom Status Panel -->
+<div class="p-space-md bg-surface-container-low border-t border-[#e2e8f0]/80 flex flex-col gap-space-xs">
+<div class="flex items-center justify-between px-space-sm py-1.5 rounded-lg bg-surface-container-high">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[16px]">schedule</span>
+<span class="font-badge-label text-badge-label text-on-surface">Exam in 58 Days</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="font-badge-label text-badge-label text-secondary font-bold">OCR Live</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1 px-space-xs text-on-surface-variant">
+<button class="flex items-center gap-space-xs hover:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">contrast</span>
+<span class="font-caption-meta text-[12px]">Light / Dark</span>
+</button>
+<span class="font-caption-meta text-[11px]">Pulse Med v2.5</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Area with Pl-72 -->
+<div class="pl-72">
+<!-- Top Header Bar -->
+<header class="fixed top-0 left-72 right-0 h-16 bg-surface/90 backdrop-blur-xl z-40 border-b border-[#e2e8f0]/80 shadow-[0_1px_6px_rgba(0,0,0,0.02)]">
+<div class="w-full h-16 px-space-xl flex items-center justify-between gap-space-lg">
+<!-- Deep Clinical Search -->
+<div class="flex-1 max-w-2xl">
+<div class="flex items-center w-full bg-surface-container px-space-md py-2 rounded-lg gap-space-sm text-on-surface-variant border border-transparent focus-within:border-secondary/40 focus-within:bg-surface-container-lowest transition-all">
+<span class="material-symbols-outlined text-[20px] text-secondary">search</span>
+<input class="bg-transparent border-none outline-none font-body-compact text-body-compact text-on-surface placeholder:text-outline w-full" placeholder="Search textbooks, chapters, drug tables, Robbins histology diagrams..." type="text"/>
+<span class="text-[11px] font-mono px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface-variant border border-outline-variant/30">⌘K</span>
+</div>
+</div>
+<!-- Pace / resident header controls -->
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-space-xs px-space-md py-1.5 bg-surface-container rounded-full border border-[#e2e8f0]">
+<span class="material-symbols-outlined text-secondary text-[18px]">speed</span>
+<span class="font-badge-label text-badge-label text-on-surface uppercase tracking-wide">Pace: 1.1 m/Q</span>
+</div>
+<button class="relative p-2 text-on-surface-variant hover:text-on-surface transition-colors rounded-lg hover:bg-surface-container" type="button">
+<span class="material-symbols-outlined text-[22px]">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-error ring-2 ring-surface"></span>
+</button>
+<div class="flex items-center gap-space-sm pl-space-xs border-l border-[#e2e8f0]">
+<div class="flex flex-col text-right hidden sm:flex">
+<span class="font-caption-meta text-caption-meta font-bold text-primary leading-tight">Dr. Arya Sharma</span>
+<span class="font-badge-label text-[10px] text-on-surface-variant">MBBS · Res ID #9042</span>
+</div>
+<div class="w-9 h-9 rounded-full bg-primary flex items-center justify-center text-on-primary ring-2 ring-secondary/20 font-bold text-xs shadow-sm">
+              AS
+            </div>
+</div>
+</div>
+</div>
+</header>
+<!-- Page Body -->
+<main class="relative pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<div class="px-space-xl py-space-lg flex flex-col gap-space-lg max-w-[1560px] mx-auto w-full">
+<!-- Screen Title Bar -->
+<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-space-md">
+<div class="flex flex-col gap-space-xs max-w-3xl">
+<div class="flex items-center gap-space-sm">
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-fixed font-badge-label text-badge-label uppercase tracking-wider">Unified Lexicon v4.2</span>
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span class="font-caption-meta text-caption-meta text-on-surface-variant font-medium">Cross-Reference Engine Sync: Live</span>
+</div>
+<h1 class="font-headline-h1 text-headline-h1 text-primary tracking-tight">Master Medical Index &amp; Topics</h1>
+<p class="font-body-reading text-body-reading text-on-surface-variant leading-relaxed">
+          Unified cross-textbook index across all ingested medical volumes. Each topic aggregates every book chapter covering the clinical entity with verifiable page references.
+        </p>
+</div>
+<!-- Live Global Action -->
+<div class="flex items-center gap-space-sm shrink-0">
+<button class="flex items-center gap-space-xs px-space-md py-2.5 rounded-lg bg-surface-container-high text-primary hover:bg-surface-container-highest transition-all shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px] text-secondary">sync_saved_locally</span>
+<span class="font-caption-meta text-caption-meta font-bold">Index 1 unindexed book (Anesthesia Marrow)</span>
+</button>
+</div>
+</div>
+<!-- Filter Control Hub -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-md items-center">
+<!-- Subject Selector Dropdown -->
+<div class="md:col-span-3">
+<label class="block font-badge-label text-badge-label uppercase text-on-surface-variant tracking-wider mb-1">Target Discipline</label>
+<div class="relative">
+<select class="w-full bg-surface-container-low rounded-lg px-space-md py-2.5 text-on-surface font-subheading-h3 text-subheading-h3 appearance-none focus:outline-none focus:bg-surface-container pr-10 cursor-pointer shadow-inner">
+<option selected="">Pharmacology (Core Review)</option>
+<option>Anatomy &amp; Embryology</option>
+<option>Pathology (Robbins Robbins)</option>
+<option>Microbiology &amp; Parasitology</option>
+<option>Internal Medicine (Harrison's)</option>
+<option>General Surgery (Bailey &amp; Love)</option>
+<option>Obstetrics &amp; Gynecology (DC Dutta)</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-2.5 pointer-events-none text-on-surface-variant">unfold_more</span>
+</div>
+</div>
+<!-- Real-time Clinical Term Search -->
+<div class="md:col-span-6">
+<label class="block font-badge-label text-badge-label uppercase text-on-surface-variant tracking-wider mb-1">Lexicon Search</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3.5 text-secondary text-[20px]">search</span>
+<input class="w-full bg-surface-container-low rounded-lg pl-10 pr-12 py-2.5 text-on-surface font-body-compact text-body-compact placeholder:text-outline focus:outline-none focus:bg-surface-container transition-all" id="topic-search-input" placeholder="Filter topics or enter clinical term (e.g., aminoglycoside, teratogenic, C. diff)..." type="text"/>
+<span class="absolute right-3 font-caption-meta text-[11px] bg-surface-container px-1.5 py-0.5 rounded text-on-surface-variant font-mono">⌘F</span>
+</div>
+</div>
+<!-- Quick Scope Filters -->
+<div class="md:col-span-3 flex flex-col gap-1.5 justify-center">
+<label class="inline-flex items-center gap-space-xs cursor-pointer select-none">
+<input class="w-4 h-4 rounded text-secondary focus:ring-0 cursor-pointer bg-surface-container" id="filter-condensed" type="checkbox"/>
+<span class="font-caption-meta text-caption-meta text-on-surface">Chapters only (condensed view)</span>
+</label>
+<label class="inline-flex items-center gap-space-xs cursor-pointer select-none">
+<input checked="" class="w-4 h-4 rounded text-secondary focus:ring-0 cursor-pointer bg-surface-container" id="filter-crossyield" type="checkbox"/>
+<span class="font-caption-meta text-caption-meta font-bold text-secondary">Only topics in 2+ books (Cross-yield)</span>
+</label>
+</div>
+</div>
+<!-- Index Context Bar -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm pt-2 bg-surface-container-low/60 px-space-md py-2 rounded-lg">
+<div class="flex items-center gap-space-md flex-wrap">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-caption-meta text-caption-meta font-bold text-primary">1 of 2 Pharmacology books indexed</span>
+</div>
+<span class="text-outline-variant">•</span>
+<span class="font-caption-meta text-caption-meta text-on-surface-variant"><strong class="text-on-surface">127</strong> total clinical topics</span>
+<span class="text-outline-variant">•</span>
+<span class="font-caption-meta text-caption-meta text-secondary font-bold"><strong class="text-secondary">38</strong> cross-indexed in multiple books</span>
+</div>
+<div class="flex items-center gap-space-xs text-on-surface-variant font-badge-label text-badge-label uppercase">
+<span class="material-symbols-outlined text-[15px] text-tertiary-fixed-dim">verified</span>
+<span>Citation Verification Level: RAG Tier 1 (OCR 99.4%)</span>
+</div>
+</div>
+</div>
+<!-- Main Workspace Grid: 8 Cols Topics / 4 Cols Context Synthesis -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- Left Column: Topic Listing Accordions & Feed -->
+<div class="lg:col-span-7 xl:col-span-8 flex flex-col gap-space-md">
+<!-- Card 1: Aminoglycoside (Active Selected State) -->
+<article class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm transition-all hover:shadow-md relative overflow-hidden" data-topic-card="1">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-secondary"></div>
+<div class="flex flex-col gap-space-sm">
+<div class="flex flex-wrap items-start justify-between gap-space-sm">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="font-badge-label text-badge-label bg-secondary/10 text-secondary px-2 py-0.5 rounded-full font-bold">2 Volumes Linked</span>
+<span class="font-caption-meta text-[11px] text-on-surface-variant font-mono">TOPIC ID: PHARM-AMIN-019</span>
+</div>
+<h2 class="font-headline-h2 text-headline-h2 text-primary hover:text-secondary cursor-pointer transition-colors">
+                  Aminoglycoside ototoxicity &amp; nephrotoxicity
+                </h2>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed-variant font-badge-label text-badge-label font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">local_fire_department</span>
+                High Frequency
+              </span>
+</div>
+<!-- Page Referencing Badges -->
+<div class="flex flex-wrap items-center gap-space-xs pt-1">
+<div class="flex items-center gap-1.5 bg-surface-container px-2.5 py-1.5 rounded-lg text-primary text-caption-meta font-caption-meta">
+<span class="material-symbols-outlined text-[16px] text-secondary">book</span>
+<span class="font-bold">Antimicrobials Simplified</span>
+<span class="bg-surface-container-lowest px-1.5 py-0.2 rounded text-[11px] font-mono text-on-surface-variant font-bold">p. 31</span>
+</div>
+<div class="flex items-center gap-1.5 bg-surface-container px-2.5 py-1.5 rounded-lg text-primary text-caption-meta font-caption-meta">
+<span class="material-symbols-outlined text-[16px] text-secondary">menu_book</span>
+<span class="font-bold">Pharmacology Marrow Ed8</span>
+<span class="bg-surface-container-lowest px-1.5 py-0.2 rounded text-[11px] font-mono text-on-surface-variant font-bold">p. 84</span>
+<span class="bg-surface-container-lowest px-1.5 py-0.2 rounded text-[11px] font-mono text-on-surface-variant font-bold">p. 112</span>
+</div>
+</div>
+<!-- Yield Tags -->
+<div class="flex flex-wrap items-center gap-1.5 pt-1">
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-primary font-caption-meta text-[12px] font-medium">#DrugOfChoice</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-primary font-caption-meta text-[12px] font-medium">#Toxicology</span>
+<span class="px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed-variant font-caption-meta text-[12px] font-bold">AMC Recall 2024</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-on-surface-variant font-caption-meta text-[12px]">Cochlear vs Vestibular Damage</span>
+</div>
+<!-- Interactive Direct Trigger Strip -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm pt-space-sm mt-1 bg-surface-container-low/50 px-space-md py-2 rounded-lg">
+<div class="flex items-center gap-space-xs">
+<button class="px-space-md py-1.5 rounded bg-secondary text-on-secondary font-badge-label text-badge-label font-bold flex items-center gap-1 shadow-sm hover:brightness-105 active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[15px]">quiz</span>
+                  Generate 10 MCQs
+                </button>
+<button class="px-space-md py-1.5 rounded bg-surface-container-high text-primary hover:bg-surface-container font-badge-label text-badge-label font-bold flex items-center gap-1 transition-colors" type="button">
+<span class="material-symbols-outlined text-[15px] text-secondary">neurology</span>
+                  Ask AI about this topic
+                </button>
+</div>
+<button class="text-secondary hover:text-primary font-caption-meta text-caption-meta font-bold flex items-center gap-1 group" type="button">
+<span>Open PDF to page</span>
+<span class="material-symbols-outlined text-[16px] group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Card 2: Amphotericin B -->
+<article class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm transition-all hover:shadow-md relative overflow-hidden" data-topic-card="2">
+<div class="flex flex-col gap-space-sm">
+<div class="flex flex-wrap items-start justify-between gap-space-sm">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="font-badge-label text-badge-label bg-secondary/10 text-secondary px-2 py-0.5 rounded-full font-bold">2 Volumes Linked</span>
+<span class="font-caption-meta text-[11px] text-on-surface-variant font-mono">TOPIC ID: PHARM-POLY-042</span>
+</div>
+<h2 class="font-headline-h2 text-headline-h2 text-primary hover:text-secondary cursor-pointer transition-colors">
+                  Amphotericin B &amp; electrolyte loss (Hypokalemia &amp; Hypomagnesemia)
+                </h2>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface font-badge-label text-badge-label font-bold">
+                High-Yield Concept
+              </span>
+</div>
+<div class="flex flex-wrap items-center gap-space-xs pt-1">
+<div class="flex items-center gap-1.5 bg-surface-container px-2.5 py-1.5 rounded-lg text-primary text-caption-meta font-caption-meta">
+<span class="material-symbols-outlined text-[16px] text-secondary">book</span>
+<span class="font-bold">Antimicrobials Simplified</span>
+<span class="bg-surface-container-lowest px-1.5 py-0.2 rounded text-[11px] font-mono text-on-surface-variant font-bold">p. 10</span>
+</div>
+<div class="flex items-center gap-1.5 bg-surface-container px-2.5 py-1.5 rounded-lg text-primary text-caption-meta font-caption-meta">
+<span class="material-symbols-outlined text-[16px] text-secondary">menu_book</span>
+<span class="font-bold">Robbins Pathology</span>
+<span class="bg-surface-container-lowest px-1.5 py-0.2 rounded text-[11px] font-mono text-on-surface-variant font-bold">p. 344</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-1.5 pt-1">
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-primary font-caption-meta text-[12px] font-medium">#RenalTubularAcidosis</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-primary font-caption-meta text-[12px] font-medium">#LiposomalFormulations</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-on-surface-variant font-caption-meta text-[12px]">Distal Tubule Ergosterol Leakage</span>
+</div>
+<div class="flex flex-wrap items-center justify-between gap-space-sm pt-space-sm mt-1 bg-surface-container-low/50 px-space-md py-2 rounded-lg">
+<div class="flex items-center gap-space-xs">
+<button class="px-space-md py-1.5 rounded bg-secondary text-on-secondary font-badge-label text-badge-label font-bold flex items-center gap-1 shadow-sm hover:brightness-105 transition-all" type="button">
+<span class="material-symbols-outlined text-[15px]">quiz</span>
+                  Generate MCQs
+                </button>
+<button class="px-space-md py-1.5 rounded bg-surface-container-high text-primary hover:bg-surface-container font-badge-label text-badge-label font-bold flex items-center gap-1 transition-colors" type="button">
+<span class="material-symbols-outlined text-[15px] text-secondary">style</span>
+                  Study Flashcards (18)
+                </button>
+</div>
+<button class="text-secondary hover:text-primary font-caption-meta text-caption-meta font-bold flex items-center gap-1 group" type="button">
+<span>View Comparative Excerpts</span>
+<span class="material-symbols-outlined text-[16px] group-hover:translate-x-0.5 transition-transform">visibility</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Card 3: Antibacterial mechanisms -->
+<article class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm transition-all hover:shadow-md" data-topic-card="3">
+<div class="flex flex-col gap-space-sm">
+<div class="flex flex-wrap items-start justify-between gap-space-sm">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="font-badge-label text-badge-label bg-secondary/10 text-secondary px-2 py-0.5 rounded-full font-bold">2 Volumes Linked</span>
+<span class="font-caption-meta text-[11px] text-on-surface-variant font-mono">TOPIC ID: PHARM-CELL-008</span>
+</div>
+<h2 class="font-headline-h2 text-headline-h2 text-primary hover:text-secondary cursor-pointer transition-colors">
+                  Antibacterial mechanisms: Peptidoglycan cell wall synthesis
+                </h2>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed-variant font-badge-label text-badge-label font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">bolt</span>
+                Foundational Must-Pass
+              </span>
+</div>
+<div class="flex flex-wrap items-center gap-space-xs pt-1">
+<div class="flex items-center gap-1.5 bg-surface-container px-2.5 py-1.5 rounded-lg text-primary text-caption-meta font-caption-meta">
+<span class="material-symbols-outlined text-[16px] text-secondary">book</span>
+<span class="font-bold">Antimicrobials Simplified</span>
+<span class="bg-surface-container-lowest px-1.5 py-0.2 rounded text-[11px] font-mono text-on-surface-variant font-bold">p. 29</span>
+</div>
+<div class="flex items-center gap-1.5 bg-surface-container px-2.5 py-1.5 rounded-lg text-primary text-caption-meta font-caption-meta">
+<span class="material-symbols-outlined text-[16px] text-secondary">menu_book</span>
+<span class="font-bold">Harrison's Internal Med</span>
+<span class="bg-surface-container-lowest px-1.5 py-0.2 rounded text-[11px] font-mono text-on-surface-variant font-bold">p. 910</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-1.5 pt-1">
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-primary font-caption-meta text-[12px] font-medium">#VanA</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-primary font-caption-meta text-[12px] font-medium">#PBPs</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-primary font-caption-meta text-[12px] font-medium">#BetaLactams</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-on-surface-variant font-caption-meta text-[12px]">Transpeptidation Inhibition</span>
+</div>
+<div class="flex items-center justify-between pt-2">
+<div class="flex items-center gap-2">
+<button class="px-3 py-1 rounded bg-surface-container text-primary font-caption-meta text-caption-meta font-bold hover:bg-surface-container-high transition-colors" type="button">Generate Practice</button>
+<button class="px-3 py-1 rounded bg-surface-container text-primary font-caption-meta text-caption-meta font-bold hover:bg-surface-container-high transition-colors" type="button">Cross-Compare</button>
+</div>
+<span class="font-caption-meta text-[12px] text-on-surface-variant">Last accessed: 2 days ago</span>
+</div>
+</div>
+</article>
+<!-- Card 4: Antibiotics in Pregnancy -->
+<article class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm transition-all hover:shadow-md" data-topic-card="4">
+<div class="flex flex-col gap-space-sm">
+<div class="flex flex-wrap items-start justify-between gap-space-sm">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="font-badge-label text-badge-label bg-secondary/10 text-secondary px-2 py-0.5 rounded-full font-bold">2 Volumes Linked</span>
+<span class="font-caption-meta text-[11px] text-on-surface-variant font-mono">TOPIC ID: OBG-TOX-101</span>
+</div>
+<h2 class="font-headline-h2 text-headline-h2 text-primary hover:text-secondary cursor-pointer transition-colors">
+                  Antibiotics in pregnancy: Safe vs Teratogenic profile
+                </h2>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-error-container text-on-error-container font-badge-label text-badge-label font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+                Clinical Blackbox Yield
+              </span>
+</div>
+<div class="flex flex-wrap items-center gap-space-xs pt-1">
+<div class="flex items-center gap-1.5 bg-surface-container px-2.5 py-1.5 rounded-lg text-primary text-caption-meta font-caption-meta">
+<span class="material-symbols-outlined text-[16px] text-secondary">book</span>
+<span class="font-bold">Antimicrobials Simplified</span>
+<span class="bg-surface-container-lowest px-1.5 py-0.2 rounded text-[11px] font-mono text-on-surface-variant font-bold">p. 51</span>
+</div>
+<div class="flex items-center gap-1.5 bg-surface-container px-2.5 py-1.5 rounded-lg text-primary text-caption-meta font-caption-meta">
+<span class="material-symbols-outlined text-[16px] text-secondary">menu_book</span>
+<span class="font-bold">Obstetrics Marrow</span>
+<span class="bg-surface-container-lowest px-1.5 py-0.2 rounded text-[11px] font-mono text-on-surface-variant font-bold">p. 214</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-1.5 pt-1">
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-primary font-caption-meta text-[12px] font-medium">#CategoryD</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-primary font-caption-meta text-[12px] font-medium">#KernicterusRisk</span>
+<span class="px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed-variant font-caption-meta text-[12px] font-bold">#AMC_MustKnow</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-on-surface-variant font-caption-meta text-[12px]">Trimethoprim vs Nitrofurantoin</span>
+</div>
+<div class="flex items-center justify-between pt-2">
+<div class="flex items-center gap-2">
+<button class="px-3 py-1 rounded bg-secondary text-on-secondary font-caption-meta text-caption-meta font-bold" type="button">Launch Case Scenario</button>
+<button class="px-3 py-1 rounded bg-surface-container text-primary font-caption-meta text-caption-meta font-bold hover:bg-surface-container-high transition-colors" type="button">Compare Protocols</button>
+</div>
+<span class="font-caption-meta text-[12px] text-on-surface-variant">Cross-matched 100% agreement</span>
+</div>
+</div>
+</article>
+<!-- Card 5: Clostridioides difficile colitis -->
+<article class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm transition-all hover:shadow-md" data-topic-card="5">
+<div class="flex flex-col gap-space-sm">
+<div class="flex flex-wrap items-start justify-between gap-space-sm">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="font-badge-label text-badge-label bg-secondary/10 text-secondary px-2 py-0.5 rounded-full font-bold">2 Volumes Linked</span>
+<span class="font-caption-meta text-[11px] text-on-surface-variant font-mono">TOPIC ID: MICRO-CDIFF-088</span>
+</div>
+<h2 class="font-headline-h2 text-headline-h2 text-primary hover:text-secondary cursor-pointer transition-colors">
+                  Antibiotics most associated with Clostridioides difficile colitis
+                </h2>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed-variant font-badge-label text-badge-label font-bold">
+                Board Favorite
+              </span>
+</div>
+<div class="flex flex-wrap items-center gap-space-xs pt-1">
+<div class="flex items-center gap-1.5 bg-surface-container px-2.5 py-1.5 rounded-lg text-primary text-caption-meta font-caption-meta">
+<span class="material-symbols-outlined text-[16px] text-secondary">book</span>
+<span class="font-bold">Antimicrobials Simplified</span>
+<span class="bg-surface-container-lowest px-1.5 py-0.2 rounded text-[11px] font-mono text-on-surface-variant font-bold">p. 41</span>
+</div>
+<div class="flex items-center gap-1.5 bg-surface-container px-2.5 py-1.5 rounded-lg text-primary text-caption-meta font-caption-meta">
+<span class="material-symbols-outlined text-[16px] text-secondary">menu_book</span>
+<span class="font-bold">Harrison's 21st</span>
+<span class="bg-surface-container-lowest px-1.5 py-0.2 rounded text-[11px] font-mono text-on-surface-variant font-bold">p. 1042</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-1.5 pt-1">
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-primary font-caption-meta text-[12px] font-medium">#Clindamycin</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-primary font-caption-meta text-[12px] font-medium">#Fluoroquinolones</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-primary font-caption-meta text-[12px] font-medium">#Fidaxomicin</span>
+<span class="px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed-variant font-caption-meta text-[12px] font-bold">First-line Oral Vancomycin</span>
+</div>
+</div>
+</article>
+<!-- Card 6: Antifungals CYP450 -->
+<article class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm transition-all hover:shadow-md" data-topic-card="6">
+<div class="flex flex-col gap-space-sm">
+<div class="flex flex-wrap items-start justify-between gap-space-sm">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="font-badge-label text-badge-label bg-secondary/10 text-secondary px-2 py-0.5 rounded-full font-bold">2 Volumes Linked</span>
+<span class="font-caption-meta text-[11px] text-on-surface-variant font-mono">TOPIC ID: PHARM-CYP-022</span>
+</div>
+<h2 class="font-headline-h2 text-headline-h2 text-primary hover:text-secondary cursor-pointer transition-colors">
+                  Antifungals in practice: Triazoles CYP450 interactions
+                </h2>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface font-badge-label text-badge-label font-bold">
+                Metabolism Pearl
+              </span>
+</div>
+<div class="flex flex-wrap items-center gap-space-xs pt-1">
+<div class="flex items-center gap-1.5 bg-surface-container px-2.5 py-1.5 rounded-lg text-primary text-caption-meta font-caption-meta">
+<span class="material-symbols-outlined text-[16px] text-secondary">book</span>
+<span class="font-bold">Antimicrobials Simplified</span>
+<span class="bg-surface-container-lowest px-1.5 py-0.2 rounded text-[11px] font-mono text-on-surface-variant font-bold">p. 46</span>
+</div>
+<div class="flex items-center gap-1.5 bg-surface-container px-2.5 py-1.5 rounded-lg text-primary text-caption-meta font-caption-meta">
+<span class="material-symbols-outlined text-[16px] text-secondary">menu_book</span>
+<span class="font-bold">Pharmacology Marrow</span>
+<span class="bg-surface-container-lowest px-1.5 py-0.2 rounded text-[11px] font-mono text-on-surface-variant font-bold">p. 142</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-1.5 pt-1">
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-primary font-caption-meta text-[12px] font-medium">#CYP3A4Inhibition</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-primary font-caption-meta text-[12px] font-medium">#VoriconazoleVisualHepatitis</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-primary font-caption-meta text-[12px] font-medium">#ItraconazoleAbsorption</span>
+</div>
+</div>
+</article>
+<!-- Card 7: Antiretrovirals Protease Inhibitors -->
+<article class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm transition-all hover:shadow-md" data-topic-card="7">
+<div class="flex flex-col gap-space-sm">
+<div class="flex flex-wrap items-start justify-between gap-space-sm">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="font-badge-label text-badge-label bg-secondary/10 text-secondary px-2 py-0.5 rounded-full font-bold">2 Volumes Linked</span>
+<span class="font-caption-meta text-[11px] text-on-surface-variant font-mono">TOPIC ID: VIRO-HAART-061</span>
+</div>
+<h2 class="font-headline-h2 text-headline-h2 text-primary hover:text-secondary cursor-pointer transition-colors">
+                  Antiretrovirals: Protease inhibitors, boosters and adverse effects
+                </h2>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface font-badge-label text-badge-label font-bold">
+                Metabolic Syndrome
+              </span>
+</div>
+<div class="flex flex-wrap items-center gap-space-xs pt-1">
+<div class="flex items-center gap-1.5 bg-surface-container px-2.5 py-1.5 rounded-lg text-primary text-caption-meta font-caption-meta">
+<span class="material-symbols-outlined text-[16px] text-secondary">book</span>
+<span class="font-bold">Antimicrobials Simplified</span>
+<span class="bg-surface-container-lowest px-1.5 py-0.2 rounded text-[11px] font-mono text-on-surface-variant font-bold">p. 56</span>
+</div>
+<div class="flex items-center gap-1.5 bg-surface-container px-2.5 py-1.5 rounded-lg text-primary text-caption-meta font-caption-meta">
+<span class="material-symbols-outlined text-[16px] text-secondary">menu_book</span>
+<span class="font-bold">Robbins</span>
+<span class="bg-surface-container-lowest px-1.5 py-0.2 rounded text-[11px] font-mono text-on-surface-variant font-bold">p. 280</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-1.5 pt-1">
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-primary font-caption-meta text-[12px] font-medium">#RitonavirBoosting</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-primary font-caption-meta text-[12px] font-medium">#Lipodystrophy</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-primary font-caption-meta text-[12px] font-medium">#Hyperglycemia</span>
+</div>
+</div>
+</article>
+</div>
+<!-- Right Column: Synthesis Inspector & Quick Drills (Sticky Desk) -->
+<aside class="lg:col-span-5 xl:col-span-4 flex flex-col gap-space-md sticky top-20">
+<!-- Live Synthesis Deep Dive Card -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center text-secondary-fixed">
+<span class="material-symbols-outlined text-[18px]">balance</span>
+</div>
+<div>
+<h3 class="font-subheading-h3 text-subheading-h3 text-primary leading-tight">Cross-Book Synthesis</h3>
+<span class="font-caption-meta text-[11px] text-on-surface-variant">Active Entity: Aminoglycosides</span>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container text-secondary font-badge-label text-badge-label font-bold">AI Synthesized</span>
+</div>
+<!-- Comparative Excerpts Comparison -->
+<div class="flex flex-col gap-space-sm">
+<!-- Source A -->
+<div class="bg-surface-container-low p-space-md rounded-lg flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-caption-meta text-caption-meta font-bold text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-secondary">menu_book</span>
+                  Antimicrobials Simplified (p. 31)
+                </span>
+<span class="font-badge-label text-[10px] text-on-surface-variant uppercase font-mono">Pharmacodynamics</span>
+</div>
+<p class="font-body-compact text-[13px] text-on-surface-variant italic leading-snug">
+                "Ototoxicity is irreversible; destruction of hair cells in organ of Corti. Nephrotoxicity is non-oliguric, reversible tubular necrosis in proximal tubule via megalin receptor accumulation."
+              </p>
+</div>
+<!-- Source B -->
+<div class="bg-surface-container-low p-space-md rounded-lg flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-caption-meta text-caption-meta font-bold text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-secondary">menu_book</span>
+                  Pharmacology Marrow Ed8 (p. 84, 112)
+                </span>
+<span class="font-badge-label text-[10px] text-on-surface-variant uppercase font-mono">Clinical High-Yield</span>
+</div>
+<p class="font-body-compact text-[13px] text-on-surface-variant italic leading-snug">
+                "Neomycin is most nephrotoxic and ototoxic (never systemic). Streptomycin is primarily vestibular; Amikacin is purely cochlear. Once-daily dosing minimizes toxicity due to saturation kinetics."
+              </p>
+</div>
+</div>
+<!-- Board Pearl / Conflicting Points Alert -->
+<div class="bg-tertiary-fixed/30 p-space-md rounded-lg flex flex-col gap-1">
+<div class="flex items-center gap-1.5 text-on-tertiary-fixed-variant">
+<span class="material-symbols-outlined text-[16px] text-on-tertiary-container">lightbulb</span>
+<span class="font-badge-label text-badge-label uppercase font-bold tracking-wide text-on-tertiary-container">Exam Pearl &amp; Consensus</span>
+</div>
+<p class="font-caption-meta text-caption-meta text-on-surface">
+              NEET PG repeatedly tests <strong>once-daily high-dose</strong> vs divided dosing. The post-antibiotic effect (PAE) allows drug-free interval where aminoglycosides wash out from renal cortical cells, dropping nephrotoxicity risk.
+            </p>
+</div>
+<!-- Synthesis Actions -->
+<div class="flex items-center gap-space-xs pt-1">
+<button class="flex-1 py-2 rounded bg-surface-container text-primary font-caption-meta text-caption-meta font-bold hover:bg-surface-container-high transition-colors text-center" type="button">
+              Add to Notebook
+            </button>
+<button class="flex-1 py-2 rounded bg-surface-container text-primary font-caption-meta text-caption-meta font-bold hover:bg-surface-container-high transition-colors text-center" type="button">
+              Audio Summary (1m)
+            </button>
+</div>
+</div>
+<!-- Quick Drill Launcher Card -->
+<div class="bg-primary text-on-primary rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md relative overflow-hidden">
+<div class="flex flex-col gap-1 relative z-10">
+<span class="font-badge-label text-badge-label text-secondary-fixed uppercase tracking-wider font-bold">Fast Retrieval Drill</span>
+<h3 class="font-headline-h2 text-headline-h2 text-on-primary">Targeted 15-MCQ Test</h3>
+<p class="font-caption-meta text-caption-meta text-primary-fixed-dim">
+              Instantly compile exam questions solely testing cross-indexed discrepancies &amp; high-yield consensus topics.
+            </p>
+</div>
+<div class="grid grid-cols-2 gap-space-xs bg-primary-container p-space-sm rounded-lg relative z-10">
+<div class="flex flex-col">
+<span class="font-badge-label text-[10px] text-primary-fixed-dim uppercase">Predicted AMC Yield</span>
+<span class="font-subheading-h3 text-subheading-h3 text-secondary-fixed">94.8%</span>
+</div>
+<div class="flex flex-col">
+<span class="font-badge-label text-[10px] text-primary-fixed-dim uppercase">Average Time</span>
+<span class="font-subheading-h3 text-subheading-h3 text-on-primary">12 mins</span>
+</div>
+</div>
+<button class="w-full py-2.5 rounded bg-secondary-fixed text-on-secondary-fixed font-caption-meta text-caption-meta font-bold flex items-center justify-center gap-1.5 shadow-md hover:bg-secondary-fixed-dim active:scale-95 transition-all relative z-10" type="button">
+<span class="material-symbols-outlined text-[18px]">play_circle</span>
+            Launch Cross-Indexed Quiz
+          </button>
+</div>
+<!-- Specialty Coverage Diagnostics -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<h3 class="font-subheading-h3 text-subheading-h3 text-primary">Library Coverage</h3>
+<span class="font-caption-meta text-caption-meta text-secondary font-bold">8 Books Active</span>
+</div>
+<!-- SVG Bar Visualizer -->
+<div class="flex flex-col gap-space-sm">
+<!-- Row: Pharmacology -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between font-caption-meta text-[12px]">
+<span class="text-on-surface font-medium">Pharmacology</span>
+<span class="text-on-surface-variant font-mono">127 / 150 (84%)</span>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-container overflow-hidden">
+<div class="h-full bg-secondary rounded-full" style="width: 84%"></div>
+</div>
+</div>
+<!-- Row: Pathology -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between font-caption-meta text-[12px]">
+<span class="text-on-surface font-medium">General Pathology</span>
+<span class="text-on-surface-variant font-mono">92 / 120 (76%)</span>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-container overflow-hidden">
+<div class="h-full bg-secondary rounded-full" style="width: 76%"></div>
+</div>
+</div>
+<!-- Row: Internal Medicine -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between font-caption-meta text-[12px]">
+<span class="text-on-surface font-medium">Internal Medicine</span>
+<span class="text-on-surface-variant font-mono">240 / 380 (63%)</span>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-container overflow-hidden">
+<div class="h-full bg-secondary rounded-full" style="width: 63%"></div>
+</div>
+</div>
+<!-- Row: Microbiology -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between font-caption-meta text-[12px]">
+<span class="text-on-surface font-medium">Microbiology</span>
+<span class="text-on-surface-variant font-mono">48 / 95 (50%)</span>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-container overflow-hidden">
+<div class="h-full bg-tertiary-fixed-dim rounded-full" style="width: 50%"></div>
+</div>
+</div>
+<!-- Row: Surgery & Anesthesia -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between font-caption-meta text-[12px]">
+<span class="text-on-surface font-medium">Anesthesia &amp; Surgery</span>
+<span class="text-on-surface-variant font-mono">14 / 80 (17%)</span>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-container overflow-hidden">
+<div class="h-full bg-error rounded-full" style="width: 17%"></div>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-low p-space-sm rounded-lg flex items-center justify-between text-on-surface-variant font-caption-meta text-[12px]">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-secondary">memory</span>
+              RAG Embeddings size: 142MB
+            </span>
+<button class="text-secondary font-bold hover:underline" type="button">Re-index all</button>
+</div>
+</div>
+</aside>
+</div>
+</div>
+</div>
+<script>
+  // Simple interactive client filter for quick real-time lookup
+  const searchInput = document.getElementById('topic-search-input');
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      const term = e.target.value.toLowerCase().trim();
+      const cards = document.querySelectorAll('[data-topic-card]');
+      cards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        if (text.includes(term)) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+  }
+
+  // Cross-yield checkbox filter toggle
+  const crossyieldCheckbox = document.getElementById('filter-crossyield');
+  if (crossyieldCheckbox) {
+    crossyieldCheckbox.addEventListener('change', (e) => {
+      const cards = document.querySelectorAll('[data-topic-card]');
+      if (!e.target.checked) {
+        cards.forEach(card => card.classList.remove('hidden'));
+      }
+    });
+  }
+</script></main>
+</div>
+</body></html>

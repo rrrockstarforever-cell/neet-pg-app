@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"on-secondary":"#ffffff","surface-container-low":"#eff3ff","on-background":"#141c28","surface-container":"#e6eeff","outline-variant":"#c4c6cf","on-primary-fixed-variant":"#33476a","on-surface":"#141c28","inverse-on-surface":"#ebf1ff","surface-dim":"#d2daeb","tertiary-fixed-dim":"#ffb963","tertiary-fixed":"#ffddb9","error":"#ba1a1a","surface-variant":"#dbe3f3","primary-fixed":"#d7e3ff","on-primary":"#ffffff","background":"#f8f9ff","on-tertiary":"#ffffff","surface-tint":"#4b5f84","primary-container":"#13294b","on-secondary-fixed-variant":"#004f51","on-surface-variant":"#44474e","secondary":"#00696b","surface-container-high":"#e1e8f9","surface":"#f8f9ff","on-secondary-fixed":"#002020","tertiary-container":"#3e2300","tertiary":"#221100","on-primary-fixed":"#021b3d","on-tertiary-container":"#c7811d","on-secondary-container":"#007072","on-tertiary-fixed":"#2b1700","inverse-primary":"#b2c7f1","surface-container-lowest":"#ffffff","on-primary-container":"#7d91b9","on-error-container":"#93000a","inverse-surface":"#29313d","secondary-fixed-dim":"#72d6d8","on-tertiary-fixed-variant":"#663e00","error-container":"#ffdad6","primary-fixed-dim":"#b2c7f1","on-error":"#ffffff","secondary-fixed":"#8ff3f4","secondary-container":"#8ff3f4","primary":"#001432","surface-container-highest":"#dbe3f3","surface-bright":"#f8f9ff","outline":"#74777f"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"space-sm":"0.5rem","margin":"1rem","gutter":"1rem","gutter-tablet":"1.25rem","gutter-desktop":"1.5rem","margin-tablet":"1.5rem","margin-desktop":"2.25rem","space-xs":"0.25rem","space-md":"0.75rem","space-lg":"1rem","space-xl":"1.5rem"},"fontFamily":{"headline-h1":["Inter"],"body-compact":["Inter"],"display-lg-mobile":["Inter"],"subheading-h3":["Inter"],"body-reading":["Inter"],"display-lg":["Inter"],"caption-meta":["Inter"],"stat-numeral":["Inter"],"badge-label":["Inter"],"headline-h2":["Inter"]},"fontSize":{"headline-h1":["22px",{"lineHeight":"28px","fontWeight":"700"}],"body-compact":["14px",{"lineHeight":"22px","fontWeight":"400"}],"display-lg-mobile":["24px",{"lineHeight":"30px","fontWeight":"800"}],"subheading-h3":["16px",{"lineHeight":"22px","fontWeight":"600"}],"body-reading":["15px",{"lineHeight":"24px","fontWeight":"400"}],"display-lg":["28px",{"lineHeight":"34px","fontWeight":"800"}],"caption-meta":["13px",{"lineHeight":"18px","fontWeight":"500"}],"stat-numeral":["30px",{"lineHeight":"36px","fontWeight":"800"}],"badge-label":["11px",{"lineHeight":"14px","fontWeight":"700"}],"headline-h2":["18px",{"lineHeight":"24px","fontWeight":"700"}]}}}};</script></head><body class="bg-background text-on-surface font-body-compact text-body-compact"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between"><div class="flex flex-col flex-1 overflow-y-auto"><div class="p-space-lg flex flex-col gap-space-sm"><div class="flex items-center gap-space-sm"><div class="w-9 h-9 rounded-lg bg-primary-container text-on-primary flex items-center justify-center"><span class="material-symbols-outlined text-[20px]">ecg_heart</span></div><div class="flex flex-col"><span class="font-headline-h2 text-headline-h2 tracking-tight text-primary leading-none">PULSE MED</span><span class="font-badge-label text-badge-label uppercase text-on-surface-variant tracking-wider mt-space-xs">Clinical Exam Engine</span></div></div><div class="flex items-center bg-surface-container-highest p-space-xs rounded-lg mt-space-xs"><button class="flex-1 py-1 rounded bg-surface-container-lowest text-primary font-caption-meta text-caption-meta font-bold shadow-[0_1px_8px_rgba(0,0,0,0.04)] text-center" type="button">NEET PG</button><button class="flex-1 py-1 rounded text-on-surface-variant hover:text-on-surface font-caption-meta text-caption-meta text-center" type="button">AMC CLINICAL</button></div></div><nav class="flex flex-col px-space-md gap-space-xs pb-space-lg" data-active-classes="bg-primary-container text-on-primary font-bold rounded-lg"><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="library" href="#"><span class="material-symbols-outlined text-[20px]">menu_book</span><span>Library (PDF &amp; Books)</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="ai-knowledge-engine" href="#"><span class="material-symbols-outlined text-[20px]">psychology</span><span>AI Knowledge Engine</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="ask-your-books" href="#"><span class="material-symbols-outlined text-[20px]">smart_outlet</span><span>Ask Your Books (RAG)</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="medical-index-topics" href="#"><span class="material-symbols-outlined text-[20px]">view_list</span><span>Medical Index &amp; Topics</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="practice-modules" href="#"><span class="material-symbols-outlined text-[20px]">quiz</span><span>Practice &amp; Modules</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="test-runner-exam" href="#"><span class="material-symbols-outlined text-[20px]">assignment_turned_in</span><span>Test Runner &amp; Exam</span></a><a aria-current="page" class="flex items-center gap-space-md px-space-md py-space-sm transition-colors bg-primary-container text-on-primary font-bold rounded-lg" data-path="mistake-notebook" href="#"><span class="material-symbols-outlined text-[20px]">edit_note</span><span>Mistake Notebook &amp; Review</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="performance-analytics" href="#"><span class="material-symbols-outlined text-[20px]">analytics</span><span>Performance Analytics</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="highlights-saved" href="#"><span class="material-symbols-outlined text-[20px]">bookmarks</span><span>Highlights &amp; Saved</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="clinical-browser" href="#"><span class="material-symbols-outlined text-[20px]">upload_file</span><span>Clinical Browser</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="settings-engine" href="#"><span class="material-symbols-outlined text-[20px]">tune</span><span>Settings &amp; AI Engine</span></a></nav></div><div class="p-space-md bg-surface-container-high mx-space-md mb-space-md rounded-xl flex flex-col gap-space-sm"><div class="flex items-center justify-between"><span class="font-badge-label text-badge-label uppercase text-on-surface-variant">Target Milestone</span><span class="flex items-center gap-1 font-badge-label text-badge-label text-secondary"><span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>OCR LIVE</span></div><div class="flex items-baseline gap-space-xs"><span class="font-subheading-h3 text-subheading-h3 text-primary font-bold">58 Days</span><span class="font-caption-meta text-caption-meta text-on-surface-variant">to Examination</span></div><div class="w-full bg-surface-container-lowest h-1.5 rounded-full overflow-hidden"><div class="bg-secondary h-full rounded-full w-2/3"></div></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-gutter-desktop"><div class="flex items-center flex-1 max-w-xl mr-space-lg"><div class="w-full flex items-center bg-surface-container-low rounded-lg px-space-md py-space-xs gap-space-sm"><span class="material-symbols-outlined text-[20px] text-on-surface-variant">search</span><input class="w-full bg-transparent border-none outline-none font-body-compact text-body-compact text-on-surface placeholder:text-on-surface-variant" placeholder="Search diseases, high-yield clinical stems, Harrison/Robbins references..." type="search"/></div></div><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-sm px-space-md py-space-xs bg-surface-container-low rounded-lg"><span class="material-symbols-outlined text-[18px] text-secondary">speed</span><span class="font-caption-meta text-caption-meta text-on-surface-variant">Mock Pace</span><span class="font-caption-meta text-caption-meta font-bold text-primary">1.1 m/Q</span></div><div class="relative flex items-center justify-center p-space-xs text-on-surface-variant hover:text-on-surface rounded-lg hover:bg-surface-container-low transition-colors"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-error ring-2 ring-surface-container-lowest"></span></div><div class="flex items-center gap-space-md pl-space-sm"><div class="flex flex-col text-right"><span class="font-caption-meta text-caption-meta font-bold text-on-surface leading-tight">Dr. Arya Sharma</span><span class="font-badge-label text-badge-label text-on-surface-variant leading-tight">MBBS · Res ID #9042</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 bg-background px-gutter-desktop min-h-screen"><div class="flex flex-col w-full pb-16">
+<!-- Top Context & Header Banner -->
+<section class="flex flex-col gap-space-sm pt-space-lg mb-space-xl">
+<div class="flex flex-wrap items-center justify-between gap-space-md">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-sm">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-container-high text-primary font-badge-label text-badge-label uppercase tracking-wider">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+            SRS Engine v4.2 Active
+          </span>
+<span class="font-caption-meta text-caption-meta text-on-surface-variant">• Harrison 21st / Robbins 10th Aligned</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-primary tracking-tight">Clinical Mistake Notebook &amp; Question Review</h1>
+<p class="font-body-reading text-body-reading text-on-surface-variant max-w-3xl">
+          Revisit mistakes without a one-question carousel. Analyze tagged pitfalls, trap questions, and revise by topic with evidence-based spaced repetition.
+        </p>
+</div>
+<!-- Segmented Exam Switcher -->
+<div class="flex flex-col items-end gap-space-xs">
+<div class="inline-flex p-1 bg-surface-container-high rounded-xl shadow-inner">
+<button class="exam-tab active-tab px-space-md py-1.5 rounded-lg bg-surface-container-lowest text-primary font-subheading-h3 text-caption-meta font-bold shadow-sm transition-all" data-exam="neet" type="button">
+            NEET PG
+          </button>
+<button class="exam-tab px-space-md py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface font-subheading-h3 text-caption-meta font-bold transition-all" data-exam="ini" type="button">
+            INI-CET
+          </button>
+<button class="exam-tab px-space-md py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface font-subheading-h3 text-caption-meta font-bold transition-all" data-exam="amc" type="button">
+            AMC CAT MCQ
+          </button>
+</div>
+<span class="font-badge-label text-badge-label text-on-surface-variant tracking-normal">
+          Each exam is tracked on its own; nothing is added across exams.
+        </span>
+</div>
+</div>
+</section>
+<!-- Metric KPI Cards Row -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md mb-space-xl">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary-container"></div>
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-caption-meta text-caption-meta text-on-surface-variant font-medium">Total Flagged Mistakes</span>
+<span class="w-8 h-8 rounded-lg bg-surface-container-low text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">bookmark_added</span>
+</span>
+</div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-stat-numeral text-stat-numeral text-primary">38</span>
+<span class="font-caption-meta text-caption-meta text-on-surface-variant">Questions</span>
+</div>
+<div class="flex items-center gap-1.5 mt-space-sm text-on-surface-variant font-caption-meta text-caption-meta">
+<span class="material-symbols-outlined text-[16px] text-secondary">layers</span>
+<span>Across 3 active modules</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-1 h-full bg-secondary"></div>
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-caption-meta text-caption-meta text-on-surface-variant font-medium">Corrected on Re-test</span>
+<span class="w-8 h-8 rounded-lg bg-surface-container-low text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">task_alt</span>
+</span>
+</div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-stat-numeral text-stat-numeral text-primary">22</span>
+<span class="font-caption-meta text-caption-meta text-on-surface-variant">Remediated</span>
+</div>
+<div class="flex items-center gap-1.5 mt-space-sm font-caption-meta text-caption-meta">
+<span class="text-secondary font-bold flex items-center">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>58%
+        </span>
+<span class="text-on-surface-variant">remediation success</span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-1 h-full bg-error"></div>
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-caption-meta text-caption-meta text-on-surface-variant font-medium">Unresolved Mistakes</span>
+<span class="w-8 h-8 rounded-lg bg-error-container text-error flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">warning</span>
+</span>
+</div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-stat-numeral text-stat-numeral text-primary">16</span>
+<span class="font-caption-meta text-caption-meta text-on-surface-variant">Questions</span>
+</div>
+<div class="flex items-center gap-1.5 mt-space-sm text-error font-caption-meta text-caption-meta font-bold">
+<span class="w-2 h-2 rounded-full bg-error animate-pulse"></span>
+<span>Urgent spaced review needed</span>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-1 h-full bg-tertiary-container"></div>
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-caption-meta text-caption-meta text-on-surface-variant font-medium">Spaced Repetition (SRS)</span>
+<span class="w-8 h-8 rounded-lg bg-tertiary-fixed text-tertiary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">history</span>
+</span>
+</div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-stat-numeral text-stat-numeral text-primary">7</span>
+<span class="font-caption-meta text-caption-meta text-on-surface-variant">Due Today</span>
+</div>
+<div class="flex items-center gap-1.5 mt-space-sm text-on-surface-variant font-caption-meta text-caption-meta">
+<span class="material-symbols-outlined text-[16px] text-tertiary-container">schedule</span>
+<span>Next SRS cycle in 4h 12m</span>
+</div>
+</div>
+</section>
+<!-- Filter & Control Toolbar -->
+<section class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm mb-space-lg flex flex-col md:flex-row items-stretch md:items-center justify-between gap-space-md">
+<div class="flex-1 flex items-center bg-surface-container-low rounded-lg px-space-md py-space-xs gap-space-sm">
+<span class="material-symbols-outlined text-[20px] text-on-surface-variant">search</span>
+<input class="w-full bg-transparent border-none outline-none font-body-compact text-body-compact text-on-surface placeholder:text-on-surface-variant" id="mistakeSearch" placeholder="Search clinical stems, trap keywords, Harrison citations, distractor IDs..." type="text"/>
+</div>
+<div class="flex flex-wrap items-center gap-space-sm">
+<!-- Subject Filter -->
+<div class="relative">
+<select class="appearance-none bg-surface-container-low hover:bg-surface-container text-on-surface font-caption-meta text-caption-meta font-medium pl-space-md pr-8 py-2 rounded-lg cursor-pointer outline-none transition-colors" id="subjectFilter">
+<option value="all">All Subjects (19)</option>
+<option value="pharmacology">Pharmacology (11)</option>
+<option value="pathology">Pathology (9)</option>
+<option value="medicine">General Medicine (12)</option>
+<option value="pediatrics">Pediatrics (6)</option>
+</select>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none">expand_more</span>
+</div>
+<!-- Trap Type Filter -->
+<div class="relative">
+<select class="appearance-none bg-surface-container-low hover:bg-surface-container text-on-surface font-caption-meta text-caption-meta font-medium pl-space-md pr-8 py-2 rounded-lg cursor-pointer outline-none transition-colors" id="trapFilter">
+<option value="all">All Trap Types</option>
+<option value="conceptual">Conceptual Gap</option>
+<option value="gamble">50:50 Gamble</option>
+<option value="negative">Negative Cue Misread</option>
+<option value="image">Image Distractor Ambiguity</option>
+</select>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none">expand_more</span>
+</div>
+<!-- Sort Filter -->
+<div class="relative">
+<select class="appearance-none bg-surface-container-low hover:bg-surface-container text-on-surface font-caption-meta text-caption-meta font-medium pl-space-md pr-8 py-2 rounded-lg cursor-pointer outline-none transition-colors">
+<option>Sort: Recency (Newest)</option>
+<option>Sort: Error Frequency (High)</option>
+<option>Sort: Low Confidence First</option>
+</select>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none">swap_vert</span>
+</div>
+<button class="p-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors" title="Export Mistake Anki Deck" type="button">
+<span class="material-symbols-outlined text-[20px]">file_download</span>
+</button>
+</div>
+</section>
+<!-- Main Content Layout (Grid + Right Sticky Panel) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- Main Mistakes Column (8 cols) -->
+<div class="lg:col-span-8 flex flex-col gap-space-lg">
+<!-- CARD 1: Pharmacology (VanA/VanB Resistance) -->
+<article class="bg-surface-container-lowest rounded-2xl shadow-sm hover:shadow-md transition-all overflow-hidden flex flex-col">
+<!-- Card Header -->
+<div class="p-space-lg flex flex-wrap items-center justify-between gap-space-sm bg-surface-container-low/60">
+<div class="flex items-center gap-space-sm">
+<span class="px-2.5 py-1 rounded bg-primary-container text-on-primary font-badge-label text-badge-label uppercase tracking-wider">
+              Pharmacology
+            </span>
+<span class="font-caption-meta text-caption-meta text-on-surface-variant font-medium">Antimicrobials • ID #PH-8842</span>
+</div>
+<div class="flex items-center gap-space-md">
+<span class="flex items-center gap-1 font-caption-meta text-caption-meta text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+              Today, 08:30 AM
+            </span>
+<span class="inline-flex items-center px-2 py-0.5 rounded text-error bg-error-container font-badge-label text-badge-label font-bold uppercase">
+              Failed 2x
+            </span>
+</div>
+</div>
+<div class="p-space-lg flex flex-col gap-space-md">
+<!-- Question Stem -->
+<div>
+<h2 class="font-subheading-h3 text-subheading-h3 text-primary mb-1.5">
+              VanA vs. VanB Phenotypic Glycopeptide Resistance in Enterococcus faecium
+            </h2>
+<p class="font-body-reading text-body-reading text-on-surface">
+              A 54-year-old critically ill ICU patient with central line-associated bacteremia is found to have vancomycin-resistant <em class="italic">Enterococcus faecium</em>. Genomic profiling reveals the <strong class="font-semibold text-primary">VanA operon</strong>. Which of the following statements regarding the genetic transfer and phenotypic resistance profile of VanA vs. VanB is accurate?
+            </p>
+</div>
+<!-- Distractor vs Correct Comparative Strip -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm">
+<!-- User selection (Incorrect) -->
+<div class="p-space-md rounded-xl bg-error-container/40 flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-badge-label text-badge-label uppercase font-bold text-error flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">close</span> Your Selected Choice
+                </span>
+<span class="font-caption-meta text-caption-meta text-error font-semibold">Option D</span>
+</div>
+<p class="font-body-compact text-body-compact text-on-surface">
+                "VanA resistance is chromosomal; conveys resistance exclusively to Teicoplanin while sparing Vancomycin."
+              </p>
+</div>
+<!-- Board Correct -->
+<div class="p-space-md rounded-xl bg-surface-container-high/70 flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-badge-label text-badge-label uppercase font-bold text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">check_circle</span> Correct Answer
+                </span>
+<span class="font-caption-meta text-caption-meta text-secondary font-semibold">Option B</span>
+</div>
+<p class="font-body-compact text-body-compact text-on-surface">
+                "VanA is transposon-mediated (Tn1546), inducible, and confers dual high-level resistance to both Vancomycin and Teicoplanin."
+              </p>
+</div>
+</div>
+<!-- Trap Diagnostic Highlight -->
+<div class="p-space-md rounded-r-xl bg-tertiary-fixed/40 flex items-start gap-space-md">
+<span class="material-symbols-outlined text-tertiary-container mt-0.5">psychology_alt</span>
+<div class="flex flex-col gap-0.5">
+<span class="font-badge-label text-badge-label uppercase font-bold text-tertiary-container">
+                Trap Type: Transposon vs Chromosome Translocation Pitfall
+              </span>
+<p class="font-caption-meta text-caption-meta text-on-surface">
+                You committed a classical Board Distractor error. VanB is chromosome- or plasmid-borne and confers resistance to Vancomycin but remains susceptible to Teicoplanin. VanA confers resistance to <strong class="font-bold">both</strong> via substitution of D-Ala-D-Ala with D-Ala-D-Lac.
+              </p>
+</div>
+</div>
+<!-- Expandable Rationale Accordion (Interactive) -->
+<div class="flex flex-col">
+<button class="flex items-center justify-between py-2 text-primary font-caption-meta text-caption-meta font-bold hover:text-secondary transition-colors" onclick="this.nextElementSibling.classList.toggle('hidden'); this.querySelector('.arrow-icon').classList.toggle('rotate-180')" type="button">
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]">menu_book</span>
+                Clinical Rationale &amp; Robbins/Harrison Cross-Reference
+              </span>
+<span class="material-symbols-outlined text-[18px] arrow-icon transition-transform">expand_more</span>
+</button>
+<div class="hidden pt-space-xs pb-space-sm flex flex-col gap-space-xs text-on-surface-variant font-caption-meta text-caption-meta">
+<p>
+<strong>Mechanism:</strong> The VanA gene cluster is localized on transposon Tn1546. It alters the peptidoglycan cell wall precursor by producing D-alanyl-D-lactate instead of D-alanyl-D-alanine, leading to a 1,000-fold decrease in binding affinity for glycopeptides.
+              </p>
+<div class="flex items-center gap-space-md text-on-surface-variant">
+<span><strong>Reference:</strong> Harrison's Internal Medicine 21e, Ch. 142 (Enterococcal Infections, p. 1184)</span>
+<span>• <strong>Yield Index:</strong> 94% INI-CET/NEET-PG Match</span>
+</div>
+</div>
+</div>
+<!-- Card Actions Toolbar -->
+<div class="pt-space-sm flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<button class="px-space-md py-2 rounded-lg bg-secondary text-on-secondary font-caption-meta text-caption-meta font-bold flex items-center gap-1.5 shadow-sm hover:brightness-105 active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">play_circle</span>
+                Launch 5-Q Re-drill
+              </button>
+<button class="px-space-md py-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-caption-meta text-caption-meta font-semibold transition-colors flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[16px]">bookmark_remove</span>
+                Remove Flag
+              </button>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="p-2 rounded-lg hover:bg-surface-container-low text-on-surface-variant hover:text-on-surface transition-colors" title="Add Private Note" type="button">
+<span class="material-symbols-outlined text-[18px]">edit_note</span>
+</button>
+<button class="p-2 rounded-lg hover:bg-surface-container-low text-on-surface-variant hover:text-on-surface transition-colors" title="Add to SRS Anki Flashcards" type="button">
+<span class="material-symbols-outlined text-[18px]">add_task</span>
+</button>
+</div>
+</div>
+</div>
+</article>
+<!-- CARD 2: Pathology (Rapidly Progressive Crescentic GN) -->
+<article class="bg-surface-container-lowest rounded-2xl shadow-sm hover:shadow-md transition-all overflow-hidden flex flex-col">
+<div class="p-space-lg flex flex-wrap items-center justify-between gap-space-sm bg-surface-container-low/60">
+<div class="flex items-center gap-space-sm">
+<span class="px-2.5 py-1 rounded bg-primary-container text-on-primary font-badge-label text-badge-label uppercase tracking-wider">
+              Pathology
+            </span>
+<span class="font-caption-meta text-caption-meta text-on-surface-variant font-medium">Renal System • Histopathology Stem #PA-1049</span>
+</div>
+<div class="flex items-center gap-space-md">
+<span class="flex items-center gap-1 font-caption-meta text-caption-meta text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+              Yesterday, 18:45 PM
+            </span>
+<span class="inline-flex items-center px-2 py-0.5 rounded text-tertiary-container bg-tertiary-fixed font-badge-label text-badge-label font-bold uppercase">
+              1st Mistake
+            </span>
+</div>
+</div>
+<div class="p-space-lg flex flex-col gap-space-md">
+<!-- Two-column stem with visual placeholder -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-md">
+<div class="md:col-span-8 flex flex-col gap-space-xs">
+<h2 class="font-subheading-h3 text-subheading-h3 text-primary">
+                Pauci-Immune Crescentic Glomerulonephritis (Granulomatosis with Polyangiitis)
+              </h2>
+<p class="font-body-reading text-body-reading text-on-surface">
+                A 42-year-old male presents with hemoptysis, recurrent sinusitis, acute oliguria, and serum creatinine 4.8 mg/dL. Renal core biopsy stained with Silver Methenamine reveals cellular crescent formation compressing the glomerular capillary tuft in &gt;65% of glomeruli. Immunofluorescence shows faint, non-specific immunoglobulin deposition.
+              </p>
+</div>
+<div class="md:col-span-4 rounded-xl overflow-hidden relative shadow-sm h-32 md:h-auto min-h-[120px]">
+<img class="w-full h-full object-cover" data-alt="Microscopic histopathology high power field showing cellular crescent formation in Bowman space compressing the capillary tuft, with dark silver methenamine stained basement membranes in a clinical pathology laboratory setting, blue and violet hematoxylin tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0ilKzIwm3cgqlmVlHPPnxg2QUV6vQ9Ad6oaH-MiNsUKyokojkFvCAD2ST0OvADYc_f7114hL80Epm9Nqp5QME2uFvQYOQvC3LTd-mz8BxGLZg1t4KLAB6bioyNA77oMVDRnya6VdoMnoG_kZnMP8xEASBsyYQsm0MDKXNezmJdkqLYx_8_oQ2_2lXvlhuOEcuut7-s89jm8NQhsbfHEzabI0yz8MrRqCAnsfAl3B5u8bS33G1kuPs"/>
+<div class="absolute bottom-1.5 left-1.5 px-2 py-0.5 rounded bg-inverse-surface/80 text-inverse-on-surface font-badge-label text-badge-label">
+                H&amp;E / Silver Stain
+              </div>
+</div>
+</div>
+<!-- Distractor comparison -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm">
+<div class="p-space-md rounded-xl bg-error-container/40 flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-badge-label text-badge-label uppercase font-bold text-error flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">close</span> Selected Distractor
+                </span>
+<span class="font-caption-meta text-caption-meta text-error font-semibold">Option A</span>
+</div>
+<p class="font-body-compact text-body-compact text-on-surface">
+                "Goodpasture Syndrome: Linear IgG along basement membrane"
+              </p>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-high/70 flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-badge-label text-badge-label uppercase font-bold text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">check_circle</span> Correct Answer
+                </span>
+<span class="font-caption-meta text-caption-meta text-secondary font-semibold">Option C</span>
+</div>
+<p class="font-body-compact text-body-compact text-on-surface">
+                "GPA / c-ANCA (PR3) Pauci-Immune RPGN Type III"
+              </p>
+</div>
+</div>
+<!-- Trap Diagnostic -->
+<div class="p-space-md rounded-r-xl bg-surface-container-highest flex items-start gap-space-md">
+<span class="material-symbols-outlined text-primary mt-0.5">image_aspect_ratio</span>
+<div class="flex flex-col gap-0.5">
+<span class="font-badge-label text-badge-label uppercase font-bold text-primary">
+                Trap Type: Image Distractor Ambiguity • IF Pattern Overlook
+              </span>
+<p class="font-caption-meta text-caption-meta text-on-surface">
+                You latched onto hemoptysis + renal failure and jumped to Anti-GBM (Goodpasture). However, the stem specified <em>"faint, non-specific immunoglobulin deposition"</em> (Pauci-Immune). Goodpasture requires smooth linear IgG ribbon deposition.
+              </p>
+</div>
+</div>
+<div class="pt-space-sm flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<button class="px-space-md py-2 rounded-lg bg-secondary text-on-secondary font-caption-meta text-caption-meta font-bold flex items-center gap-1.5 shadow-sm hover:brightness-105 active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">play_circle</span>
+                Launch 5-Q Re-drill
+              </button>
+<button class="px-space-md py-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-caption-meta text-caption-meta font-semibold transition-colors flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[16px]">bookmark_remove</span>
+                Remove Flag
+              </button>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="p-2 rounded-lg hover:bg-surface-container-low text-on-surface-variant hover:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">edit_note</span>
+</button>
+<button class="p-2 rounded-lg hover:bg-surface-container-low text-on-surface-variant hover:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">add_task</span>
+</button>
+</div>
+</div>
+</div>
+</article>
+<!-- CARD 3: General Medicine · Cardiology (Pheochromocytoma Beta-Blockers) -->
+<article class="bg-surface-container-lowest rounded-2xl shadow-sm hover:shadow-md transition-all overflow-hidden flex flex-col">
+<div class="p-space-lg flex flex-wrap items-center justify-between gap-space-sm bg-surface-container-low/60">
+<div class="flex items-center gap-space-sm">
+<span class="px-2.5 py-1 rounded bg-primary-container text-on-primary font-badge-label text-badge-label uppercase tracking-wider">
+              General Medicine
+            </span>
+<span class="font-caption-meta text-caption-meta text-on-surface-variant font-medium">Cardiology • Endocrine Emergencies #GM-4120</span>
+</div>
+<div class="flex items-center gap-space-md">
+<span class="flex items-center gap-1 font-caption-meta text-caption-meta text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+              2 Days Ago
+            </span>
+<span class="inline-flex items-center px-2 py-0.5 rounded text-error bg-error-container font-badge-label text-badge-label font-bold uppercase">
+              Failed 3x
+            </span>
+</div>
+</div>
+<div class="p-space-lg flex flex-col gap-space-md">
+<div>
+<h2 class="font-subheading-h3 text-subheading-h3 text-primary mb-1.5">
+              Sequencing of Adrenergic Blockade in Pheochromocytoma Resection
+            </h2>
+<p class="font-body-reading text-body-reading text-on-surface">
+              A 38-year-old woman with severe paroxysmal hypertension, palpitations, and elevated 24-hour urinary metanephrines is scheduled for adrenalectomy. Blood pressure is 198/112 mmHg with heart rate 124 bpm. Which pharmacological sequence is mandatory before operating?
+            </p>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm">
+<div class="p-space-md rounded-xl bg-error-container/40 flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-badge-label text-badge-label uppercase font-bold text-error flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">close</span> Selected Distractor
+                </span>
+<span class="font-caption-meta text-caption-meta text-error font-semibold">Option B</span>
+</div>
+<p class="font-body-compact text-body-compact text-on-surface">
+                "Initiate Propranolol or Atenolol immediately to control severe reflex tachycardia, then titrate Phenoxybenzamine."
+              </p>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-high/70 flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-badge-label text-badge-label uppercase font-bold text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">check_circle</span> Correct Answer
+                </span>
+<span class="font-caption-meta text-caption-meta text-secondary font-semibold">Option D</span>
+</div>
+<p class="font-body-compact text-body-compact text-on-surface">
+                "Alpha-blockade FIRST with Phenoxybenzamine for 10-14 days; Beta-blockers added ONLY after effective alpha blockade is established."
+              </p>
+</div>
+</div>
+<div class="p-space-md rounded-r-xl bg-error-container/60 flex items-start gap-space-md">
+<span class="material-symbols-outlined text-error mt-0.5">crisis_alert</span>
+<div class="flex flex-col gap-0.5">
+<span class="font-badge-label text-badge-label uppercase font-bold text-error">
+                Trap Type: Unopposed Alpha-1 Vasoconstriction Lethal Contraindication
+              </span>
+<p class="font-caption-meta text-caption-meta text-on-surface">
+                Classic board lethal error: Beta-blockade before alpha-blockade eliminates beta-2 mediated vasodilation in skeletal muscle vascular beds, leaving pure, unopposed alpha-1 stimulation. This precipitates fatal hypertensive crises and acute pulmonary edema.
+              </p>
+</div>
+</div>
+<div class="pt-space-sm flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<button class="px-space-md py-2 rounded-lg bg-secondary text-on-secondary font-caption-meta text-caption-meta font-bold flex items-center gap-1.5 shadow-sm hover:brightness-105 active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">play_circle</span>
+                Launch 5-Q Re-drill
+              </button>
+<button class="px-space-md py-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-caption-meta text-caption-meta font-semibold transition-colors flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[16px]">bookmark_remove</span>
+                Remove Flag
+              </button>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="p-2 rounded-lg hover:bg-surface-container-low text-on-surface-variant hover:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">edit_note</span>
+</button>
+<button class="p-2 rounded-lg hover:bg-surface-container-low text-on-surface-variant hover:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">add_task</span>
+</button>
+</div>
+</div>
+</div>
+</article>
+<!-- CARD 4: Pediatrics · Neonatal Jaundice (Ceftriaxone Bilirubin Displacement) -->
+<article class="bg-surface-container-lowest rounded-2xl shadow-sm hover:shadow-md transition-all overflow-hidden flex flex-col">
+<div class="p-space-lg flex flex-wrap items-center justify-between gap-space-sm bg-surface-container-low/60">
+<div class="flex items-center gap-space-sm">
+<span class="px-2.5 py-1 rounded bg-primary-container text-on-primary font-badge-label text-badge-label uppercase tracking-wider">
+              Pediatrics
+            </span>
+<span class="font-caption-meta text-caption-meta text-on-surface-variant font-medium">Neonatology &amp; Therapeutics #PED-2911</span>
+</div>
+<div class="flex items-center gap-space-md">
+<span class="flex items-center gap-1 font-caption-meta text-caption-meta text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+              3 Days Ago
+            </span>
+<span class="inline-flex items-center px-2 py-0.5 rounded text-secondary bg-surface-container-high font-badge-label text-badge-label font-bold uppercase">
+              Resolved in Mock #4
+            </span>
+</div>
+</div>
+<div class="p-space-lg flex flex-col gap-space-md">
+<div>
+<h2 class="font-subheading-h3 text-subheading-h3 text-primary mb-1.5">
+              Empirical Sepsis Regimen in Jaundiced Neonates (&lt;28 Days)
+            </h2>
+<p class="font-body-reading text-body-reading text-on-surface">
+              A 12-day-old neonate with physiological jaundice is admitted for suspected late-onset sepsis. Which third-generation cephalosporin is explicitly contraindicated due to risk of kernicterus?
+            </p>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm">
+<div class="p-space-md rounded-xl bg-error-container/40 flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-badge-label text-badge-label uppercase font-bold text-error flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">close</span> Selected Distractor
+                </span>
+<span class="font-caption-meta text-caption-meta text-error font-semibold">Option C</span>
+</div>
+<p class="font-body-compact text-body-compact text-on-surface">
+                "Cefotaxime (due to immature biliary excretion kinetics)"
+              </p>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-high/70 flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-badge-label text-badge-label uppercase font-bold text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">check_circle</span> Correct Answer
+                </span>
+<span class="font-caption-meta text-caption-meta text-secondary font-semibold">Option A</span>
+</div>
+<p class="font-body-compact text-body-compact text-on-surface">
+                "Ceftriaxone (displaces unconjugated bilirubin from albumin binding sites)"
+              </p>
+</div>
+</div>
+<div class="p-space-md rounded-r-xl bg-surface-container-highest flex items-start gap-space-md">
+<span class="material-symbols-outlined text-secondary mt-0.5">published_with_changes</span>
+<div class="flex flex-col gap-0.5">
+<span class="font-badge-label text-badge-label uppercase font-bold text-secondary">
+                Trap Type: Negative Drug Substitution Cue
+              </span>
+<p class="font-caption-meta text-caption-meta text-on-surface">
+                Cefotaxime is the agent of choice in neonates. Ceftriaxone avidly binds to serum albumin and unseats unconjugated bilirubin, markedly increasing free indirect bilirubin capable of crossing the blood-brain barrier into basal ganglia (Kernicterus).
+              </p>
+</div>
+</div>
+<div class="pt-space-sm flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<button class="px-space-md py-2 rounded-lg bg-surface-container-high text-primary font-caption-meta text-caption-meta font-bold flex items-center gap-1.5 shadow-sm hover:bg-surface-container transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+                Review Rationale
+              </button>
+<button class="px-space-md py-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-caption-meta text-caption-meta font-semibold transition-colors flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[16px]">check</span>
+                Keep in Mastered Bank
+              </button>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="font-badge-label text-badge-label text-secondary font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">verified</span> Remediated in Grand Test 04
+              </span>
+</div>
+</div>
+</div>
+</article>
+</div>
+<!-- Right Side Sticky Analytics & Action Panel (4 cols) -->
+<aside class="lg:col-span-4 flex flex-col gap-space-lg sticky top-20">
+<!-- Rapid Mistake Sprint Action Card -->
+<div class="rounded-2xl bg-gradient-to-br from-primary-container to-primary text-on-primary p-space-lg shadow-md flex flex-col gap-space-md relative overflow-hidden">
+<div class="absolute -right-8 -bottom-8 w-32 h-32 bg-secondary/20 rounded-full blur-2xl"></div>
+<div class="flex items-center justify-between relative z-10">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-secondary text-on-secondary font-badge-label text-badge-label uppercase tracking-wider">
+            Fast Drill
+          </span>
+<span class="font-caption-meta text-caption-meta text-on-primary-container">Adaptive AI Mode</span>
+</div>
+<div class="flex flex-col gap-1 relative z-10">
+<h2 class="font-headline-h2 text-headline-h2 text-on-primary">
+            Launch Rapid Mistake Sprint
+          </h2>
+<p class="font-caption-meta text-caption-meta text-on-primary-container">
+            Target your 16 unresolved errors in a customized 15-MCQ rapid-fire session calibrated to today's weakest domains.
+          </p>
+</div>
+<div class="grid grid-cols-3 gap-2 bg-inverse-surface/40 p-space-sm rounded-xl relative z-10 text-center">
+<div class="flex flex-col">
+<span class="font-subheading-h3 text-subheading-h3 font-bold text-on-primary">15</span>
+<span class="font-badge-label text-badge-label text-on-primary-container">High-Yield Qs</span>
+</div>
+<div class="flex flex-col">
+<span class="font-subheading-h3 text-subheading-h3 font-bold text-on-primary">18m</span>
+<span class="font-badge-label text-badge-label text-on-primary-container">Est. Time</span>
+</div>
+<div class="flex flex-col">
+<span class="font-subheading-h3 text-subheading-h3 font-bold text-secondary-fixed">+14%</span>
+<span class="font-badge-label text-badge-label text-on-primary-container">Score Lift</span>
+</div>
+</div>
+<button class="w-full py-3 rounded-xl bg-secondary text-on-secondary font-subheading-h3 text-subheading-h3 font-bold flex items-center justify-center gap-2 shadow-md hover:brightness-110 active:scale-98 transition-all relative z-10" type="button">
+<span class="material-symbols-outlined text-[20px]">bolt</span>
+          Start 15-MCQ Sprint Now
+        </button>
+</div>
+<!-- Mistake Attribution Breakdown Widget -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-h2 text-subheading-h3 text-primary">Mistake Attribution</h2>
+<span class="font-caption-meta text-caption-meta text-on-surface-variant font-medium">Last 30 Days</span>
+</div>
+<!-- Progress Distribution Stack -->
+<div class="w-full h-3 rounded-full bg-surface-container-low overflow-hidden flex shadow-inner">
+<div class="h-full bg-primary" style="width: 46%" title="Conceptual Gaps: 46%"></div>
+<div class="h-full bg-secondary" style="width: 28%" title="50:50 Gamble: 28%"></div>
+<div class="h-full bg-error" style="width: 26%" title="Negative Cue Misread: 26%"></div>
+</div>
+<!-- Breakdown List with Percentages -->
+<div class="flex flex-col gap-space-sm pt-space-xs">
+<!-- Item 1 -->
+<div class="flex items-center justify-between p-space-xs rounded-lg hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-space-sm">
+<span class="w-3 h-3 rounded-full bg-primary flex-shrink-0"></span>
+<div class="flex flex-col">
+<span class="font-caption-meta text-caption-meta font-bold text-on-surface">Conceptual Gaps</span>
+<span class="font-badge-label text-badge-label text-on-surface-variant">Mechanism / Pathophysiology</span>
+</div>
+</div>
+<span class="font-subheading-h3 text-subheading-h3 font-bold text-primary">46%</span>
+</div>
+<!-- Item 2 -->
+<div class="flex items-center justify-between p-space-xs rounded-lg hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-space-sm">
+<span class="w-3 h-3 rounded-full bg-secondary flex-shrink-0"></span>
+<div class="flex flex-col">
+<span class="font-caption-meta text-caption-meta font-bold text-on-surface">50:50 Gamble Guesswork</span>
+<span class="font-badge-label text-badge-label text-on-surface-variant">Eliminated down to 2 choices</span>
+</div>
+</div>
+<span class="font-subheading-h3 text-subheading-h3 font-bold text-secondary">28%</span>
+</div>
+<!-- Item 3 -->
+<div class="flex items-center justify-between p-space-xs rounded-lg hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-space-sm">
+<span class="w-3 h-3 rounded-full bg-error flex-shrink-0"></span>
+<div class="flex flex-col">
+<span class="font-caption-meta text-caption-meta font-bold text-on-surface">Negative Cue Misread</span>
+<span class="font-badge-label text-badge-label text-on-surface-variant">Overlooked "EXCEPT / NOT"</span>
+</div>
+</div>
+<span class="font-subheading-h3 text-subheading-h3 font-bold text-error">26%</span>
+</div>
+</div>
+<div class="p-space-sm rounded-xl bg-surface-container-low flex items-center justify-between">
+<span class="font-caption-meta text-caption-meta text-on-surface-variant">Cognitive Bias Alert</span>
+<span class="font-caption-meta text-caption-meta font-bold text-error">Premature Closure</span>
+</div>
+</div>
+<!-- High-Yield Clinical Pearl Banner -->
+<div class="rounded-2xl bg-surface-container-lowest border-l-4 border-tertiary-container p-space-lg shadow-sm flex flex-col gap-space-sm relative overflow-hidden">
+<div class="flex items-center justify-between">
+<span class="inline-flex items-center gap-1 font-badge-label text-badge-label uppercase font-bold text-tertiary-container">
+<span class="material-symbols-outlined text-[16px]">local_fire_department</span>
+            High-Yield Pearl of the Day
+          </span>
+<span class="font-badge-label text-badge-label px-2 py-0.5 rounded bg-tertiary-fixed text-tertiary-container">NEET-PG Priority</span>
+</div>
+<h3 class="font-subheading-h3 text-subheading-h3 text-primary">
+          The Rule of Halves: Adrenal Crisis &amp; Addisonian Hyponatremia
+        </h3>
+<p class="font-caption-meta text-caption-meta text-on-surface leading-relaxed">
+          In Primary Adrenal Insufficiency (Addison's), both mineralocorticoid AND glucocorticoid deficiencies cause severe <strong class="font-semibold text-primary">hyperkalemia with hyponatremia</strong>. In contrast, Secondary Adrenal Insufficiency (Pituitary ACTH failure) presents with normal aldosterone levels, so serum potassium remains entirely normal.
+        </p>
+<div class="flex items-center justify-between pt-space-xs">
+<span class="font-badge-label text-badge-label text-on-surface-variant">Source: Harrison Endocrine Ch. 379</span>
+<button class="text-secondary font-caption-meta text-caption-meta font-bold hover:underline flex items-center gap-0.5" type="button">
+            Save to Flashcards <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Spaced Repetition Due Queue -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<h2 class="font-subheading-h3 text-subheading-h3 text-primary">SRS Due Schedule</h2>
+<span class="font-badge-label text-badge-label text-secondary font-bold">7 CARDS READY</span>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between p-2 rounded-lg bg-surface-container-low font-caption-meta text-caption-meta">
+<span class="text-on-surface font-medium truncate max-w-[180px]">Lambert-Eaton vs Myasthenia</span>
+<span class="text-error font-bold">Overdue (2h)</span>
+</div>
+<div class="flex items-center justify-between p-2 rounded-lg bg-surface-container-low font-caption-meta text-caption-meta">
+<span class="text-on-surface font-medium truncate max-w-[180px]">Warfarin Skin Necrosis (Protein C)</span>
+<span class="text-on-surface-variant font-medium">Due in 4h</span>
+</div>
+<div class="flex items-center justify-between p-2 rounded-lg bg-surface-container-low font-caption-meta text-caption-meta">
+<span class="text-on-surface font-medium truncate max-w-[180px]">Type 1 vs Type 2 Error (Beta Risk)</span>
+<span class="text-on-surface-variant font-medium">Due in 6h</span>
+</div>
+</div>
+<button class="w-full mt-1 py-2 rounded-lg bg-surface-container-high hover:bg-surface-container text-primary font-caption-meta text-caption-meta font-bold transition-colors text-center" type="button">
+          Review SRS Flashcard Stack
+        </button>
+</div>
+</aside>
+</div>
+</div>
+<script>
+  // Exam switcher interaction
+  document.querySelectorAll('.exam-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.exam-tab').forEach(t => {
+        t.classList.remove('bg-surface-container-lowest', 'text-primary', 'shadow-sm');
+        t.classList.add('text-on-surface-variant');
+      });
+      tab.classList.add('bg-surface-container-lowest', 'text-primary', 'shadow-sm');
+      tab.classList.remove('text-on-surface-variant');
+    });
+  });
+
+  // Client-side quick filter simulation
+  const searchInput = document.getElementById('mistakeSearch');
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase();
+      document.querySelectorAll('article').forEach(card => {
+        const text = card.innerText.toLowerCase();
+        card.style.display = text.includes(query) ? 'flex' : 'none';
+      });
+    });
+  }
+</script></main></div></body></html>

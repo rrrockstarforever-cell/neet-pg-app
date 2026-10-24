@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="web_dashboard" name="shell-type"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+  </style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-dim": "#d2daeb",
+            "surface-container-highest": "#dbe3f3",
+            "surface": "#f8f9ff",
+            "on-tertiary-fixed-variant": "#663e00",
+            "tertiary-container": "#3e2300",
+            "on-tertiary-container": "#c7811d",
+            "primary-container": "#13294b",
+            "on-surface": "#141c28",
+            "on-surface-variant": "#44474e",
+            "on-error": "#ffffff",
+            "background": "#f8f9ff",
+            "on-primary": "#ffffff",
+            "on-secondary": "#ffffff",
+            "inverse-primary": "#b2c7f1",
+            "on-error-container": "#93000a",
+            "primary-fixed": "#d7e3ff",
+            "error": "#ba1a1a",
+            "primary": "#001432",
+            "error-container": "#ffdad6",
+            "on-tertiary": "#ffffff",
+            "on-secondary-container": "#007072",
+            "secondary-fixed": "#8ff3f4",
+            "inverse-on-surface": "#ebf1ff",
+            "on-secondary-fixed": "#002020",
+            "surface-variant": "#dbe3f3",
+            "tertiary-fixed-dim": "#ffb963",
+            "surface-container-lowest": "#ffffff",
+            "surface-bright": "#f8f9ff",
+            "tertiary-fixed": "#ffddb9",
+            "surface-container": "#e6eeff",
+            "on-secondary-fixed-variant": "#004f51",
+            "tertiary": "#221100",
+            "outline-variant": "#c4c6cf",
+            "secondary": "#00696b",
+            "primary-fixed-dim": "#b2c7f1",
+            "on-primary-fixed-variant": "#33476a",
+            "on-tertiary-fixed": "#2b1700",
+            "inverse-surface": "#29313d",
+            "on-primary-fixed": "#021b3d",
+            "secondary-fixed-dim": "#72d6d8",
+            "on-background": "#141c28",
+            "surface-tint": "#4b5f84",
+            "on-primary-container": "#7d91b9",
+            "outline": "#74777f",
+            "secondary-container": "#8ff3f4",
+            "surface-container-high": "#e1e8f9",
+            "surface-container-low": "#eff3ff"
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          spacing: {
+            "margin": "1rem",
+            "space-md": "0.75rem",
+            "space-xl": "1.5rem",
+            "gutter-desktop": "1.5rem",
+            "space-lg": "1rem",
+            "space-xs": "0.25rem",
+            "gutter-tablet": "1.25rem",
+            "gutter": "1rem",
+            "margin-desktop": "2.25rem",
+            "margin-tablet": "1.5rem",
+            "space-sm": "0.5rem"
+          },
+          fontFamily: {
+            "headline-h2": ["Inter"],
+            "badge-label": ["Inter"],
+            "subheading-h3": ["Inter"],
+            "display-lg-mobile": ["Inter"],
+            "display-lg": ["Inter"],
+            "headline-h1": ["Inter"],
+            "body-compact": ["Inter"],
+            "stat-numeral": ["Inter"],
+            "caption-meta": ["Inter"],
+            "body-reading": ["Inter"]
+          },
+          fontSize: {
+            "headline-h2": ["18px", { "lineHeight": "24px", "fontWeight": "700" }],
+            "badge-label": ["11px", { "lineHeight": "14px", "fontWeight": "700" }],
+            "subheading-h3": ["16px", { "lineHeight": "22px", "fontWeight": "600" }],
+            "display-lg-mobile": ["24px", { "lineHeight": "30px", "fontWeight": "800" }],
+            "display-lg": ["28px", { "lineHeight": "34px", "fontWeight": "800" }],
+            "headline-h1": ["22px", { "lineHeight": "28px", "fontWeight": "700" }],
+            "body-compact": ["14px", { "lineHeight": "22px", "fontWeight": "400" }],
+            "stat-numeral": ["30px", { "lineHeight": "36px", "fontWeight": "800" }],
+            "caption-meta": ["13px", { "lineHeight": "18px", "fontWeight": "500" }],
+            "body-reading": ["15px", { "lineHeight": "24px", "fontWeight": "400" }]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-background font-body-compact text-on-surface antialiased">
+<!-- Desktop Sidebar Navigation -->
+<aside class="fixed left-0 top-0 h-screen w-72 bg-surface-container-low flex flex-col z-50 border-r border-[#e2e8f0]/80 shadow-[0_1px_8px_rgba(0,0,0,0.03)]">
+<!-- Brand & Exam Toggle -->
+<div class="p-space-lg flex flex-col gap-space-sm bg-surface-container-low border-b border-[#e2e8f0]/70">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-primary-container flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-secondary-fixed text-[20px]">ecg_heart</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-h2 text-headline-h2 tracking-tight text-primary leading-none">PULSE MED</span>
+<span class="font-badge-label text-[10px] text-secondary uppercase tracking-widest font-bold">NEET PG / AMC CAT</span>
+</div>
+</div>
+<!-- Exam Selector Switch -->
+<div class="grid grid-cols-2 p-1 bg-surface-container rounded-lg gap-1 mt-1">
+<button class="py-1.5 text-center font-badge-label text-badge-label rounded bg-surface-container-lowest text-primary shadow-sm font-bold flex items-center justify-center gap-1" type="button">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+          NEET PG
+        </button>
+<button class="py-1.5 text-center font-badge-label text-badge-label rounded text-on-surface-variant hover:text-on-surface transition-colors" type="button">
+          AMC CLINICAL
+        </button>
+</div>
+<div class="flex items-center justify-between px-space-sm py-1 bg-surface-container/60 rounded text-[11px] text-on-surface-variant">
+<span>Target Stream</span>
+<span class="font-bold text-secondary">High-Yield Tier · RAG Active</span>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex-1 overflow-y-auto px-space-sm py-space-sm flex flex-col gap-0.5" data-active-classes="bg-primary text-on-primary font-semibold shadow-sm">
+<a class="flex items-center gap-space-sm px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="library" href="#">
+<span class="material-symbols-outlined text-[20px]">local_library</span>
+<span class="font-body-compact text-body-compact flex-1">Library (PDF &amp; Books)</span>
+<span class="text-[10px] px-1.5 py-0.5 rounded bg-white/20 font-bold">8</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="ai-chat-knowledge-engine" href="#">
+<span class="material-symbols-outlined text-[20px]">neurology</span>
+<span class="font-body-compact text-body-compact">AI Knowledge Engine</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="ask-your-books" href="#">
+<span class="material-symbols-outlined text-[20px]">menu_book</span>
+<span class="font-body-compact text-body-compact">Ask Your Books (RAG)</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="search-medical-index" href="#">
+<span class="material-symbols-outlined text-[20px]">clinical_notes</span>
+<span class="font-body-compact text-body-compact">Medical Index &amp; Topics</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="practice-module-builder" href="#">
+<span class="material-symbols-outlined text-[20px]">handyman</span>
+<span class="font-body-compact text-body-compact">Practice &amp; Modules</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="test-runner-active-exam" href="#">
+<span class="material-symbols-outlined text-[20px]">timer</span>
+<span class="font-body-compact text-body-compact">Test Runner &amp; Exam</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="review-mistake-notebook" href="#">
+<span class="material-symbols-outlined text-[20px]">edit_note</span>
+<span class="font-body-compact text-body-compact">Mistake Notebook &amp; Review</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="performance-analytics" href="#">
+<span class="material-symbols-outlined text-[20px]">monitoring</span>
+<span class="font-body-compact text-body-compact">Performance Analytics</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="highlights-saved" href="#">
+<span class="material-symbols-outlined text-[20px]">bookmark</span>
+<span class="font-body-compact text-body-compact">Highlights &amp; Saved</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="clinical-browser" href="#">
+<span class="material-symbols-outlined text-[20px]">travel_explore</span>
+<span class="font-body-compact text-body-compact">Clinical Browser</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="settings-ai-subscriptions" href="#">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+<span class="font-body-compact text-body-compact">Settings &amp; AI Engine</span>
+</a>
+</nav>
+<!-- Bottom Status Panel -->
+<div class="p-space-md bg-surface-container-low border-t border-[#e2e8f0]/80 flex flex-col gap-space-xs">
+<div class="flex items-center justify-between px-space-sm py-1.5 rounded-lg bg-surface-container-high">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[16px]">schedule</span>
+<span class="font-badge-label text-badge-label text-on-surface">Exam in 58 Days</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="font-badge-label text-badge-label text-secondary font-bold">OCR Live</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1 px-space-xs text-on-surface-variant">
+<button class="flex items-center gap-space-xs hover:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">contrast</span>
+<span class="font-caption-meta text-[12px]">Light / Dark</span>
+</button>
+<span class="font-caption-meta text-[11px]">Pulse Med v2.5</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Area with Pl-72 -->
+<div class="pl-72">
+<!-- Top Header Bar -->
+<header class="fixed top-0 left-72 right-0 h-16 bg-surface/90 backdrop-blur-xl z-40 border-b border-[#e2e8f0]/80 shadow-[0_1px_6px_rgba(0,0,0,0.02)]">
+<div class="w-full h-16 px-space-xl flex items-center justify-between gap-space-lg">
+<!-- Deep Clinical Search -->
+<div class="flex-1 max-w-2xl">
+<div class="flex items-center w-full bg-surface-container px-space-md py-2 rounded-lg gap-space-sm text-on-surface-variant border border-transparent focus-within:border-secondary/40 focus-within:bg-surface-container-lowest transition-all">
+<span class="material-symbols-outlined text-[20px] text-secondary">search</span>
+<input class="bg-transparent border-none outline-none font-body-compact text-body-compact text-on-surface placeholder:text-outline w-full" placeholder="Search textbooks, chapters, drug tables, Robbins histology diagrams..." type="text"/>
+<span class="text-[11px] font-mono px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface-variant border border-outline-variant/30">⌘K</span>
+</div>
+</div>
+<!-- Pace / resident header controls -->
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-space-xs px-space-md py-1.5 bg-surface-container rounded-full border border-[#e2e8f0]">
+<span class="material-symbols-outlined text-secondary text-[18px]">speed</span>
+<span class="font-badge-label text-badge-label text-on-surface uppercase tracking-wide">Pace: 1.1 m/Q</span>
+</div>
+<button class="relative p-2 text-on-surface-variant hover:text-on-surface transition-colors rounded-lg hover:bg-surface-container" type="button">
+<span class="material-symbols-outlined text-[22px]">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-error ring-2 ring-surface"></span>
+</button>
+<div class="flex items-center gap-space-sm pl-space-xs border-l border-[#e2e8f0]">
+<div class="flex flex-col text-right hidden sm:flex">
+<span class="font-caption-meta text-caption-meta font-bold text-primary leading-tight">Dr. Arya Sharma</span>
+<span class="font-badge-label text-[10px] text-on-surface-variant">MBBS · Res ID #9042</span>
+</div>
+<div class="w-9 h-9 rounded-full bg-primary flex items-center justify-center text-on-primary ring-2 ring-secondary/20 font-bold text-xs shadow-sm">
+              AS
+            </div>
+</div>
+</div>
+</div>
+</header>
+<!-- Page Body -->
+<main class="relative pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<div class="w-full px-space-lg lg:px-margin-desktop py-space-xl flex flex-col gap-space-xl max-w-[1440px] mx-auto">
+<!-- Header Section with Medical Authority & Visual Texture -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-lg relative">
+<div class="flex flex-col max-w-3xl">
+<div class="flex items-center gap-space-sm mb-space-xs">
+<span class="px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-badge-label text-badge-label tracking-wide uppercase flex items-center gap-1 shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-ping"></span>
+            MeSH &amp; ICD-11 Syn-Layer v3.4
+          </span>
+<span class="text-on-surface-variant font-caption-meta text-caption-meta">Vector Embeddings: text-embedding-3-large (3072d)</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-primary tracking-tight">
+          Semantic Medical Search &amp; Synonym Engine
+        </h1>
+<p class="font-body-reading text-body-reading text-on-surface-variant mt-space-xs">
+          Search across all indexed medical textbooks and lecture notes. AI query expansion maps colloquial clinical phrases to standardized MeSH terms, ICD-11 entities, and high-yield textbook terminology.
+        </p>
+</div>
+<!-- Quick Telemetry Chiplet -->
+<div class="flex items-center gap-space-sm bg-surface-container-low px-space-md py-2.5 rounded-xl shadow-sm self-start md:self-auto">
+<div class="w-8 h-8 rounded-lg bg-secondary/15 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[20px]">hub</span>
+</div>
+<div class="flex flex-col">
+<span class="font-badge-label text-badge-label text-on-surface-variant uppercase">Corpus Index State</span>
+<span class="font-subheading-h3 text-subheading-h3 text-primary leading-tight">8 Textbooks · 1.42M Chunks</span>
+</div>
+</div>
+</div>
+<!-- Core Search Console (Hero Bento Component) -->
+<section class="bg-surface-container-lowest rounded-2xl p-space-lg md:p-space-xl shadow-sm relative overflow-hidden">
+<!-- Subtle Teal Ambient Glow -->
+<div class="absolute -right-24 -top-24 w-80 h-80 bg-secondary-container/20 rounded-full blur-3xl pointer-events-none"></div>
+<div class="flex flex-col gap-space-lg relative z-10">
+<!-- Input Row -->
+<div class="flex flex-col lg:flex-row items-stretch gap-space-md">
+<div class="flex-1 flex items-center bg-surface-container px-space-lg py-3 rounded-xl gap-space-md shadow-inner transition-all focus-within:bg-surface-container-lowest focus-within:shadow-[0_0_0_2px_#00696b]">
+<span class="material-symbols-outlined text-secondary text-[24px]">search</span>
+<input class="w-full bg-transparent border-none outline-none font-subheading-h3 text-subheading-h3 text-primary placeholder:text-outline" id="medical-query-input" placeholder="e.g. floppy infant syndrome, Horner syndrome triad, vancomycin resistance mechanism..." type="text" value="vancomycin resistance mechanism"/>
+<button class="p-1 text-on-surface-variant hover:text-primary transition-colors" title="Clear query">
+<span class="material-symbols-outlined text-[18px]">cancel</span>
+</button>
+</div>
+<!-- Subject Scope Filter -->
+<div class="relative min-w-[220px]">
+<select class="w-full h-full bg-surface-container hover:bg-surface-container-high text-primary font-caption-meta text-caption-meta font-semibold px-space-lg py-3 rounded-xl appearance-none cursor-pointer pr-10 border-none outline-none transition-colors">
+<option>All Subjects (8 Books)</option>
+<option>Microbiology &amp; Virology</option>
+<option>Internal Medicine (Harrison's)</option>
+<option>Pathology (Robbins 10th Ed)</option>
+<option>Pharmacology &amp; Antimicrobials</option>
+<option>Pediatrics (Nelson)</option>
+</select>
+<span class="material-symbols-outlined pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">expand_more</span>
+</div>
+<!-- Search Action Button -->
+<button class="px-space-xl py-3.5 bg-secondary text-on-secondary rounded-xl font-subheading-h3 text-subheading-h3 font-bold hover:brightness-110 active:scale-[0.99] transition-all flex items-center justify-center gap-space-sm shadow-md shadow-secondary/20">
+<span class="material-symbols-outlined text-[20px]">bolt</span>
+<span>Search Repository</span>
+</button>
+</div>
+<!-- Controls, Toggles, & Expansion Badge -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-md pt-space-xs">
+<label class="flex items-center gap-space-sm cursor-pointer select-none group">
+<input checked="" class="w-5 h-5 rounded text-secondary focus:ring-0 border-none bg-surface-container-high accent-secondary cursor-pointer" type="checkbox"/>
+<span class="font-caption-meta text-caption-meta text-on-surface group-hover:text-secondary transition-colors">
+<strong class="font-bold">Add medical synonyms with AI</strong> (Query expansion: e.g. searches "myocardial infarction" when searching "heart attack", "cholelithiasis" for "gallstones")
+            </span>
+</label>
+<!-- Expansion Telemetry Badge -->
+<div class="flex items-center gap-2 self-start sm:self-auto px-3 py-1.5 rounded-full bg-secondary-container/50 text-on-secondary-container font-badge-label text-badge-label font-bold">
+<span class="material-symbols-outlined text-[16px] animate-spin" style="animation-duration: 4s;">psychology</span>
+<span>AI Expansion Active: +6 Medical Synonyms mapped to query</span>
+</div>
+</div>
+<!-- Query Expansion Breakdown Chip Rail -->
+<div class="flex flex-col gap-space-xs pt-space-sm bg-surface-container-low/70 p-space-md rounded-xl">
+<div class="flex items-center justify-between">
+<span class="font-badge-label text-badge-label text-on-surface-variant uppercase tracking-wider flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[15px] text-secondary">alt_route</span>
+              Active Clinical Expansion Path (MeSH &amp; Phenotypes)
+            </span>
+<span class="font-caption-meta text-[11px] text-secondary font-semibold hover:underline cursor-pointer">Edit Synonyms</span>
+</div>
+<div class="flex flex-wrap items-center gap-space-xs mt-1">
+<!-- Root term chip -->
+<span class="px-3 py-1.5 rounded-lg bg-primary text-on-primary font-badge-label text-badge-label flex items-center gap-1.5 shadow-sm">
+<span class="material-symbols-outlined text-[14px]">anchor</span>
+              Root: vancomycin resistance mechanism
+            </span>
+<span class="text-on-surface-variant font-bold text-xs">➔</span>
+<!-- Synonyms mapped -->
+<span class="px-3 py-1 rounded-full bg-surface-container-lowest text-primary font-caption-meta text-[12px] font-semibold shadow-sm hover:bg-secondary-fixed transition-colors flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> VanA operon
+            </span>
+<span class="px-3 py-1 rounded-full bg-surface-container-lowest text-primary font-caption-meta text-[12px] font-semibold shadow-sm hover:bg-secondary-fixed transition-colors flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> D-Ala-D-Lac ligase substitution
+            </span>
+<span class="px-3 py-1 rounded-full bg-surface-container-lowest text-primary font-caption-meta text-[12px] font-semibold shadow-sm hover:bg-secondary-fixed transition-colors flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> VRE Enterococcus faecium
+            </span>
+<span class="px-3 py-1 rounded-full bg-surface-container-lowest text-primary font-caption-meta text-[12px] font-semibold shadow-sm hover:bg-secondary-fixed transition-colors flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Tn1546 transposon
+            </span>
+<span class="px-3 py-1 rounded-full bg-surface-container-lowest text-primary font-caption-meta text-[12px] font-semibold shadow-sm hover:bg-secondary-fixed transition-colors flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Peptidoglycan precursors
+            </span>
+</div>
+</div>
+</div>
+</section>
+<!-- Asymmetric 2-Column Main Workspace -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-start">
+<!-- LEFT: Comprehensive Search Results Feed (8 cols) -->
+<section class="lg:col-span-8 flex flex-col gap-space-lg">
+<div class="flex items-center justify-between px-space-xs">
+<div class="flex items-center gap-space-sm">
+<span class="font-subheading-h3 text-subheading-h3 text-primary">Textbook Passage Matches</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-badge-label text-badge-label">28 results in 0.042s</span>
+</div>
+<div class="flex items-center gap-space-xs text-on-surface-variant font-caption-meta text-caption-meta">
+<span>Sort by:</span>
+<button class="font-bold text-secondary flex items-center gap-0.5">Semantic Relevancy <span class="material-symbols-outlined text-[16px]">arrow_drop_down</span></button>
+</div>
+</div>
+<!-- Result 1: Antimicrobials Simplified (High Relevancy + Pearl Callout) -->
+<article class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm hover:shadow-md transition-shadow flex flex-col gap-space-md relative overflow-hidden">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary font-bold">
+<span class="material-symbols-outlined text-[22px]">menu_book</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-h2 text-headline-h2 text-primary hover:text-secondary cursor-pointer transition-colors">
+                  Antimicrobials Simplified (4th Edition)
+                </span>
+<span class="font-caption-meta text-caption-meta text-on-surface-variant">
+                  Chapter 4: Glycopeptides · Page 118, Section 4.2
+                </span>
+</div>
+</div>
+<div class="flex items-center gap-2 self-start sm:self-auto">
+<span class="px-2.5 py-1 rounded-md bg-secondary-container text-on-secondary-container font-badge-label text-badge-label font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">verified</span> 99.4% Match
+              </span>
+<span class="px-2 py-1 rounded-md bg-tertiary-fixed text-on-tertiary-fixed font-badge-label text-badge-label font-bold uppercase">
+                High-Yield NEET PG
+              </span>
+</div>
+</div>
+<!-- Highlighted Passage Stem -->
+<div class="bg-surface-container-low p-space-md rounded-xl font-body-reading text-body-reading text-on-surface leading-relaxed">
+            "...resistance to glycopeptides is mediated through gene clusters. The <mark class="bg-secondary-fixed text-on-secondary-fixed font-semibold px-1 rounded">VanA and VanB phenotypes mediate resistance</mark> via enzymatically reprogramming peptidoglycan synthesis from terminal <mark class="bg-secondary-fixed text-on-secondary-fixed font-semibold px-1 rounded">D-Ala-D-Ala to D-Ala-D-Lac</mark>. This D-Ala-D-Lac ligase substitution results in a 1,000-fold decrease in binding affinity for vancomycin, preventing cell-wall crosslinking inhibition. Carried commonly on the <mark class="bg-secondary-fixed text-on-secondary-fixed font-semibold px-1 rounded">Tn1546 transposon</mark> inside <mark class="bg-secondary-fixed text-on-secondary-fixed font-semibold px-1 rounded">VRE Enterococcus faecium</mark>..."
+          </div>
+<!-- High Yield Callout Inside Result 1 -->
+<div class="bg-tertiary-fixed/30 p-space-md rounded-xl flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-on-tertiary-container text-[20px] shrink-0 mt-0.5">lightbulb</span>
+<div class="flex flex-col">
+<span class="font-badge-label text-badge-label text-on-tertiary-fixed uppercase font-bold tracking-wider">Exam Pearl · Micro / Pharm</span>
+<p class="font-caption-meta text-caption-meta text-on-tertiary-fixed-variant mt-0.5">
+                VanA confers high-level resistance to both Vancomycin and Teicoplanin. VanB confers resistance to Vancomycin but leaves Teicoplanin susceptible. (Frequently tested distinction).
+              </p>
+</div>
+</div>
+<!-- Action Ribbon -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm pt-space-xs">
+<div class="flex items-center gap-space-xs">
+<button class="px-space-md py-2 bg-secondary text-on-secondary rounded-lg font-caption-meta text-caption-meta font-bold hover:brightness-105 active:scale-95 transition-all flex items-center gap-1.5 shadow-sm">
+<span class="material-symbols-outlined text-[16px]">auto_stories</span>
+                Open Book at Page 118
+              </button>
+<button class="px-space-md py-2 bg-surface-container hover:bg-surface-container-high text-primary rounded-lg font-caption-meta text-caption-meta font-bold transition-colors flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">quiz</span>
+                Create 5 Qs from passage
+              </button>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-lg transition-colors" title="Save Highlight">
+<span class="material-symbols-outlined text-[18px]">bookmark</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-lg transition-colors" title="Copy Citation">
+<span class="material-symbols-outlined text-[18px]">content_copy</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Result 2: Harrison's Principles of Internal Medicine -->
+<article class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm hover:shadow-md transition-shadow flex flex-col gap-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-xl bg-primary-container flex items-center justify-center text-primary-fixed font-bold">
+<span class="material-symbols-outlined text-[22px]">medical_services</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-h2 text-headline-h2 text-primary hover:text-secondary cursor-pointer transition-colors">
+                  Harrison's Principles of Internal Medicine (21st Ed.)
+                </span>
+<span class="font-caption-meta text-caption-meta text-on-surface-variant">
+                  Chapter 142: Enterococcal Infections · Page 1122, Column B
+                </span>
+</div>
+</div>
+<div class="flex items-center gap-2 self-start sm:self-auto">
+<span class="px-2.5 py-1 rounded-md bg-secondary-container/60 text-on-secondary-container font-badge-label text-badge-label font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">verified</span> 96.8% Match
+              </span>
+<span class="px-2 py-1 rounded-md bg-surface-container-high text-on-surface font-badge-label text-badge-label font-bold uppercase">
+                AMC CAT Core
+              </span>
+</div>
+</div>
+<!-- Highlighted Passage Stem -->
+<div class="bg-surface-container-low p-space-md rounded-xl font-body-reading text-body-reading text-on-surface leading-relaxed">
+            "Acquired vancomycin resistance in Enterococci involves bacterial cell wall modifications where terminal <mark class="bg-secondary-fixed text-on-secondary-fixed font-semibold px-1 rounded">pentapeptide binding affinity drops by &gt;1,000 fold</mark>. Vancomycin typically binds the D-alanyl-D-alanine terminus of cell wall peptidoglycan precursors, inhibiting cell-wall transglycosylation. Replacement with <mark class="bg-secondary-fixed text-on-secondary-fixed font-semibold px-1 rounded">D-alanyl-D-lactate</mark> abolishes the critical hydrogen bond required for antibiotic complex stabilization."
+          </div>
+<div class="flex items-center justify-between gap-space-sm pt-space-xs">
+<div class="flex items-center gap-space-xs">
+<button class="px-space-md py-2 bg-secondary text-on-secondary rounded-lg font-caption-meta text-caption-meta font-bold hover:brightness-105 active:scale-95 transition-all flex items-center gap-1.5 shadow-sm">
+<span class="material-symbols-outlined text-[16px]">auto_stories</span>
+                Open Book at Page 1122
+              </button>
+<button class="px-space-md py-2 bg-surface-container hover:bg-surface-container-high text-primary rounded-lg font-caption-meta text-caption-meta font-bold transition-colors flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+                Copy Citation
+              </button>
+</div>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-high text-on-surface-variant hover:text-on-surface font-badge-label text-badge-label font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">playlist_add</span>
+              Add to Study Module
+            </button>
+</div>
+</article>
+<!-- Result 3: Pathology Marrow Ed8 · Bacterial Genetics with Visual Data Presentation -->
+<article class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm hover:shadow-md transition-shadow flex flex-col gap-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center text-primary font-bold">
+<span class="material-symbols-outlined text-[22px]">table_chart</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-h2 text-headline-h2 text-primary hover:text-secondary cursor-pointer transition-colors">
+                  Pathology Marrow Ed8 · Bacterial Genetics &amp; Resistance
+                </span>
+<span class="font-caption-meta text-caption-meta text-on-surface-variant">
+                  Page 394 · Table 12.3: Comparison of VanA, VanB, and VanC Phenotypes
+                </span>
+</div>
+</div>
+<div class="flex items-center gap-2 self-start sm:self-auto">
+<span class="px-2.5 py-1 rounded-md bg-secondary-container/40 text-on-secondary-container font-badge-label text-badge-label font-bold">
+                92.1% Match
+              </span>
+</div>
+</div>
+<!-- Structured Summary Table for Visual Richness -->
+<div class="overflow-x-auto rounded-xl bg-surface-container-low p-1">
+<table class="w-full text-left font-caption-meta text-caption-meta">
+<thead class="bg-surface-container text-on-surface font-bold text-[11px] uppercase tracking-wider">
+<tr>
+<th class="py-2.5 px-3 rounded-l-lg">Phenotype</th>
+<th class="py-2.5 px-3">Genetic Locus</th>
+<th class="py-2.5 px-3">Vancomycin MIC</th>
+<th class="py-2.5 px-3">Teicoplanin MIC</th>
+<th class="py-2.5 px-3 rounded-r-lg">Mechanism Terminus</th>
+</tr>
+</thead>
+<tbody class="text-on-surface">
+<tr class="bg-surface-container-lowest">
+<td class="py-2 px-3 font-bold text-primary">VanA</td>
+<td class="py-2 px-3 font-mono text-[12px]">Tn1546 plasmid</td>
+<td class="py-2 px-3 font-semibold text-error">≥64 μg/mL (Resistant)</td>
+<td class="py-2 px-3 font-semibold text-error">≥16 μg/mL (Resistant)</td>
+<td class="py-2 px-3 font-semibold text-secondary">D-Ala-D-Lac</td>
+</tr>
+<tr class="bg-surface-container-low/60">
+<td class="py-2 px-3 font-bold text-primary">VanB</td>
+<td class="py-2 px-3 font-mono text-[12px]">Tn1547 / Tn5382</td>
+<td class="py-2 px-3 font-semibold text-error">4 - 1024 μg/mL (Resistant)</td>
+<td class="py-2 px-3 font-semibold text-secondary">≤0.5 μg/mL (Susceptible)</td>
+<td class="py-2 px-3 font-semibold text-secondary">D-Ala-D-Lac</td>
+</tr>
+<tr class="bg-surface-container-lowest">
+<td class="py-2 px-3 font-bold text-primary">VanC</td>
+<td class="py-2 px-3 font-mono text-[12px]">Chromosomal (intrinsic)</td>
+<td class="py-2 px-3">2 - 32 μg/mL (Low-level)</td>
+<td class="py-2 px-3 font-semibold text-secondary">≤0.5 μg/mL (Susceptible)</td>
+<td class="py-2 px-3 text-on-surface-variant">D-Ala-D-Ser</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="flex items-center justify-between gap-space-sm pt-space-xs">
+<div class="flex items-center gap-space-xs">
+<button class="px-space-md py-2 bg-secondary text-on-secondary rounded-lg font-caption-meta text-caption-meta font-bold hover:brightness-105 active:scale-95 transition-all flex items-center gap-1.5 shadow-sm">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+                View Diagram &amp; Table
+              </button>
+<button class="px-space-md py-2 bg-surface-container hover:bg-surface-container-high text-primary rounded-lg font-caption-meta text-caption-meta font-bold transition-colors flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">edit_note</span>
+                Add to Mistake Note
+              </button>
+</div>
+<span class="font-caption-meta text-[11px] text-on-surface-variant font-medium">Updated 3 days ago via OCR RAG sync</span>
+</div>
+</article>
+<!-- Load More Ingestion Records -->
+<button class="w-full py-3.5 bg-surface-container hover:bg-surface-container-high text-primary rounded-xl font-subheading-h3 text-subheading-h3 font-semibold transition-colors flex items-center justify-center gap-space-xs shadow-sm">
+<span class="material-symbols-outlined text-[20px]">expand_circle_down</span>
+          Load 25 more matches across Pharmacology &amp; Pathology
+        </button>
+</section>
+<!-- RIGHT: Summary Panel, Distribution & Search History (4 cols) -->
+<aside class="lg:col-span-4 flex flex-col gap-space-lg">
+<!-- Search History & Recent Lookups -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<span class="font-subheading-h3 text-subheading-h3 text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">history</span>
+              Recent Clinical Lookups
+            </span>
+<button class="font-caption-meta text-[11px] text-on-surface-variant hover:text-primary transition-colors">Clear</button>
+</div>
+<div class="flex flex-col gap-space-xs">
+<div class="p-2.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer flex items-center justify-between group">
+<div class="flex flex-col">
+<span class="font-caption-meta text-caption-meta font-bold text-primary group-hover:text-secondary transition-colors">floppy infant syndrome</span>
+<span class="font-badge-label text-[10px] text-on-surface-variant">Mapped: Spinal Muscular Atrophy, Botulism</span>
+</div>
+<span class="material-symbols-outlined text-outline text-[18px] group-hover:text-secondary group-hover:translate-x-0.5 transition-all">north_east</span>
+</div>
+<div class="p-2.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer flex items-center justify-between group">
+<div class="flex flex-col">
+<span class="font-caption-meta text-caption-meta font-bold text-primary group-hover:text-secondary transition-colors">Horner syndrome trias</span>
+<span class="font-badge-label text-[10px] text-on-surface-variant">Mapped: Ptosis, Miosis, Anhidrosis</span>
+</div>
+<span class="material-symbols-outlined text-outline text-[18px] group-hover:text-secondary group-hover:translate-x-0.5 transition-all">north_east</span>
+</div>
+<div class="p-2.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer flex items-center justify-between group">
+<div class="flex flex-col">
+<span class="font-caption-meta text-caption-meta font-bold text-primary group-hover:text-secondary transition-colors">Pheochromocytoma rule of 10s</span>
+<span class="font-badge-label text-[10px] text-on-surface-variant">Mapped: Paraganglioma, MEN2</span>
+</div>
+<span class="material-symbols-outlined text-outline text-[18px] group-hover:text-secondary group-hover:translate-x-0.5 transition-all">north_east</span>
+</div>
+</div>
+</div>
+<!-- Corpus Distribution (Rich Visual Visualization) -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<span class="font-subheading-h3 text-subheading-h3 text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">pie_chart</span>
+              Corpus Distribution
+            </span>
+<span class="font-badge-label text-badge-label text-secondary font-bold">28 Matches</span>
+</div>
+<!-- Inline Distribution Graphic -->
+<div class="flex flex-col gap-space-sm pt-1">
+<!-- Distribution Progress Bar Cluster -->
+<div class="w-full h-3 rounded-full bg-surface-container overflow-hidden flex">
+<div class="h-full bg-secondary" style="width: 50%" title="Antimicrobials (14)"></div>
+<div class="h-full bg-primary-container" style="width: 32%" title="Harrison's (9)"></div>
+<div class="h-full bg-tertiary-fixed-dim" style="width: 18%" title="Robbins (5)"></div>
+</div>
+<!-- Distribution Legend with counts -->
+<div class="flex flex-col gap-space-xs mt-space-xs font-caption-meta text-caption-meta">
+<div class="flex items-center justify-between p-1.5 rounded-lg hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-secondary"></span>
+<span class="font-semibold text-primary">Antimicrobials Simplified</span>
+</div>
+<span class="font-bold text-secondary">14 matches (50%)</span>
+</div>
+<div class="flex items-center justify-between p-1.5 rounded-lg hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-primary-container"></span>
+<span class="font-semibold text-primary">Harrison's Internal Med</span>
+</div>
+<span class="font-bold text-primary">9 matches (32%)</span>
+</div>
+<div class="flex items-center justify-between p-1.5 rounded-lg hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-tertiary-fixed-dim"></span>
+<span class="font-semibold text-primary">Robbins Pathology</span>
+</div>
+<span class="font-bold text-on-tertiary-container">5 matches (18%)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Filter by Exam Weight -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<span class="font-subheading-h3 text-subheading-h3 text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">filter_alt</span>
+            Filter by Exam Weight
+          </span>
+<div class="flex flex-col gap-space-xs font-caption-meta text-caption-meta">
+<label class="flex items-center justify-between p-2.5 rounded-xl bg-surface-container-low hover:bg-surface-container cursor-pointer select-none transition-colors">
+<div class="flex items-center gap-space-sm">
+<input checked="" class="w-4 h-4 rounded text-secondary focus:ring-0 accent-secondary cursor-pointer" type="checkbox"/>
+<span class="font-bold text-primary">High-Yield NEET PG / INI-CET</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container-highest text-[10px] font-bold text-on-surface">19</span>
+</label>
+<label class="flex items-center justify-between p-2.5 rounded-xl bg-surface-container-low hover:bg-surface-container cursor-pointer select-none transition-colors">
+<div class="flex items-center gap-space-sm">
+<input checked="" class="w-4 h-4 rounded text-secondary focus:ring-0 accent-secondary cursor-pointer" type="checkbox"/>
+<span class="font-bold text-primary">AMC CAT Clinical Vignettes</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container-highest text-[10px] font-bold text-on-surface">12</span>
+</label>
+<label class="flex items-center justify-between p-2.5 rounded-xl bg-surface-container-low hover:bg-surface-container cursor-pointer select-none transition-colors">
+<div class="flex items-center gap-space-sm">
+<input class="w-4 h-4 rounded text-secondary focus:ring-0 accent-secondary cursor-pointer" type="checkbox"/>
+<span class="text-on-surface">USMLE Step 1 Multi-step Genetics</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container-highest text-[10px] font-bold text-on-surface">7</span>
+</label>
+</div>
+<button class="w-full py-2 bg-surface-container hover:bg-surface-container-high text-primary font-caption-meta text-caption-meta font-bold rounded-lg transition-colors mt-space-xs">
+            Apply Weight Filters
+          </button>
+</div>
+<!-- Contextual Medical Image Card for Visual Warmth -->
+<div class="bg-surface-container-lowest rounded-2xl overflow-hidden shadow-sm flex flex-col">
+<div class="relative h-44 w-full bg-cover bg-center" data-alt="Close-up clinical bacteriology laboratory plate showing antibiotic disk diffusion halo test with Vancomycin paper discs and Enterococcus culture under precise cool clinical lab lighting in deep navy and clean teal ambient setting." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAQBFv-DgTDTuBj1lqDiXznkkowZBPGT1qE4oVi39cIyxXT9yVPVefYwz5AaPf8iKw2vV0P0zdUPJC2uDyTMUu9z6RBwSjdty6ZNIfUW-GYb0z-EnFDNPAZXHnmBIVG1XTxvVafaD30js3ZmiDrcL6ZC9yEe0o2KaZ5y3zi30o35tcKd7foIMiHEJxuM3aRWYBibGs1-gbw7nivc29nlX3a0LU3sXmCdfZOw9Ss7WTe0vjZvVF7xz3c')">
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent flex items-end p-space-md">
+<span class="font-badge-label text-badge-label text-on-primary uppercase tracking-wider bg-primary/60 backdrop-blur px-2 py-1 rounded">
+                E-Test &amp; Kirby-Bauer Reference
+              </span>
+</div>
+</div>
+<div class="p-space-md flex flex-col gap-1 bg-surface-container-low">
+<span class="font-caption-meta text-caption-meta font-bold text-primary">VanA Resistant Zone Phenotype</span>
+<p class="font-badge-label text-[11px] text-on-surface-variant leading-relaxed">
+              Disc sensitivity assays showing no zone of inhibition around 30µg Vancomycin disc, consistent with VanA gene transposition.
+            </p>
+</div>
+</div>
+</aside>
+</div>
+</div>
+</div>
+<script>
+  // Simple micro-interaction for search input Enter key
+  document.getElementById('medical-query-input')?.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      const btn = this.closest('section')?.querySelector('button');
+      if (btn) {
+        btn.classList.add('scale-95');
+        setTimeout(() => btn.classList.remove('scale-95'), 150);
+      }
+    }
+  });
+</script></main>
+</div>
+</body></html>

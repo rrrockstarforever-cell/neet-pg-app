@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="web_dashboard" name="shell-type"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+  </style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-dim": "#d2daeb",
+            "surface-container-highest": "#dbe3f3",
+            "surface": "#f8f9ff",
+            "on-tertiary-fixed-variant": "#663e00",
+            "tertiary-container": "#3e2300",
+            "on-tertiary-container": "#c7811d",
+            "primary-container": "#13294b",
+            "on-surface": "#141c28",
+            "on-surface-variant": "#44474e",
+            "on-error": "#ffffff",
+            "background": "#f8f9ff",
+            "on-primary": "#ffffff",
+            "on-secondary": "#ffffff",
+            "inverse-primary": "#b2c7f1",
+            "on-error-container": "#93000a",
+            "primary-fixed": "#d7e3ff",
+            "error": "#ba1a1a",
+            "primary": "#001432",
+            "error-container": "#ffdad6",
+            "on-tertiary": "#ffffff",
+            "on-secondary-container": "#007072",
+            "secondary-fixed": "#8ff3f4",
+            "inverse-on-surface": "#ebf1ff",
+            "on-secondary-fixed": "#002020",
+            "surface-variant": "#dbe3f3",
+            "tertiary-fixed-dim": "#ffb963",
+            "surface-container-lowest": "#ffffff",
+            "surface-bright": "#f8f9ff",
+            "tertiary-fixed": "#ffddb9",
+            "surface-container": "#e6eeff",
+            "on-secondary-fixed-variant": "#004f51",
+            "tertiary": "#221100",
+            "outline-variant": "#c4c6cf",
+            "secondary": "#00696b",
+            "primary-fixed-dim": "#b2c7f1",
+            "on-primary-fixed-variant": "#33476a",
+            "on-tertiary-fixed": "#2b1700",
+            "inverse-surface": "#29313d",
+            "on-primary-fixed": "#021b3d",
+            "secondary-fixed-dim": "#72d6d8",
+            "on-background": "#141c28",
+            "surface-tint": "#4b5f84",
+            "on-primary-container": "#7d91b9",
+            "outline": "#74777f",
+            "secondary-container": "#8ff3f4",
+            "surface-container-high": "#e1e8f9",
+            "surface-container-low": "#eff3ff"
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          spacing: {
+            "margin": "1rem",
+            "space-md": "0.75rem",
+            "space-xl": "1.5rem",
+            "gutter-desktop": "1.5rem",
+            "space-lg": "1rem",
+            "space-xs": "0.25rem",
+            "gutter-tablet": "1.25rem",
+            "gutter": "1rem",
+            "margin-desktop": "2.25rem",
+            "margin-tablet": "1.5rem",
+            "space-sm": "0.5rem"
+          },
+          fontFamily: {
+            "headline-h2": ["Inter"],
+            "badge-label": ["Inter"],
+            "subheading-h3": ["Inter"],
+            "display-lg-mobile": ["Inter"],
+            "display-lg": ["Inter"],
+            "headline-h1": ["Inter"],
+            "body-compact": ["Inter"],
+            "stat-numeral": ["Inter"],
+            "caption-meta": ["Inter"],
+            "body-reading": ["Inter"]
+          },
+          fontSize: {
+            "headline-h2": ["18px", { "lineHeight": "24px", "fontWeight": "700" }],
+            "badge-label": ["11px", { "lineHeight": "14px", "fontWeight": "700" }],
+            "subheading-h3": ["16px", { "lineHeight": "22px", "fontWeight": "600" }],
+            "display-lg-mobile": ["24px", { "lineHeight": "30px", "fontWeight": "800" }],
+            "display-lg": ["28px", { "lineHeight": "34px", "fontWeight": "800" }],
+            "headline-h1": ["22px", { "lineHeight": "28px", "fontWeight": "700" }],
+            "body-compact": ["14px", { "lineHeight": "22px", "fontWeight": "400" }],
+            "stat-numeral": ["30px", { "lineHeight": "36px", "fontWeight": "800" }],
+            "caption-meta": ["13px", { "lineHeight": "18px", "fontWeight": "500" }],
+            "body-reading": ["15px", { "lineHeight": "24px", "fontWeight": "400" }]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-background font-body-compact text-on-surface antialiased">
+<!-- Desktop Sidebar Navigation -->
+<aside class="fixed left-0 top-0 h-screen w-72 bg-surface-container-low flex flex-col z-50 border-r border-[#e2e8f0]/80 shadow-[0_1px_8px_rgba(0,0,0,0.03)]">
+<!-- Brand & Exam Toggle -->
+<div class="p-space-lg flex flex-col gap-space-sm bg-surface-container-low border-b border-[#e2e8f0]/70">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-primary-container flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-secondary-fixed text-[20px]">ecg_heart</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-h2 text-headline-h2 tracking-tight text-primary leading-none">PULSE MED</span>
+<span class="font-badge-label text-[10px] text-secondary uppercase tracking-widest font-bold">NEET PG / AMC CAT</span>
+</div>
+</div>
+<!-- Exam Selector Switch -->
+<div class="grid grid-cols-2 p-1 bg-surface-container rounded-lg gap-1 mt-1">
+<button class="py-1.5 text-center font-badge-label text-badge-label rounded bg-surface-container-lowest text-primary shadow-sm font-bold flex items-center justify-center gap-1" type="button">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+          NEET PG
+        </button>
+<button class="py-1.5 text-center font-badge-label text-badge-label rounded text-on-surface-variant hover:text-on-surface transition-colors" type="button">
+          AMC CLINICAL
+        </button>
+</div>
+<div class="flex items-center justify-between px-space-sm py-1 bg-surface-container/60 rounded text-[11px] text-on-surface-variant">
+<span>Target Stream</span>
+<span class="font-bold text-secondary">High-Yield Tier · RAG Active</span>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex-1 overflow-y-auto px-space-sm py-space-sm flex flex-col gap-0.5" data-active-classes="bg-primary text-on-primary font-semibold shadow-sm">
+<a class="flex items-center gap-space-sm px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="library" href="#">
+<span class="material-symbols-outlined text-[20px]">local_library</span>
+<span class="font-body-compact text-body-compact flex-1">Library (PDF &amp; Books)</span>
+<span class="text-[10px] px-1.5 py-0.5 rounded bg-white/20 font-bold">8</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="ai-chat-knowledge-engine" href="#">
+<span class="material-symbols-outlined text-[20px]">neurology</span>
+<span class="font-body-compact text-body-compact">AI Knowledge Engine</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="ask-your-books" href="#">
+<span class="material-symbols-outlined text-[20px]">menu_book</span>
+<span class="font-body-compact text-body-compact">Ask Your Books (RAG)</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="search-medical-index" href="#">
+<span class="material-symbols-outlined text-[20px]">clinical_notes</span>
+<span class="font-body-compact text-body-compact">Medical Index &amp; Topics</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="practice-module-builder" href="#">
+<span class="material-symbols-outlined text-[20px]">handyman</span>
+<span class="font-body-compact text-body-compact">Practice &amp; Modules</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="test-runner-active-exam" href="#">
+<span class="material-symbols-outlined text-[20px]">timer</span>
+<span class="font-body-compact text-body-compact">Test Runner &amp; Exam</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="review-mistake-notebook" href="#">
+<span class="material-symbols-outlined text-[20px]">edit_note</span>
+<span class="font-body-compact text-body-compact">Mistake Notebook &amp; Review</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="performance-analytics" href="#">
+<span class="material-symbols-outlined text-[20px]">monitoring</span>
+<span class="font-body-compact text-body-compact">Performance Analytics</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="highlights-saved" href="#">
+<span class="material-symbols-outlined text-[20px]">bookmark</span>
+<span class="font-body-compact text-body-compact">Highlights &amp; Saved</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="clinical-browser" href="#">
+<span class="material-symbols-outlined text-[20px]">travel_explore</span>
+<span class="font-body-compact text-body-compact">Clinical Browser</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="settings-ai-subscriptions" href="#">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+<span class="font-body-compact text-body-compact">Settings &amp; AI Engine</span>
+</a>
+</nav>
+<!-- Bottom Status Panel -->
+<div class="p-space-md bg-surface-container-low border-t border-[#e2e8f0]/80 flex flex-col gap-space-xs">
+<div class="flex items-center justify-between px-space-sm py-1.5 rounded-lg bg-surface-container-high">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[16px]">schedule</span>
+<span class="font-badge-label text-badge-label text-on-surface">Exam in 58 Days</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="font-badge-label text-badge-label text-secondary font-bold">OCR Live</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1 px-space-xs text-on-surface-variant">
+<button class="flex items-center gap-space-xs hover:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">contrast</span>
+<span class="font-caption-meta text-[12px]">Light / Dark</span>
+</button>
+<span class="font-caption-meta text-[11px]">Pulse Med v2.5</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Area with Pl-72 -->
+<div class="pl-72">
+<!-- Top Header Bar -->
+<header class="fixed top-0 left-72 right-0 h-16 bg-surface/90 backdrop-blur-xl z-40 border-b border-[#e2e8f0]/80 shadow-[0_1px_6px_rgba(0,0,0,0.02)]">
+<div class="w-full h-16 px-space-xl flex items-center justify-between gap-space-lg">
+<!-- Deep Clinical Search -->
+<div class="flex-1 max-w-2xl">
+<div class="flex items-center w-full bg-surface-container px-space-md py-2 rounded-lg gap-space-sm text-on-surface-variant border border-transparent focus-within:border-secondary/40 focus-within:bg-surface-container-lowest transition-all">
+<span class="material-symbols-outlined text-[20px] text-secondary">search</span>
+<input class="bg-transparent border-none outline-none font-body-compact text-body-compact text-on-surface placeholder:text-outline w-full" placeholder="Search textbooks, chapters, drug tables, Robbins histology diagrams..." type="text"/>
+<span class="text-[11px] font-mono px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface-variant border border-outline-variant/30">⌘K</span>
+</div>
+</div>
+<!-- Pace / resident header controls -->
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-space-xs px-space-md py-1.5 bg-surface-container rounded-full border border-[#e2e8f0]">
+<span class="material-symbols-outlined text-secondary text-[18px]">speed</span>
+<span class="font-badge-label text-badge-label text-on-surface uppercase tracking-wide">Pace: 1.1 m/Q</span>
+</div>
+<button class="relative p-2 text-on-surface-variant hover:text-on-surface transition-colors rounded-lg hover:bg-surface-container" type="button">
+<span class="material-symbols-outlined text-[22px]">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-error ring-2 ring-surface"></span>
+</button>
+<div class="flex items-center gap-space-sm pl-space-xs border-l border-[#e2e8f0]">
+<div class="flex flex-col text-right hidden sm:flex">
+<span class="font-caption-meta text-caption-meta font-bold text-primary leading-tight">Dr. Arya Sharma</span>
+<span class="font-badge-label text-[10px] text-on-surface-variant">MBBS · Res ID #9042</span>
+</div>
+<div class="w-9 h-9 rounded-full bg-primary flex items-center justify-center text-on-primary ring-2 ring-secondary/20 font-bold text-xs shadow-sm">
+              AS
+            </div>
+</div>
+</div>
+</div>
+</header>
+<!-- Page Body -->
+<main class="relative pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<!-- Dynamic Gradient Mesh Backdrop (No fixed page height, bounded to wrapper) -->
+<div class="relative w-full overflow-hidden px-space-lg lg:px-margin-desktop py-space-xl">
+<div class="absolute -top-32 -right-24 w-96 h-96 rounded-full bg-secondary-container/20 blur-3xl pointer-events-none"></div>
+<div class="absolute top-1/2 -left-32 w-80 h-80 rounded-full bg-primary-fixed/30 blur-3xl pointer-events-none"></div>
+<!-- Header & Strategic Action Tier -->
+<div class="relative z-10 flex flex-col gap-space-lg mb-space-xl">
+<div class="flex flex-col xl:flex-row xl:items-end justify-between gap-space-lg">
+<div class="max-w-3xl">
+<div class="flex items-center gap-space-xs mb-1.5">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-badge-label text-badge-label uppercase tracking-widest text-secondary font-bold">RAG Knowledge Repository</span>
+<span class="text-outline-variant font-bold">/</span>
+<span class="font-caption-meta text-caption-meta text-on-surface-variant">Live Synced with Resident ID #9042</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-primary tracking-tight">Clinical Highlights &amp; Saved Passages</h1>
+<p class="font-body-reading text-body-reading text-on-surface-variant mt-1">
+            Passages, textbook citations, and key board pearls saved from AI Chat conversations, “Ask your books” queries, and active exam reviews.
+          </p>
+</div>
+<!-- Export & SRS Transformation Actions -->
+<div class="flex flex-wrap items-center gap-space-sm">
+<div class="relative group">
+<button class="flex items-center gap-space-xs px-space-lg py-2.5 rounded-lg bg-surface-container-lowest text-primary shadow-sm hover:bg-surface-container-high transition-all text-sm font-semibold" id="exportDropdownBtn" type="button">
+<span class="material-symbols-outlined text-[19px] text-secondary">file_download</span>
+<span>Export Notes &amp; Flashcards</span>
+<span class="material-symbols-outlined text-[16px] text-outline">expand_more</span>
+</button>
+<div class="hidden absolute right-0 top-full mt-1.5 w-56 rounded-xl bg-surface-container-lowest shadow-xl py-2 z-50 flex-col" id="exportMenu">
+<a class="flex items-center justify-between px-space-md py-2 hover:bg-surface-container text-xs text-on-surface" href="#">
+<span class="font-medium">Anki Deck (.apkg / .anki)</span>
+<span class="text-[10px] bg-secondary/10 text-secondary px-1.5 py-0.5 rounded font-bold">Recommended</span>
+</a>
+<a class="flex items-center justify-between px-space-md py-2 hover:bg-surface-container text-xs text-on-surface" href="#">
+<span class="font-medium">Consolidated Summary (.pdf)</span>
+<span class="text-[10px] text-outline">Printable</span>
+</a>
+<a class="flex items-center justify-between px-space-md py-2 hover:bg-surface-container text-xs text-on-surface" href="#">
+<span class="font-medium">Raw Semantic JSON (.json)</span>
+<span class="text-[10px] text-outline">Data dump</span>
+</a>
+</div>
+</div>
+<button class="flex items-center gap-space-xs px-space-lg py-2.5 rounded-lg bg-secondary text-on-secondary shadow-sm hover:brightness-105 active:scale-98 transition-all text-sm font-semibold" type="button">
+<span class="material-symbols-outlined text-[19px]">bolt</span>
+<span>Batch Convert to SRS (6)</span>
+</button>
+</div>
+</div>
+<!-- Search & Subject Filter Strip -->
+<div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-space-md pt-space-xs">
+<!-- Interactive Search Bar -->
+<div class="relative flex-1 max-w-2xl">
+<span class="absolute left-3.5 top-1/2 -translate-y-1/2 material-symbols-outlined text-[20px] text-secondary pointer-events-none">search</span>
+<input class="w-full pl-11 pr-24 py-2.5 bg-surface-container-lowest rounded-xl shadow-sm text-sm text-on-surface placeholder:text-outline focus:outline-none focus:ring-0 focus:bg-surface-container-lowest transition-all" id="highlightSearchInput" placeholder="Search highlights, clinical notes, Tn1546, Harrison citations, or tags..." type="text"/>
+<div class="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1.5">
+<span class="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-surface-container text-on-surface-variant">⌥F</span>
+</div>
+</div>
+<!-- Filter Pills with Counters -->
+<div class="flex items-center gap-2 overflow-x-auto pb-1 lg:pb-0 scrollbar-none" id="filterPillsContainer">
+<button class="filter-pill shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-secondary text-on-secondary shadow-sm transition-all flex items-center gap-1.5" data-filter="all" type="button">
+<span>All Highlights</span>
+<span class="text-[10px] px-1.5 py-0.2 rounded-full bg-white/25">24</span>
+</button>
+<button class="filter-pill shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-surface-container-lowest text-on-surface hover:bg-surface-container transition-all flex items-center gap-1.5 shadow-sm" data-filter="pharmacology" type="button">
+<span>Pharmacology</span>
+<span class="text-[10px] px-1.5 py-0.2 rounded-full bg-surface-container text-on-surface-variant">11</span>
+</button>
+<button class="filter-pill shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-surface-container-lowest text-on-surface hover:bg-surface-container transition-all flex items-center gap-1.5 shadow-sm" data-filter="pathology" type="button">
+<span>Pathology</span>
+<span class="text-[10px] px-1.5 py-0.2 rounded-full bg-surface-container text-on-surface-variant">6</span>
+</button>
+<button class="filter-pill shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-surface-container-lowest text-on-surface hover:bg-surface-container transition-all flex items-center gap-1.5 shadow-sm" data-filter="general-medicine" type="button">
+<span>General Medicine</span>
+<span class="text-[10px] px-1.5 py-0.2 rounded-full bg-surface-container text-on-surface-variant">4</span>
+</button>
+<button class="filter-pill shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-surface-container-lowest text-on-surface hover:bg-surface-container transition-all flex items-center gap-1.5 shadow-sm" data-filter="amc-guidelines" type="button">
+<span>AMC Guidelines</span>
+<span class="text-[10px] px-1.5 py-0.2 rounded-full bg-surface-container text-on-surface-variant">3</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Main Asymmetric Workspace Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- Primary Highlights Stream (Col 8) -->
+<div class="lg:col-span-8 flex flex-col gap-space-lg">
+<!-- HIGHLIGHT CARD 1 (Antimicrobial Resistance & VanA) -->
+<article class="highlight-item bg-surface-container-lowest rounded-2xl p-space-lg md:p-space-xl shadow-sm hover:shadow-md transition-all flex flex-col gap-space-md" data-category="pharmacology">
+<!-- Card Header & Metadata -->
+<div class="flex flex-wrap items-start justify-between gap-space-sm">
+<div class="flex flex-wrap items-center gap-2">
+<span class="px-2.5 py-1 rounded-md bg-secondary/10 text-secondary font-bold text-xs flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">medication</span>
+                Pharmacology · Antimicrobials
+              </span>
+<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-surface-container text-on-surface-variant">
+                NEET-PG Tier 1 Yield
+              </span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<button class="p-1.5 hover:text-secondary rounded-lg hover:bg-surface-container transition-colors" title="Toggle Favorite">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</button>
+<button class="p-1.5 hover:text-on-surface rounded-lg hover:bg-surface-container transition-colors" title="More actions">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Provenance / Source Citation -->
+<div class="flex items-center gap-space-xs text-xs text-on-surface-variant bg-surface-container/60 px-3 py-1.5 rounded-lg">
+<span class="material-symbols-outlined text-[16px] text-secondary">psychology_alt</span>
+<span>Saved from <strong class="text-on-surface font-semibold">AI Conversation (resident session #9042)</strong></span>
+<span class="text-outline-variant">•</span>
+<span class="text-secondary font-medium">Citation: Antimicrobials Simplified, p. 118</span>
+</div>
+<!-- Visual Excerpt Block -->
+<div class="relative pl-4 bg-surface-container-low/50 py-3 pr-3 rounded-r-xl shadow-[inset_3px_0_0_0_#00696b]">
+<p class="font-body-reading text-body-reading text-primary font-medium tracking-normal leading-relaxed">
+              “VanA and VanB phenotypes mediate resistance via reprogramming of peptidoglycan synthesis from <mark class="bg-secondary-fixed/50 text-primary px-1 rounded font-semibold">D-Ala-D-Ala to D-Ala-D-Lac</mark>, reducing vancomycin binding affinity by &gt;1,000-fold in <em>Enterococcus faecium</em>.”
+            </p>
+</div>
+<!-- Inline Educational Graphic: Peptidoglycan Cell Wall Reprogramming -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col md:flex-row items-center justify-between gap-space-md">
+<div class="flex flex-col gap-1 max-w-sm">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">science</span>
+<span class="font-badge-label text-badge-label uppercase text-secondary font-bold">Microbial Mechanism Visualizer</span>
+</div>
+<span class="font-subheading-h3 text-xs font-semibold text-primary">Target Shift Affinity Falloff</span>
+<p class="text-[12px] text-on-surface-variant leading-tight">Terminal ester oxygen modification eliminates key hydrogen bonding pocket required for glycopeptide stabilization.</p>
+</div>
+<!-- Mini Inline Structural Diagram -->
+<div class="w-full md:w-64 bg-surface-container-lowest p-2.5 rounded-lg shadow-sm">
+<div class="flex justify-between items-center text-[10px] font-bold text-on-surface-variant mb-1">
+<span>Susceptible: D-Ala-D-Ala</span>
+<span class="text-secondary">5 H-Bonds</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden mb-2.5">
+<div class="bg-secondary h-full rounded-full" style="width: 100%;"></div>
+</div>
+<div class="flex justify-between items-center text-[10px] font-bold text-on-surface-variant mb-1">
+<span class="text-error">VanA: D-Ala-D-Lac</span>
+<span class="text-error font-extrabold">&lt;1/1000 Binding</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-error h-full rounded-full" style="width: 8%;"></div>
+</div>
+</div>
+</div>
+<!-- User Clinical Annotation (Pedagogical Callout) -->
+<div class="p-space-md rounded-r-xl bg-tertiary-fixed/30 text-on-tertiary-fixed shadow-[inset_4px_0_0_0_#ffb963]">
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[18px] text-on-tertiary-container mt-0.5">lightbulb</span>
+<div class="flex flex-col gap-0.5">
+<span class="font-badge-label text-[11px] uppercase tracking-wider font-extrabold text-on-tertiary-container">Dr. Sharma's Memory Anchor</span>
+<p class="text-xs font-medium text-on-tertiary-fixed leading-relaxed">
+                  Must remember: <strong>VanA</strong> is transposon-mediated (<strong>Tn1546</strong>), inducible, confers dual resistance to both Vancomycin and Teicoplanin. High frequency INI-CET question!
+                </p>
+</div>
+</div>
+</div>
+<!-- Tag Cloud & Bottom Command Toolbar -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pt-2">
+<div class="flex flex-wrap items-center gap-1.5">
+<span class="px-2 py-0.5 rounded-md text-[11px] font-medium bg-surface-container-high text-on-surface-variant">#VRE</span>
+<span class="px-2 py-0.5 rounded-md text-[11px] font-medium bg-surface-container-high text-on-surface-variant">#Glycopeptides</span>
+<span class="px-2 py-0.5 rounded-md text-[11px] font-medium bg-surface-container-high text-on-surface-variant">#Transposon</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-2.5 py-1.5 rounded-lg bg-surface-container text-primary hover:bg-surface-container-high text-xs font-semibold flex items-center gap-1 transition-all" type="button">
+<span class="material-symbols-outlined text-[16px] text-secondary">quiz</span>
+<span>Launch 5-Q Quiz</span>
+</button>
+<button class="px-2.5 py-1.5 rounded-lg bg-secondary text-on-secondary hover:brightness-105 text-xs font-semibold flex items-center gap-1 transition-all shadow-sm" type="button">
+<span class="material-symbols-outlined text-[16px]">style</span>
+<span>Send to SRS</span>
+</button>
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" title="Edit Note" type="button">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+</button>
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" title="Share Pearl" type="button">
+<span class="material-symbols-outlined text-[16px]">share</span>
+</button>
+</div>
+</div>
+</article>
+<!-- HIGHLIGHT CARD 2 (Pheochromocytoma Surgical Sequence) -->
+<article class="highlight-item bg-surface-container-lowest rounded-2xl p-space-lg md:p-space-xl shadow-sm hover:shadow-md transition-all flex flex-col gap-space-md" data-category="general-medicine">
+<!-- Card Header & Metadata -->
+<div class="flex flex-wrap items-start justify-between gap-space-sm">
+<div class="flex flex-wrap items-center gap-2">
+<span class="px-2.5 py-1 rounded-md bg-secondary/10 text-secondary font-bold text-xs flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">cardiology</span>
+                General Medicine · Cardiology &amp; Endocrine
+              </span>
+<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-error-container/40 text-on-error-container">
+                High Risk Exam Trap
+              </span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<button class="p-1.5 text-secondary rounded-lg hover:bg-surface-container transition-colors" title="Toggle Favorite">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</button>
+<button class="p-1.5 hover:text-on-surface rounded-lg hover:bg-surface-container transition-colors" title="More actions">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Provenance / Source Citation -->
+<div class="flex items-center gap-space-xs text-xs text-on-surface-variant bg-surface-container/60 px-3 py-1.5 rounded-lg">
+<span class="material-symbols-outlined text-[16px] text-secondary">timer</span>
+<span>Saved from <strong class="text-on-surface font-semibold">Test Runner Exam Q10</strong></span>
+<span class="text-outline-variant">•</span>
+<span class="text-secondary font-medium">Citation: Harrison's 21st Ed. Ch. 379 (Adrenal Medulla)</span>
+</div>
+<!-- Visual Excerpt Block -->
+<div class="relative pl-4 bg-surface-container-low/50 py-3 pr-3 rounded-r-xl shadow-[inset_3px_0_0_0_#ba1a1a]">
+<p class="font-body-reading text-body-reading text-primary font-medium tracking-normal leading-relaxed">
+              “In Pheochromocytoma resection, <mark class="bg-error-container text-on-error-container px-1 rounded font-semibold">alpha-blockade (Phenoxybenzamine) must precede beta-blockade</mark> by at least 10–14 days to prevent catastrophic unopposed alpha-1 vasoconstriction and acute hypertensive crisis.”
+            </p>
+</div>
+<!-- User Clinical Annotation (High-Yield Warning Pearl) -->
+<div class="p-space-md rounded-r-xl bg-error-container/30 text-on-error-container shadow-[inset_4px_0_0_0_#ba1a1a]">
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[18px] text-error mt-0.5">warning</span>
+<div class="flex flex-col gap-0.5">
+<span class="font-badge-label text-[11px] uppercase tracking-wider font-extrabold text-error">Board Trap &amp; Lethal Error Alert</span>
+<p class="text-xs font-medium leading-relaxed">
+                  Classic trap: <strong>Beta blocker first is a lethal error in exam stems.</strong> Beta-2 mediated peripheral vasodilation is blocked while massive circulating catecholamines relentlessly stimulate alpha-1, triggering lethal blood pressure spikes (&gt;250 mmHg systolic) and acute pulmonary edema.
+                </p>
+</div>
+</div>
+</div>
+<!-- Tag Cloud & Bottom Command Toolbar -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pt-2">
+<div class="flex flex-wrap items-center gap-1.5">
+<span class="px-2 py-0.5 rounded-md text-[11px] font-medium bg-surface-container-high text-on-surface-variant">#Endocrine</span>
+<span class="px-2 py-0.5 rounded-md text-[11px] font-medium bg-surface-container-high text-on-surface-variant">#EmergencyManagement</span>
+<span class="px-2 py-0.5 rounded-md text-[11px] font-medium bg-surface-container-high text-on-surface-variant">#BoardTrap</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-2.5 py-1.5 rounded-lg bg-surface-container text-primary hover:bg-surface-container-high text-xs font-semibold flex items-center gap-1 transition-all" type="button">
+<span class="material-symbols-outlined text-[16px] text-secondary">quiz</span>
+<span>Launch 5-Q Quiz</span>
+</button>
+<button class="px-2.5 py-1.5 rounded-lg bg-secondary text-on-secondary hover:brightness-105 text-xs font-semibold flex items-center gap-1 transition-all shadow-sm" type="button">
+<span class="material-symbols-outlined text-[16px]">style</span>
+<span>Send to SRS</span>
+</button>
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" title="Edit Note" type="button">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+</button>
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" title="Share Pearl" type="button">
+<span class="material-symbols-outlined text-[16px]">share</span>
+</button>
+</div>
+</div>
+</article>
+<!-- HIGHLIGHT CARD 3 (Metallo-beta-lactamases & Australian Guidelines) -->
+<article class="highlight-item bg-surface-container-lowest rounded-2xl p-space-lg md:p-space-xl shadow-sm hover:shadow-md transition-all flex flex-col gap-space-md" data-category="amc-guidelines">
+<!-- Card Header & Metadata -->
+<div class="flex flex-wrap items-start justify-between gap-space-sm">
+<div class="flex flex-wrap items-center gap-2">
+<span class="px-2.5 py-1 rounded-md bg-secondary/10 text-secondary font-bold text-xs flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">coronavirus</span>
+                Microbiology · Gram-Negative Resistance
+              </span>
+<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-surface-container text-on-surface-variant">
+                AMC CAT High-Frequency
+              </span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<button class="p-1.5 text-secondary rounded-lg hover:bg-surface-container transition-colors" title="Toggle Favorite">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</button>
+<button class="p-1.5 hover:text-on-surface rounded-lg hover:bg-surface-container transition-colors" title="More actions">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Provenance / Source Citation -->
+<div class="flex items-center gap-space-xs text-xs text-on-surface-variant bg-surface-container/60 px-3 py-1.5 rounded-lg">
+<span class="material-symbols-outlined text-[16px] text-secondary">travel_explore</span>
+<span>Saved from <strong class="text-on-surface font-semibold">Research Browser</strong></span>
+<span class="text-outline-variant">•</span>
+<span class="text-secondary font-medium">Citation: The Lancet Inf Dis 2024 · AMC Guideline Rev 4</span>
+</div>
+<!-- Visual Excerpt Block -->
+<div class="relative pl-4 bg-surface-container-low/50 py-3 pr-3 rounded-r-xl shadow-[inset_3px_0_0_0_#00696b]">
+<p class="font-body-reading text-body-reading text-primary font-medium tracking-normal leading-relaxed">
+              “Metallo-beta-lactamases (NDM-1, VIM, IMP) are zinc-dependent carbapenemases immune to avibactam alone. Treatment requires the synergistic combination of <mark class="bg-secondary-fixed/50 text-primary px-1 rounded font-semibold">Aztreonam + Ceftazidime-avibactam</mark>.”
+            </p>
+</div>
+<!-- Clinical Pearl Note with Mnemonic/Guideline Format -->
+<div class="p-space-md rounded-r-xl bg-surface-container text-on-surface shadow-[inset_4px_0_0_0_#33476a]">
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary mt-0.5">verified</span>
+<div class="flex flex-col gap-0.5">
+<span class="font-badge-label text-[11px] uppercase tracking-wider font-extrabold text-primary">AMC 2024 Guideline Pearl</span>
+<p class="text-xs font-medium text-on-surface-variant leading-relaxed">
+                  AMC 2024 guideline: <strong>EDTA inhibits them in vitro by chelating divalent zinc.</strong> Aztreonam resists MBLs but gets chewed up by co-produced ESBLs/AmpC, which is why adding Avibactam protects the monobactam companion!
+                </p>
+</div>
+</div>
+</div>
+<!-- Visual Diagram: Synergistic Duo -->
+<div class="grid grid-cols-2 gap-space-sm p-3 rounded-xl bg-surface-container-low">
+<div class="bg-surface-container-lowest p-2.5 rounded-lg">
+<span class="text-[10px] uppercase font-bold text-secondary">Component A: Aztreonam</span>
+<p class="text-[11px] text-on-surface-variant mt-0.5">Naturally resistant to MBL enzymatic hydrolysis (retains PBP-3 binding).</p>
+</div>
+<div class="bg-surface-container-lowest p-2.5 rounded-lg">
+<span class="text-[10px] uppercase font-bold text-primary">Component B: Ceftaz-Avi</span>
+<p class="text-[11px] text-on-surface-variant mt-0.5">Inactivates co-expressed ESBLs &amp; AmpC that would otherwise degrade Aztreonam.</p>
+</div>
+</div>
+<!-- Tag Cloud & Bottom Command Toolbar -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pt-2">
+<div class="flex flex-wrap items-center gap-1.5">
+<span class="px-2 py-0.5 rounded-md text-[11px] font-medium bg-surface-container-high text-on-surface-variant">#NDM1</span>
+<span class="px-2 py-0.5 rounded-md text-[11px] font-medium bg-surface-container-high text-on-surface-variant">#Superbugs</span>
+<span class="px-2 py-0.5 rounded-md text-[11px] font-medium bg-surface-container-high text-on-surface-variant">#AustralianGuidelines</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-2.5 py-1.5 rounded-lg bg-surface-container text-primary hover:bg-surface-container-high text-xs font-semibold flex items-center gap-1 transition-all" type="button">
+<span class="material-symbols-outlined text-[16px] text-secondary">quiz</span>
+<span>Launch 5-Q Quiz</span>
+</button>
+<button class="px-2.5 py-1.5 rounded-lg bg-secondary text-on-secondary hover:brightness-105 text-xs font-semibold flex items-center gap-1 transition-all shadow-sm" type="button">
+<span class="material-symbols-outlined text-[16px]">style</span>
+<span>Send to SRS</span>
+</button>
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" title="Edit Note" type="button">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+</button>
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" title="Share Pearl" type="button">
+<span class="material-symbols-outlined text-[16px]">share</span>
+</button>
+</div>
+</div>
+</article>
+</div>
+<!-- Right Interactive Sidebar & Quick Capture Dock (Col 4) -->
+<div class="lg:col-span-4 flex flex-col gap-space-lg">
+<!-- Quick Capture Box (Manual Pearl Ingestion) -->
+<section class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<div class="w-7 h-7 rounded-lg bg-secondary/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[16px]">edit_note</span>
+</div>
+<h2 class="font-subheading-h3 text-subheading-h3 text-primary">Quick Capture Pearl</h2>
+</div>
+<span class="font-badge-label text-[10px] text-secondary uppercase font-bold tracking-wider">Fast RAG Sync</span>
+</div>
+<p class="font-caption-meta text-caption-meta text-on-surface-variant">
+            Paste rapid clinical notes, rounds pearls, or textbook snippets. Pulse AI auto-detects tags and sources.
+          </p>
+<form class="flex flex-col gap-space-sm mt-1" id="quickCaptureForm">
+<textarea class="w-full bg-surface-container-low rounded-xl p-3 text-xs text-on-surface placeholder:text-outline focus:outline-none focus:bg-surface-container resize-none transition-all" id="pearlInput" placeholder="e.g. Lambert-Eaton vs Myasthenia: Presynaptic P/Q Ca2+ channel antibodies vs Postsynaptic AChR; improves with repetitive muscle use..." rows="3"></textarea>
+<div class="grid grid-cols-2 gap-space-xs">
+<input class="bg-surface-container-low rounded-lg px-2.5 py-1.5 text-xs text-on-surface placeholder:text-outline focus:outline-none focus:bg-surface-container transition-all" id="pearlSourceInput" placeholder="Source / Citation..." type="text"/>
+<select class="bg-surface-container-low rounded-lg px-2 py-1.5 text-xs text-on-surface focus:outline-none focus:bg-surface-container transition-all" id="pearlCategorySelect">
+<option value="pharmacology">Pharmacology</option>
+<option value="pathology">Pathology</option>
+<option value="general-medicine">General Medicine</option>
+<option value="amc-guidelines">AMC Guidelines</option>
+</select>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-1">
+<button class="p-1.5 text-on-surface-variant hover:text-secondary rounded-lg hover:bg-surface-container transition-colors" title="Voice dictation" type="button">
+<span class="material-symbols-outlined text-[18px]">mic</span>
+</button>
+<button class="p-1.5 text-on-surface-variant hover:text-secondary rounded-lg hover:bg-surface-container transition-colors" title="Attach Diagram" type="button">
+<span class="material-symbols-outlined text-[18px]">image</span>
+</button>
+</div>
+<button class="px-space-md py-1.5 rounded-lg bg-secondary text-on-secondary text-xs font-semibold hover:brightness-105 shadow-sm transition-all flex items-center gap-1" type="submit">
+<span>Save Pearl</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</form>
+</section>
+<!-- Spaced Repetition SRS Queue Panel -->
+<section class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<div class="w-7 h-7 rounded-lg bg-primary-container flex items-center justify-center text-secondary-fixed">
+<span class="material-symbols-outlined text-[16px]">cycle</span>
+</div>
+<h2 class="font-subheading-h3 text-subheading-h3 text-primary">Spaced Repetition Queue</h2>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container text-[11px] font-bold">7 Due Today</span>
+</div>
+<!-- Mini SRS Card Item -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-xs">
+<div class="flex items-center justify-between text-[11px]">
+<span class="font-bold text-secondary">Cardiology · Arrhythmias</span>
+<span class="text-on-surface-variant">Interval: 3d</span>
+</div>
+<p class="font-subheading-h3 text-xs text-primary font-medium">
+              “Adenosine receptor type causing transient AV block and bronchospasm in asthmatics?”
+            </p>
+<div class="pt-2 flex items-center justify-between gap-1">
+<button class="flex-1 py-1 rounded text-[10px] font-bold bg-error-container/60 text-on-error-container hover:bg-error-container transition-all" type="button">Again (&lt;10m)</button>
+<button class="flex-1 py-1 rounded text-[10px] font-bold bg-tertiary-fixed/60 text-on-tertiary-fixed hover:bg-tertiary-fixed transition-all" type="button">Hard (1d)</button>
+<button class="flex-1 py-1 rounded text-[10px] font-bold bg-secondary-fixed/60 text-on-secondary-fixed hover:bg-secondary-fixed transition-all" type="button">Good (3d)</button>
+<button class="flex-1 py-1 rounded text-[10px] font-bold bg-surface-container-highest text-primary hover:bg-surface-container transition-all" type="button">Easy (7d)</button>
+</div>
+</div>
+<a class="w-full py-2 rounded-xl bg-primary text-on-primary text-center text-xs font-semibold hover:bg-primary-container transition-all flex items-center justify-center gap-1.5 shadow-sm" href="#">
+<span class="material-symbols-outlined text-[16px]">play_circle</span>
+<span>Review 7 Due Cards Now</span>
+</a>
+</section>
+<!-- Deck Retention & Study Metrics -->
+<section class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<h2 class="font-subheading-h3 text-subheading-h3 text-primary">Study Deck Stats</h2>
+<span class="material-symbols-outlined text-[18px] text-secondary">analytics</span>
+</div>
+<div class="grid grid-cols-2 gap-space-sm">
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col">
+<span class="font-caption-meta text-caption-meta text-on-surface-variant">Total Highlights</span>
+<span class="font-stat-numeral text-stat-numeral text-primary">24</span>
+<span class="text-[10px] text-secondary font-semibold mt-1">+4 this week</span>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col">
+<span class="font-caption-meta text-caption-meta text-on-surface-variant">SRS Converted</span>
+<span class="font-stat-numeral text-stat-numeral text-primary">18</span>
+<span class="text-[10px] text-on-surface-variant font-medium mt-1">75% coverage</span>
+</div>
+</div>
+<!-- Retention Rate Radial Progress -->
+<div class="p-space-md rounded-xl bg-surface-container flex items-center justify-between gap-space-md">
+<div class="flex flex-col gap-0.5">
+<span class="font-headline-h2 text-headline-h2 text-primary">85%</span>
+<span class="text-xs font-semibold text-secondary">30-Day Retention Rate</span>
+<span class="text-[11px] text-on-surface-variant">Projected score: 710/800</span>
+</div>
+<!-- Mini Inline Circular Progress Metric -->
+<div class="relative w-14 h-14 flex items-center justify-center shrink-0">
+<svg class="w-full h-full -rotate-90" viewbox="0 0 36 36">
+<path class="text-surface-container-highest" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3.5"></path>
+<path class="text-secondary" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="85, 100" stroke-linecap="round" stroke-width="3.5"></path>
+</svg>
+<span class="absolute text-[11px] font-bold text-primary">85%</span>
+</div>
+</div>
+<!-- High-Yield Recall Distribution -->
+<div class="flex flex-col gap-1.5">
+<div class="flex justify-between items-center text-xs">
+<span class="text-on-surface-variant">Pharmacology Mastery</span>
+<span class="font-bold text-primary">91%</span>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 91%;"></div>
+</div>
+<div class="flex justify-between items-center text-xs pt-1">
+<span class="text-on-surface-variant">Cardiology Traps</span>
+<span class="font-bold text-primary">68%</span>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
+<div class="bg-tertiary-fixed-dim h-full rounded-full" style="width: 68%;"></div>
+</div>
+</div>
+</section>
+<!-- Clinical Companion RAG Suggestion Card -->
+<div class="p-space-lg rounded-2xl bg-gradient-to-br from-primary-container to-primary text-on-primary shadow-sm flex flex-col gap-space-sm relative overflow-hidden">
+<div class="absolute -right-6 -bottom-6 w-24 h-24 rounded-full bg-secondary-fixed/10 pointer-events-none"></div>
+<div class="flex items-center gap-space-xs text-secondary-fixed">
+<span class="material-symbols-outlined text-[18px]">auto_awesome</span>
+<span class="font-badge-label text-badge-label uppercase tracking-widest font-bold">Pulse AI Memory Copilot</span>
+</div>
+<p class="text-xs leading-relaxed text-inverse-on-surface">
+            Based on your 3 recent antimicrobial saves, we noticed a high error rate in <strong>Aminoglycoside resistance mechanisms</strong>. Would you like a 10-pearl auto-curated brief?
+          </p>
+<button class="w-full py-2 mt-1 rounded-lg bg-surface-container-lowest text-primary font-bold text-xs hover:bg-surface-container-high transition-all" type="button">
+            Generate 10-Pearl Brief
+          </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Filter pill behavior
+  const pills = document.querySelectorAll('.filter-pill');
+  const items = document.querySelectorAll('.highlight-item');
+  const searchInput = document.getElementById('highlightSearchInput');
+
+  pills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      pills.forEach(p => {
+        p.className = 'filter-pill shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-surface-container-lowest text-on-surface hover:bg-surface-container transition-all flex items-center gap-1.5 shadow-sm';
+      });
+      pill.className = 'filter-pill shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-secondary text-on-secondary shadow-sm transition-all flex items-center gap-1.5';
+
+      const filterVal = pill.getAttribute('data-filter');
+      items.forEach(item => {
+        if (filterVal === 'all' || item.getAttribute('data-category') === filterVal) {
+          item.style.display = 'flex';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // Client-side instant keyword search
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase().trim();
+      items.forEach(item => {
+        const text = item.innerText.toLowerCase();
+        if (text.includes(q)) {
+          item.style.display = 'flex';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+  }
+
+  // Export dropdown toggler
+  const exportBtn = document.getElementById('exportDropdownBtn');
+  const exportMenu = document.getElementById('exportMenu');
+  if (exportBtn && exportMenu) {
+    exportBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      exportMenu.classList.toggle('hidden');
+      exportMenu.classList.toggle('flex');
+    });
+
+    document.addEventListener('click', () => {
+      if (!exportMenu.classList.contains('hidden')) {
+        exportMenu.classList.add('hidden');
+        exportMenu.classList.remove('flex');
+      }
+    });
+  }
+
+  // Quick Capture submission interaction
+  const quickForm = document.getElementById('quickCaptureForm');
+  if (quickForm) {
+    quickForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const pearlText = document.getElementById('pearlInput').value.trim();
+      if (!pearlText) return;
+
+      const sourceText = document.getElementById('pearlSourceInput').value.trim() || 'Manual Quick Capture';
+      const category = document.getElementById('pearlCategorySelect').value;
+
+      // Create new dynamic card at the top of the feed
+      const newCard = document.createElement('article');
+      newCard.className = 'highlight-item bg-surface-container-lowest rounded-2xl p-space-lg md:p-space-xl shadow-sm hover:shadow-md transition-all flex flex-col gap-space-md animate-fade-in';
+      newCard.setAttribute('data-category', category);
+
+      newCard.innerHTML = `
+        <div class="flex flex-wrap items-start justify-between gap-space-sm">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="px-2.5 py-1 rounded-md bg-secondary/10 text-secondary font-bold text-xs flex items-center gap-1">
+              <span class="material-symbols-outlined text-[14px]">edit_note</span>
+              ${category.toUpperCase()} &middot; Quick Capture
+            </span>
+            <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-surface-container text-on-surface-variant">Just now</span>
+          </div>
+          <div class="flex items-center gap-1 text-on-surface-variant">
+            <button class="p-1.5 hover:text-secondary rounded-lg hover:bg-surface-container transition-colors">
+              <span class="material-symbols-outlined text-[18px]">star</span>
+            </button>
+          </div>
+        </div>
+        <div class="flex items-center gap-space-xs text-xs text-on-surface-variant bg-surface-container/60 px-3 py-1.5 rounded-lg">
+          <span class="material-symbols-outlined text-[16px] text-secondary">bookmark</span>
+          <span>Source: <strong class="text-on-surface font-semibold">${sourceText}</strong></span>
+        </div>
+        <div class="relative pl-4 bg-surface-container-low/50 py-3 pr-3 rounded-r-xl shadow-[inset_3px_0_0_0_#00696b]">
+          <p class="font-body-reading text-body-reading text-primary font-medium tracking-normal leading-relaxed">
+            &ldquo;${pearlText}&rdquo;
+          </p>
+        </div>
+        <div class="flex items-center justify-end gap-2 pt-2">
+          <button type="button" class="px-2.5 py-1.5 rounded-lg bg-secondary text-on-secondary text-xs font-semibold flex items-center gap-1">
+            <span class="material-symbols-outlined text-[16px]">style</span>
+            <span>Send to SRS</span>
+          </button>
+        </div>
+      `;
+
+      const feedContainer = document.querySelector('.lg\\:col-span-8');
+      if (feedContainer) {
+        feedContainer.insertBefore(newCard, feedContainer.firstChild);
+      }
+
+      // Reset form
+      document.getElementById('pearlInput').value = '';
+      document.getElementById('pearlSourceInput').value = '';
+    });
+  }
+</script></main>
+</div>
+</body></html>
