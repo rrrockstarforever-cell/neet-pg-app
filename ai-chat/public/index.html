@@ -13,6 +13,11 @@
     <aside class="sidebar" id="sidebar">
       <button class="btn primary" id="newChat">+ New chat</button>
 
+      <div class="mode-tabs">
+        <button class="btn small active" id="tabChat">Chat</button>
+        <button class="btn small" id="tabMarkets">Markets</button>
+      </div>
+
       <div class="section-title">
         Projects
         <button class="btn ghost small" id="newProject" title="New project">+</button>
@@ -34,6 +39,8 @@
       </header>
 
       <section class="messages" id="messages"></section>
+
+      <section class="markets" id="markets"></section>
 
       <div class="composer-wrap">
         <div class="attachments" id="attachments"></div>
@@ -72,6 +79,19 @@
         </label>
       </div>
 
+      <div class="provider-card">
+        <h3>Market data (for Markets tab)</h3>
+        <label class="label wide">Data source
+          <select id="marketProvider">
+            <option value="yahoo">Yahoo Finance (no key, unofficial, rate-limited)</option>
+            <option value="alphavantage">Alpha Vantage (free key: fundamentals and news)</option>
+          </select>
+        </label>
+        <label class="label wide">Alpha Vantage API key
+          <input type="password" autocomplete="off" id="avKey" placeholder="Paste key, or set ALPHAVANTAGE_API_KEY on the server" />
+        </label>
+      </div>
+
       <div id="providerSettings"></div>
 
       <div class="row end">
@@ -101,5 +121,6 @@
   </dialog>
 
   <script src="/app.js"></script>
+  <script src="/markets.js"></script>
 </body>
 </html>

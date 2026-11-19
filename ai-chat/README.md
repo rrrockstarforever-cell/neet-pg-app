@@ -50,5 +50,36 @@ Never put keys in code or commit `.env`. The included `.gitignore` excludes it.
 
 - The server only forwards requests. It does not store chats or keys.
 - Chats are stored in this browser's localStorage. Clearing site data deletes them.
-- Images, file uploads, and web search are not included yet. They can be added per provider.
+- Image and text-file attachments, web search (Brave), projects, and voice are included. PDFs are not extracted yet.
 - `deepseek-reasoner` returns its reasoning in a separate field, which this version does not display. Only the final answer appears.
+
+## Markets tab (trading and stock analysis)
+
+Switch to **Markets** in the sidebar. It has four parts:
+
+1. **Global markets and sectors.** Indices (US, India, Japan, Hong Kong, UK, Germany), dollar, oil, gold, 10-year yield, VIX, and US sector ETFs. Shows 1-week, 1-month and 3-month returns, trend vs the 200-day average, and the strongest and weakest sectors.
+2. **Watchlist screen.** Ranks tickers by the Minervini Trend Template (8 checks), Weinstein Stage 2, Darvas/Livermore breakouts, Turtle entries, and relative strength vs a benchmark.
+3. **Single-stock analysis.** Indicators (SMA 50/150/200, RSI, MACD, ATR, Bollinger), a suggested stop at 2×ATR, every rule check with its detail, fundamentals and news (Alpha Vantage), and a backtest of four long-only strategies with costs, drawdown, win rate and time in market. **Ask AI to analyze** sends the data to the chat and asks for a structured research view covering global context, fundamentals, technicals, local and global demand, bull and bear cases, and risks.
+4. **Strategy guide.** The rules used by Minervini, Weinstein, Darvas, Livermore, the Turtles, O'Neil (CAN SLIM style), Buffett, Graham and Lynch, plus a checklist for global context, long-term fundamentals, short-term technicals, local and global demand, and risk.
+
+### Data sources
+
+- **Yahoo Finance (default).** No key. Price history only. The endpoint is unofficial and rate-limits heavily (HTTP 429), so use it lightly.
+- **Alpha Vantage.** Free key. Adds fundamentals (P/E, PEG, ROE, margins, EPS growth) and news sentiment. The free plan allows about 25 calls a day, so keep watchlists short. Set the key in Settings or as `ALPHAVANTAGE_API_KEY`.
+
+Use Yahoo symbols: NSE stocks end in `.NS` (e.g. `RELIANCE.NS`), BSE in `.BO`, and US stocks have no suffix. Alpha Vantage symbol coverage for Indian stocks is limited.
+
+### Important limits
+
+- These are simplified versions of published methods. Thresholds are conventions, not validated edges. Read the original books before relying on any rule.
+- Backtests ignore slippage, taxes, dividends and survivorship bias. A good backtest does not guarantee future returns.
+- Benchmark alignment is by trading-day position, not by exact date, so relative strength is approximate for markets with different holidays.
+- This is an educational research tool, not financial advice. Verify data and consult a licensed adviser (in India, a SEBI-registered one) before investing.
+
+### Tests
+
+```bash
+npm test
+```
+
+The tests use synthetic prices and a mock Yahoo server, so they do not need the internet.

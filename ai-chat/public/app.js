@@ -31,6 +31,8 @@
     searchKey: $('searchKey'),
     voiceLang: $('voiceLang'),
     providerSettings: $('providerSettings'),
+    marketProvider: $('marketProvider'),
+    avKey: $('avKey'),
     clearAll: $('clearAll'),
     projectDialog: $('projectDialog'),
     projectForm: $('projectForm'),
@@ -66,6 +68,8 @@
       webSearch: false,
       searchKey: '',
       voiceLang: 'en-US',
+      marketProvider: 'yahoo',
+      alphaVantageKey: '',
     };
   }
 
@@ -585,6 +589,8 @@
     els.systemPrompt.value = state.system;
     els.searchKey.value = state.searchKey || '';
     els.voiceLang.value = state.voiceLang || 'en-US';
+    els.marketProvider.value = state.marketProvider || 'yahoo';
+    els.avKey.value = state.alphaVantageKey || '';
     els.providerSettings.innerHTML = '';
     for (const p of providers) {
       const card = document.createElement('div');
@@ -613,6 +619,8 @@
     state.system = els.systemPrompt.value;
     state.searchKey = els.searchKey.value.trim();
     state.voiceLang = els.voiceLang.value.trim() || 'en-US';
+    state.marketProvider = els.marketProvider.value || 'yahoo';
+    state.alphaVantageKey = els.avKey.value.trim();
     els.providerSettings.querySelectorAll('input[data-id]').forEach((input) => {
       const { kind, id } = input.dataset;
       const value = input.value.trim();
@@ -696,6 +704,21 @@
     e.preventDefault();
     if (e.dataTransfer?.files?.length) addFiles(e.dataTransfer.files).then(renderAttachments);
   });
+
+  // ---------- Hook for the Markets tab ----------
+  window.aiChat = {
+    getState: () => state,
+    // Puts text in the composer and sends it as a normal chat message.
+    ask(text) {
+      els.input.value = text;
+      send();
+    },
+    setMarketSettings(provider, key) {
+      state.marketProvider = provider;
+      state.alphaVantageKey = key;
+      save();
+    },
+  };
 
   // ---------- Start ----------
   setupVoice();

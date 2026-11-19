@@ -6,6 +6,7 @@
 import express from 'express';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { marketRouter } from './market/router.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT) || 3000;
@@ -75,6 +76,7 @@ export const PROVIDERS = {
 
 const app = express();
 app.use(express.json({ limit: '25mb' })); // allows base64 image attachments
+app.use('/api/market', marketRouter);
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Tells the UI which providers exist and whether a server-side key is already configured.
