@@ -12,8 +12,15 @@
     exportChat: $('exportChat'),
     projectList: $('projectList'),
     newChat: $('newChat'),
+    newChatTop: $('newChatTop'),
     newProject: $('newProject'),
     toggleSidebar: $('toggleSidebar'),
+    scrim: $('scrim'),
+    voiceMode: $('voiceMode'),
+    voiceOverlay: $('voiceOverlay'),
+    voiceClose: $('voiceClose'),
+    orb: $('orb'),
+    voiceStatus: $('voiceStatus'),
     provider: $('provider'),
     model: $('model'),
     modelList: $('modelList'),
@@ -54,6 +61,16 @@
   let recognition = null;
   let listening = false;
   let warnedStorage = false;
+  let voiceActive = false;   // full-screen voice mode is open
+  let voiceState = 'idle';   // idle | listening | thinking | speaking
+
+  const isPhone = () => window.matchMedia('(max-width: 720px)').matches;
+  const SUGGESTIONS = [
+    'Explain a topic simply',
+    'Plan my study schedule',
+    'Draft a polite email',
+    'Summarise the text I paste',
+  ];
 
   // ---------- Storage ----------
   function defaultState() {
@@ -244,7 +261,7 @@
         state.activeId = chat.id;
         save();
         renderAll();
-        if (window.innerWidth <= 720) els.sidebar.classList.add('collapsed');
+        if (isPhone()) setDrawer(false);
       });
       els.chatList.appendChild(item);
     }
@@ -258,6 +275,20 @@
       empty.className = 'empty';
       const proj = projectById(state.activeProjectId);
       empty.innerHTML = `<h1>How can I help?</h1><p>${proj ? `Project: ${escapeHtml(proj.name)}. ` : ''}Pick a provider and model above, add your API key in Settings, then start typing.</p>`;
+      const chips = document.createElement('div');
+      chips.className = 'suggestions';
+      for (const s of SUGGESTIONS) {
+        const chip = document.createElement('button');
+        chip.className = 'suggestion';
+        chip.textContent = s;
+        chip.addEventListener('click', () => {
+          els.input.value = s;
+          autosize();
+          els.input.focus();
+        });
+        chips.appendChild(chip);
+      }
+      empty.appendChild(chips);
       els.messages.appendChild(empty);
       return;
     }
@@ -429,18 +460,92 @@
     recognition.continuous = false;
     recognition.interimResults = false;
     recognition.onresult = (e) => {
-      const transcript = Array.from(e.results).map((r) => r[0].transcript).join(' ');
-      els.input.value = (els.input.value ? els.input.value + ' ' : '') + transcript.trim();
+      const transcript = Array.from(e.results).map((r) => r[0].transcript).join(' ').trim();
+      if (voiceActive) {
+        // Voice mode: a spoken phrase is sent straight away.
+        els.input.value = transcript;
+        autosize();
+        send();
+        return;
+      }
+      els.input.value = (els.input.value ? els.input.value + ' ' : '') + transcript;
       autosize();
     };
     recognition.onend = () => {
       listening = false;
       els.mic.classList.remove('on');
+      if (voiceActive && !busy && voiceState === 'listening') setVoiceState('idle');
     };
     recognition.onerror = () => {
       listening = false;
       els.mic.classList.remove('on');
+      if (voiceActive && !busy) setVoiceState('idle');
     };
+  }
+
+  // ---------- Voice mode (full screen) ----------
+  const VOICE_TEXT = {
+    idle: 'Tap the orb and speak',
+    listening: 'Listening… tap to stop',
+    thinking: 'Thinking…',
+    speaking: 'Speaking… tap to stop',
+  };
+
+  function setVoiceState(s) {
+    voiceState = s;
+    els.orb.className = `orb ${s}`;
+    els.voiceStatus.textContent = VOICE_TEXT[s];
+  }
+
+  function openVoice() {
+    if (!recognition) {
+      alert('Voice mode needs a browser with speech recognition (Chrome, Edge or Safari).');
+      return;
+    }
+    voiceActive = true;
+    els.voiceOverlay.classList.remove('hidden');
+    setVoiceState('idle');
+  }
+
+  function closeVoice() {
+    voiceActive = false;
+    if (listening) recognition.abort();
+    window.speechSynthesis?.cancel();
+    els.voiceOverlay.classList.add('hidden');
+    setVoiceState('idle');
+  }
+
+  function onOrbTap() {
+    if (voiceState === 'listening') {
+      recognition.stop();
+    } else if (voiceState === 'speaking') {
+      window.speechSynthesis.cancel();
+      setVoiceState('idle');
+    } else if (voiceState === 'idle') {
+      if (busy) return;
+      recognition.lang = state.voiceLang || 'en-US';
+      try {
+        recognition.start();
+        listening = true;
+        setVoiceState('listening');
+      } catch {
+        setVoiceState('idle');
+      }
+    }
+  }
+
+  // Reads a finished reply aloud in voice mode, then returns to idle.
+  function speakReply(markdown) {
+    if (!voiceActive || !('speechSynthesis' in window)) {
+      setVoiceState('idle');
+      return;
+    }
+    const utter = new SpeechSynthesisUtterance(plainText(markdown));
+    utter.lang = state.voiceLang || 'en-US';
+    utter.onstart = () => setVoiceState('speaking');
+    utter.onend = () => { if (voiceActive) setVoiceState('idle'); };
+    utter.onerror = () => { if (voiceActive) setVoiceState('idle'); };
+    window.speechSynthesis.speak(utter);
   }
 
   function toggleMic() {
@@ -526,6 +631,7 @@
     controller = new AbortController();
     save();
     renderAll();
+    if (voiceActive) setVoiceState('thinking');
 
     const history = chat.messages.slice(0, -1).map(({ role, content, images }) => ({ role, content, images: images || [] }));
     const project = projectById(chat.projectId);
@@ -568,10 +674,15 @@
         reply.content = `**Error:** ${err.message}`;
       }
     } finally {
+      const aborted = !!controller?.signal.aborted;
       busy = false;
       controller = null;
       save();
       renderAll();
+      if (voiceActive) {
+        if (aborted || !reply.content.trim() || reply.content.startsWith('**Error')) setVoiceState('idle');
+        else speakReply(reply.content);
+      }
     }
   }
 
@@ -725,14 +836,41 @@
   }
 
   // ---------- Events ----------
-  els.newChat.addEventListener('click', () => {
+  // Phones: the sidebar is a drawer. Desktop: it can be collapsed.
+  function setDrawer(open) {
+    if (isPhone()) {
+      els.sidebar.classList.toggle('open', open);
+      els.scrim.classList.toggle('show', open);
+    } else {
+      els.sidebar.classList.toggle('collapsed', !open);
+    }
+  }
+
+  function newChat() {
     state.activeId = null;
     save();
     renderAll();
+    if (isPhone()) setDrawer(false);
     els.input.focus();
-  });
+  }
 
-  els.toggleSidebar.addEventListener('click', () => els.sidebar.classList.toggle('collapsed'));
+  els.newChat.addEventListener('click', newChat);
+  els.newChatTop.addEventListener('click', newChat);
+
+  els.toggleSidebar.addEventListener('click', () => {
+    const open = isPhone()
+      ? !els.sidebar.classList.contains('open')
+      : els.sidebar.classList.contains('collapsed');
+    setDrawer(open);
+  });
+  els.scrim.addEventListener('click', () => setDrawer(false));
+
+  els.voiceMode.addEventListener('click', openVoice);
+  els.voiceClose.addEventListener('click', closeVoice);
+  els.orb.addEventListener('click', onOrbTap);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && voiceActive && !busy) closeVoice();
+  });
 
   els.provider.addEventListener('change', () => {
     state.provider = els.provider.value;

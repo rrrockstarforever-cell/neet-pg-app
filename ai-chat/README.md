@@ -12,7 +12,10 @@ A Grok-style chat app where you choose the AI model. Use Claude, Gemini, ChatGPT
 - Switch provider and model at any time, per message
 - Markdown and code blocks, copy button on replies
 - Optional system prompt
-- Light and dark theme (follows your OS), works on phones
+- Light and dark theme (follows your OS)
+- Phone-first layout: menu drawer, bottom composer, large touch targets, suggestion chips on a new chat
+- Voice mode: full-screen orb. Tap to speak, the reply is read aloud, and it returns to listening
+- Install as an app: in Safari or Chrome on your phone, choose "Add to Home Screen"
 
 ## Supported providers
 
