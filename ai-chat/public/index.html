@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Chat</title>
+  <link rel="stylesheet" href="/style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar" id="sidebar">
+      <button class="btn primary" id="newChat">+ New chat</button>
+      <div class="chat-list" id="chatList"></div>
+      <button class="btn ghost" id="openSettings">Settings &amp; API keys</button>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="btn ghost icon" id="toggleSidebar" title="Toggle sidebar">&#9776;</button>
+        <select id="provider" class="field" title="Provider"></select>
+        <input id="model" class="field grow" list="modelList" placeholder="Model name" />
+        <datalist id="modelList"></datalist>
+      </header>
+
+      <section class="messages" id="messages"></section>
+
+      <form class="composer" id="composer">
+        <textarea id="input" rows="1" placeholder="Message… (Enter to send, Shift+Enter for a new line)"></textarea>
+        <button type="button" class="btn danger hidden" id="stop">Stop</button>
+        <button type="submit" class="btn primary" id="send">Send</button>
+      </form>
+    </main>
+  </div>
+
+  <dialog id="settingsDialog">
+    <form method="dialog" class="settings">
+      <h2>Settings</h2>
+      <p class="hint">
+        Keys are saved only in this browser (localStorage). They are sent to this server with each request
+        and forwarded to the provider. You can also set them as environment variables on the server instead.
+      </p>
+
+      <label class="label">System prompt (optional)
+        <textarea id="systemPrompt" rows="4" placeholder="e.g. You are a helpful tutor for medical students. Answer in English."></textarea>
+      </label>
+
+      <div id="providerSettings"></div>
+
+      <div class="row end">
+        <button type="button" class="btn ghost" id="clearAll">Delete all chats</button>
+        <button type="submit" class="btn primary">Done</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="/app.js"></script>
+</body>
+</html>
