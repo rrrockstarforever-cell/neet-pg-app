@@ -5,6 +5,7 @@ import { analyzeSymbol, screenSymbols, globalDashboard } from './analysis.js';
 import { backtest, BACKTEST_STRATEGIES } from './backtest.js';
 import { getDailyBars } from './data.js';
 import { STRATEGY_GUIDE, SELECTION_CHECKLIST, DISCLAIMER } from './guide.js';
+import { TRADER_METHODS, NSE_CHECKLIST } from './traders.js';
 
 const SYMBOL_RE = /^[A-Za-z0-9.^=\-]{1,20}$/;
 const PROVIDERS = ['yahoo', 'alphavantage'];
@@ -37,6 +38,8 @@ marketRouter.get('/strategies', (_req, res) => {
     strategies: STRATEGY_GUIDE,
     backtestStrategies: BACKTEST_STRATEGIES,
     checklist: SELECTION_CHECKLIST,
+    traders: TRADER_METHODS,
+    nseChecklist: NSE_CHECKLIST,
   });
 });
 

@@ -61,12 +61,15 @@ Never put keys in code or commit `.env`. The included `.gitignore` excludes it.
 
 ## Markets tab (trading and stock analysis)
 
+The tab has five parts. The first four are described below, then the guide.
+
 Switch to **Markets** in the sidebar. It has four parts:
 
 1. **Global markets and sectors.** Indices (US, India, Japan, Hong Kong, UK, Germany), dollar, oil, gold, 10-year yield, VIX, and US sector ETFs. Shows 1-week, 1-month and 3-month returns, trend vs the 200-day average, and the strongest and weakest sectors.
 2. **Watchlist screen.** Ranks tickers by the Minervini Trend Template (8 checks), Weinstein Stage 2, Darvas/Livermore breakouts, Turtle entries, and relative strength vs a benchmark.
 3. **Single-stock analysis.** Indicators (SMA 50/150/200, RSI, MACD, ATR, Bollinger), a suggested stop at 2×ATR, every rule check with its detail, fundamentals and news (Alpha Vantage), and a backtest of four long-only strategies with costs, drawdown, win rate and time in market. **Ask AI to analyze** sends the data to the chat and asks for a structured research view covering global context, fundamentals, technicals, local and global demand, bull and bear cases, and risks.
-4. **Strategy guide.** The rules used by Minervini, Weinstein, Darvas, Livermore, the Turtles, O'Neil (CAN SLIM style), Buffett, Graham and Lynch, plus a checklist for global context, long-term fundamentals, short-term technicals, local and global demand, and risk.
+4. **Paper trading (simulated, no real money).** Buy with a stop-loss and target, refresh prices to trigger exits, and see P&L, equity and trade history. Saved in this browser. Optional auto-refresh every 1 or 5 minutes.
+5. **Strategy guide.** The rules used by Minervini, Weinstein, Darvas, Livermore, the Turtles, O'Neil (CAN SLIM style), Buffett, Graham and Lynch. Also summaries of Indian investors (Rakesh Jhunjhunwala, Vijay Kedia, Radhakishan Damani, Ashish Kacholia), an NSE-specific checklist (promoter holding and pledge, delivery %, FII/DII flows, surveillance, and more), and a general checklist for global context, fundamentals, technicals, demand and risk.
 
 ### Data sources
 

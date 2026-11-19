@@ -82,10 +82,45 @@
       </div>
 
       <div class="card">
-        <h3>4. Strategy guide and selection checklist</h3>
+        <h3>4. Paper trading (simulated, no real money)</h3>
+        <p class="muted small">Practise a rule before you risk money. Orders fill at the latest price from the data source. Stops and targets are checked on each refresh. Saved in this browser only.</p>
+        <div class="grid2">
+          <input id="pSymbol" class="field" placeholder="Ticker, e.g. INFY.NS" />
+          <input id="pQty" class="field" type="number" min="1" step="1" placeholder="Quantity" />
+          <input id="pStop" class="field" type="number" min="0" step="0.01" placeholder="Stop-loss (optional)" />
+          <input id="pTarget" class="field" type="number" min="0" step="0.01" placeholder="Target (optional)" />
+        </div>
+        <div class="row between wrap">
+          <button class="btn small primary" id="pBuy">Simulate buy</button>
+          <div class="row wrap">
+            <select id="pInterval" class="field" title="Automatic refresh">
+              <option value="0">Refresh: off</option>
+              <option value="60">Every 1 min</option>
+              <option value="300">Every 5 min</option>
+            </select>
+            <button class="btn small" id="pRefresh">Refresh prices</button>
+            <button class="btn small ghost" id="pReset">Reset</button>
+          </div>
+        </div>
+        <div id="pMsg"></div>
+        <div id="paperOut"></div>
+        <p class="muted small">Refresh uses the same data source as the rest of this tab. Yahoo rate-limits, so intervals below one minute are not offered. For true second-by-second prices you need a broker's live feed.</p>
+      </div>
+
+      <div class="card">
+        <h3>5. Strategy guide, famous investors and selection checklist</h3>
         <div id="guideOut" class="muted">Loading…</div>
       </div>`;
     $('runGlobal').addEventListener('click', loadGlobal);
+    $('pBuy').addEventListener('click', paperBuy);
+    $('pRefresh').addEventListener('click', () => refreshPaper());
+    $('pReset').addEventListener('click', paperReset);
+    $('pInterval').addEventListener('change', setPaperTimer);
+    $('paperOut').addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-sell]');
+      if (btn) paperSell(btn.dataset.sell);
+    });
+    initPaper();
     $('runScreen').addEventListener('click', runScreen);
     $('runAnalyze').addEventListener('click', () => analyze($('symbol').value));
     $('symbol').addEventListener('keydown', (e) => { if (e.key === 'Enter') analyze($('symbol').value); });
@@ -270,7 +305,166 @@
     window.aiChat.ask(prompt);
   }
 
-  // ---------- 4. Guide ----------
+  // ---------- 4. Paper trading ----------
+  const PAPER_KEY = 'ai-chat-paper-v1';
+  let paperLib = null;
+  let paperTimer = null;
+
+  async function lib() {
+    paperLib = paperLib || (await import('/paper-core.js'));
+    return paperLib;
+  }
+
+  function storedPaper() {
+    try {
+      const raw = localStorage.getItem(PAPER_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch {
+      return null;
+    }
+  }
+
+  function storePaper(pf) {
+    try {
+      localStorage.setItem(PAPER_KEY, JSON.stringify(pf));
+    } catch {
+      paperMsg('Browser storage is full or blocked, so paper trades were not saved.', 'err');
+    }
+  }
+
+  async function currentPaper() {
+    const L = await lib();
+    return storedPaper() || L.newPortfolio();
+  }
+
+  function paperMsg(text, cls = 'muted') {
+    $('pMsg').innerHTML = `<span class="${cls}">${esc(text)}</span>`;
+  }
+
+  async function currentPrice(symbol) {
+    const a = await api('/analyze', { ...settings(), symbol, news: false, fundamentals: false });
+    return a.price;
+  }
+
+  function renderPaper(L, pf, prices) {
+    const v = L.valuation(pf, prices);
+    const summary = `
+      <div class="grid3">
+        <div class="kpi"><div class="muted small">Equity</div><div>${num(v.equity)}</div></div>
+        <div class="kpi"><div class="muted small">Cash</div><div>${num(v.cash)}</div></div>
+        <div class="kpi"><div class="muted small">Invested</div><div>${num(v.invested)}</div></div>
+      </div>`;
+    const rows = v.rows.map((r) => `
+      <tr>
+        <td>${esc(r.symbol)}</td>
+        <td>${r.qty}</td>
+        <td>${num(r.avgCost)}</td>
+        <td>${num(r.price)}</td>
+        <td class="${cls(r.unrealized)}">${num(r.unrealized)} (${num(r.unrealizedPct, 1)}%)</td>
+        <td>${r.stop ?? '–'}</td>
+        <td>${r.target ?? '–'}</td>
+        <td><button class="btn small" data-sell="${esc(r.symbol)}">Sell all</button></td>
+      </tr>`).join('');
+    const positions = v.rows.length
+      ? `<div class="scroll"><table><thead><tr><th>Ticker</th><th>Qty</th><th>Avg cost</th><th>Price</th><th>P&amp;L</th><th>Stop</th><th>Target</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>`
+      : '<p class="muted small">No open paper positions.</p>';
+    const log = pf.trades.slice(-10).reverse().map((t) => `
+      <tr>
+        <td class="small">${esc(new Date(t.time).toLocaleString())}</td>
+        <td>${esc(t.side)}</td>
+        <td>${esc(t.symbol)}</td>
+        <td>${t.qty}</td>
+        <td>${num(t.price)}</td>
+        <td class="${cls(t.realized)}">${t.realized === undefined ? '–' : num(t.realized)}</td>
+        <td>${esc(t.reason)}</td>
+      </tr>`).join('');
+    const trades = pf.trades.length
+      ? `<h4>Recent trades</h4><div class="scroll"><table><thead><tr><th>Time</th><th>Side</th><th>Ticker</th><th>Qty</th><th>Price</th><th>Realized</th><th>Reason</th></tr></thead><tbody>${log}</tbody></table></div>`
+      : '';
+    $('paperOut').innerHTML = summary + positions + trades;
+  }
+
+  async function initPaper() {
+    const L = await lib();
+    renderPaper(L, storedPaper() || L.newPortfolio(), {});
+  }
+
+  async function paperBuy() {
+    const L = await lib();
+    const symbol = $('pSymbol').value.trim().toUpperCase();
+    const qty = Number($('pQty').value);
+    const stopRaw = $('pStop').value;
+    const targetRaw = $('pTarget').value;
+    if (!symbol) return paperMsg('Enter a ticker.', 'err');
+    paperMsg('Getting the latest price…');
+    try {
+      const price = await currentPrice(symbol);
+      const pf = L.buy(await currentPaper(), {
+        symbol,
+        qty,
+        price,
+        stop: stopRaw ? Number(stopRaw) : null,
+        target: targetRaw ? Number(targetRaw) : null,
+        time: new Date().toISOString(),
+      });
+      storePaper(pf);
+      renderPaper(L, pf, { [symbol]: price });
+      paperMsg(`Simulated buy: ${qty} ${symbol} at ${num(price)}.`, 'ok');
+    } catch (err) {
+      paperMsg(err.message, 'err');
+    }
+  }
+
+  async function paperSell(symbol) {
+    const L = await lib();
+    try {
+      const price = await currentPrice(symbol);
+      const res = L.sell(await currentPaper(), { symbol, price, time: new Date().toISOString() });
+      storePaper(res.portfolio);
+      renderPaper(L, res.portfolio, {});
+      paperMsg(`Simulated sell of ${symbol} at ${num(price)}. Realized P&L: ${num(res.realized)}.`, res.realized >= 0 ? 'ok' : 'err');
+    } catch (err) {
+      paperMsg(err.message, 'err');
+    }
+  }
+
+  // Prices every open position one at a time (to stay under rate limits), then checks stops and targets.
+  async function refreshPaper() {
+    const L = await lib();
+    let pf = await currentPaper();
+    const prices = {};
+    const errors = [];
+    for (const p of pf.positions) {
+      try {
+        prices[p.symbol] = await currentPrice(p.symbol);
+      } catch (err) {
+        errors.push(`${p.symbol}: ${err.message}`);
+      }
+    }
+    const res = L.checkExits(pf, prices, new Date().toISOString());
+    pf = res.portfolio;
+    storePaper(pf);
+    renderPaper(L, pf, prices);
+    const notes = res.closed.map((c) => `${c.symbol} closed on ${c.reason} at ${num(c.price)} (P&L ${num(c.realized)})`);
+    if (errors.length) notes.push(`Could not price: ${errors.join('; ')}`);
+    paperMsg(notes.length ? notes.join(' · ') : `Prices updated at ${new Date().toLocaleTimeString()}.`, errors.length ? 'err' : 'ok');
+  }
+
+  function setPaperTimer() {
+    clearInterval(paperTimer);
+    const secs = Number($('pInterval').value);
+    if (secs > 0) paperTimer = setInterval(() => refreshPaper().catch(() => {}), secs * 1000);
+  }
+
+  async function paperReset() {
+    if (!confirm('Reset paper trading? All simulated positions and history are deleted.')) return;
+    const L = await lib();
+    storePaper(L.newPortfolio());
+    renderPaper(L, L.newPortfolio(), {});
+    paperMsg('Paper account reset.');
+  }
+
+  // ---------- 5. Guide ----------
   async function loadGuide() {
     const out = $('guideOut');
     try {
@@ -281,11 +475,22 @@
           <p>${esc(s.idea)}</p>
           <ul>${s.rules.map((r) => `<li>${esc(r)}</li>`).join('')}</ul>
         </details>`).join('');
+      const traders = (g.traders || []).map((t) => `
+        <details class="strat">
+          <summary><strong>${esc(t.name)}</strong> <span class="muted small">· ${esc(t.market)} · ${esc(t.horizon)}</span></summary>
+          <p>${esc(t.idea)}</p>
+          <ul>${t.rules.map((r) => `<li>${esc(r)}</li>`).join('')}</ul>
+          <p class="muted small">${esc(t.verify)}</p>
+        </details>`).join('');
       const sec = (title, items) => `<h4>${esc(title)}</h4><ul>${items.map((i) => `<li>${esc(i)}</li>`).join('')}</ul>`;
       const c = g.checklist;
       out.innerHTML = `
         <p class="muted small">${esc(g.disclaimer)}</p>
         ${cards}
+        <h4>Famous investors (India and NSE focus)</h4>
+        <p class="muted small">Summaries of publicly known approaches, not quotes. Verify before relying on them.</p>
+        ${traders}
+        ${sec('NSE-specific checks', g.nseChecklist || [])}
         ${sec('Global context', c.global)}
         ${sec('Long-term fundamentals', c.longTermFundamentals)}
         ${sec('Short-term technicals', c.shortTermTechnicals)}
