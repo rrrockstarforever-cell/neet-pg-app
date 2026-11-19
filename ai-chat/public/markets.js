@@ -108,6 +108,39 @@
       </div>
 
       <div class="card">
+        <h3>Position size and trade record</h3>
+        <p class="muted small">Set how much of your total capital you may lose on one trade. The calculator shows how many shares to buy and how much of your capital that means. The record tracks your win rate and results.</p>
+        <div class="grid3">
+          <label class="label">Total capital<input id="sCapital" class="field" type="number" min="0" step="1000" placeholder="e.g. 500000" /></label>
+          <label class="label">Max loss per trade (%)<input id="sRisk" class="field" type="number" min="0.1" max="100" step="0.1" value="1" /></label>
+          <label class="label">Max position (% of capital, optional)<input id="sMax" class="field" type="number" min="0" max="100" step="1" placeholder="e.g. 25" /></label>
+          <label class="label">Entry price<input id="sEntry" class="field" type="number" min="0" step="0.01" /></label>
+          <label class="label">Stop-loss price<input id="sStop" class="field" type="number" min="0" step="0.01" /></label>
+        </div>
+        <div class="row between wrap">
+          <button class="btn small primary" id="sCalc">Calculate</button>
+          <span class="muted small" id="sFormula"></span>
+        </div>
+        <div id="sOut"></div>
+
+        <h4>Trade record</h4>
+        <div class="grid3">
+          <input id="jSymbol" class="field" placeholder="Ticker" />
+          <input id="jDate" class="field" type="date" aria-label="Entry date" />
+          <input id="jQty" class="field" type="number" min="1" step="1" placeholder="Shares" />
+          <input id="jEntry" class="field" type="number" min="0" step="0.01" placeholder="Entry price" />
+          <input id="jStop" class="field" type="number" min="0" step="0.01" placeholder="Stop-loss" />
+          <input id="jExit" class="field" type="number" min="0" step="0.01" placeholder="Exit price (blank if still open)" />
+          <input id="jFees" class="field" type="number" min="0" step="0.01" placeholder="Fees and taxes (optional)" />
+        </div>
+        <div class="row between wrap">
+          <button class="btn small primary" id="jSave">Save trade</button>
+          <span class="muted small" id="jMsg"></span>
+        </div>
+        <div id="jOut"></div>
+      </div>
+
+      <div class="card">
         <h3>5. Strategy guide, famous investors and selection checklist</h3>
         <div id="guideOut" class="muted">Loading…</div>
       </div>`;
@@ -116,6 +149,13 @@
     $('pRefresh').addEventListener('click', () => refreshPaper());
     $('pReset').addEventListener('click', paperReset);
     $('pInterval').addEventListener('change', setPaperTimer);
+    $('sCalc').addEventListener('click', calcSize);
+    $('jSave').addEventListener('click', saveJournal);
+    $('jOut').addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-del]');
+      if (btn) deleteJournal(Number(btn.dataset.del));
+    });
+    initSizing();
     $('paperOut').addEventListener('click', (e) => {
       const btn = e.target.closest('[data-sell]');
       if (btn) paperSell(btn.dataset.sell);
@@ -462,6 +502,140 @@
     storePaper(L.newPortfolio());
     renderPaper(L, L.newPortfolio(), {});
     paperMsg('Paper account reset.');
+  }
+
+  // ---------- Position size and trade record ----------
+  const CAPITAL_KEY = 'ai-chat-capital-v1';
+  const JOURNAL_KEY = 'ai-chat-journal-v1';
+  let sizingLib = null;
+  const sizingLibP = () => (sizingLib ||= import('/sizing-core.js'));
+
+  function readJson(key, fallback) {
+    try {
+      const raw = localStorage.getItem(key);
+      return raw ? JSON.parse(raw) : fallback;
+    } catch {
+      return fallback;
+    }
+  }
+
+  function writeJson(key, value) {
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  function initSizing() {
+    const saved = readJson(CAPITAL_KEY, null);
+    if (saved?.capital) $('sCapital').value = saved.capital;
+    $('sCapital').addEventListener('change', () => {
+      const capital = Number($('sCapital').value);
+      if (capital > 0) writeJson(CAPITAL_KEY, { capital });
+    });
+    $('jDate').value = new Date().toISOString().slice(0, 10);
+    renderJournal();
+  }
+
+  async function calcSize() {
+    const S = await sizingLibP();
+    const capital = Number($('sCapital').value);
+    const riskRaw = Number($('sRisk').value) || 1;
+    const maxRaw = Number($('sMax').value);
+    try {
+      const r = S.sizePosition({
+        capital,
+        riskPct: riskRaw,
+        entry: Number($('sEntry').value),
+        stop: Number($('sStop').value),
+        maxPositionPct: maxRaw > 0 ? maxRaw : null,
+      });
+      if (capital > 0) writeJson(CAPITAL_KEY, { capital });
+      $('sFormula').textContent = `Invested % = risk % ÷ stop distance % = ${riskRaw} ÷ ${r.stopDistancePct} = ${r.idealInvestedPct}%`;
+      const k = (label, value, c = '') => `<div class="kpi"><div class="muted small">${label}</div><div class="${c}">${value}</div></div>`;
+      $('sOut').innerHTML = `
+        <div class="grid3" style="margin-top:10px">
+          ${k('Shares to buy', r.qty)}
+          ${k('Capital to invest', num(r.invested, 0))}
+          ${k('% of total capital invested', `${r.investedPct}%`)}
+          ${k('Max loss if stop hits', `${num(r.actualRisk, 0)} (${r.actualRiskPct}%)`, 'neg')}
+          ${k('Planned max loss', `${num(r.riskAmount, 0)} (${riskRaw}%)`)}
+          ${k('Stop distance', `${r.stopDistancePct}%`)}
+        </div>
+        ${r.tooSmall ? '<p class="err small">The stop is too wide for this capital and risk. Even one share risks more than the limit.</p>' : ''}
+        ${r.capped ? '<p class="muted small">Capped by your maximum position size, so the loss is below the limit.</p>' : ''}`;
+    } catch (err) {
+      $('sOut').innerHTML = `<span class="err">${esc(err.message)}</span>`;
+    }
+  }
+
+  async function saveJournal() {
+    const trade = {
+      symbol: $('jSymbol').value.trim().toUpperCase(),
+      date: $('jDate').value,
+      qty: Number($('jQty').value),
+      entry: Number($('jEntry').value),
+      stop: Number($('jStop').value),
+      exit: $('jExit').value === '' ? null : Number($('jExit').value),
+      fees: Number($('jFees').value) || 0,
+    };
+    const msg = (text, cls = 'muted') => { $('jMsg').innerHTML = `<span class="${cls}">${esc(text)}</span>`; };
+    if (!trade.symbol) return msg('Enter a ticker.', 'err');
+    if (!(trade.qty > 0) || !(trade.entry > 0) || !(trade.stop > 0)) return msg('Enter shares, entry and stop.', 'err');
+    if (!(trade.stop < trade.entry)) return msg('For a long trade the stop must be below the entry.', 'err');
+    if (trade.exit !== null && !(trade.exit > 0)) return msg('Exit price must be above 0.', 'err');
+    const trades = readJson(JOURNAL_KEY, []);
+    trades.push({ id: Date.now(), ...trade });
+    if (!writeJson(JOURNAL_KEY, trades)) return msg('Browser storage is full or blocked; trade not saved.', 'err');
+    ['jSymbol', 'jQty', 'jEntry', 'jStop', 'jExit', 'jFees'].forEach((id) => { $(id).value = ''; });
+    msg(`Saved ${trade.symbol}.`, 'ok');
+    renderJournal();
+  }
+
+  function deleteJournal(id) {
+    if (!confirm('Delete this trade from the record?')) return;
+    writeJson(JOURNAL_KEY, readJson(JOURNAL_KEY, []).filter((t) => t.id !== id));
+    renderJournal();
+  }
+
+  async function renderJournal() {
+    const S = await sizingLibP();
+    const capital = Number(readJson(CAPITAL_KEY, {}).capital) || null;
+    const riskPct = Number($('sRisk').value) || 1;
+    const trades = readJson(JOURNAL_KEY, []);
+    const st = S.tradeStats(trades, { capital, riskPct });
+    const stat = (label, value, c = '') => `<div class="kpi"><div class="muted small">${label}</div><div class="${c}">${value}</div></div>`;
+    const rows = st.trades.slice().reverse().map((t) => `
+      <tr>
+        <td>${esc(t.date || '')}</td>
+        <td>${esc(t.symbol)}</td>
+        <td>${num(t.entry)}</td>
+        <td>${num(t.stop)}</td>
+        <td>${t.qty}</td>
+        <td>${num(t.exit)}</td>
+        <td class="${cls(t.pnl)}">${num(t.pnl)}</td>
+        <td class="${cls(t.r)}">${t.r === null ? '–' : `${num(t.r)}R`}</td>
+        <td>${t.riskPct === null ? '–' : `${num(t.riskPct, 2)}%`}</td>
+        <td><button class="btn small" data-del="${t.id}">Delete</button></td>
+      </tr>`).join('');
+    const open = trades.filter((t) => t.exit === null || t.exit === undefined);
+    const openRows = open.map((t) => `<li>${esc(t.date || '')} · ${esc(t.symbol)} · ${t.qty} shares at ${num(t.entry)}, stop ${num(t.stop)} <button class="btn small" data-del="${t.id}">Delete</button></li>`).join('');
+    $('jOut').innerHTML = trades.length ? `
+      <div class="grid3" style="margin-top:10px">
+        ${stat('Win rate', st.winRatePct === null ? '–' : `${st.winRatePct}%`)}
+        ${stat('Closed trades', `${st.closedTrades} (${st.wins}W / ${st.losses}L)`)}
+        ${stat('Expectancy per trade', st.expectancyR === null ? '–' : `${st.expectancyR}R`, cls(st.expectancyR))}
+        ${stat('Avg win / avg loss', st.avgWinR === null || st.avgLossR === null ? '–' : `${st.avgWinR}R / ${st.avgLossR}R`)}
+        ${stat('Profit factor', st.profitFactor ?? '–')}
+        ${stat('Total P&amp;L', num(st.totalPnl), cls(st.totalPnl))}
+      </div>
+      ${capital ? `<p class="muted small">Trades that risked more than ${riskPct}% of your capital: <strong>${st.ruleBreaches}</strong></p>` : '<p class="muted small">Save your total capital above to check the risk rule on each trade.</p>'}
+      ${open.length ? `<h4>Open trades</h4><ul class="small">${openRows}</ul>` : ''}
+      ${st.trades.length ? `<div class="scroll"><table><thead><tr><th>Date</th><th>Ticker</th><th>Entry</th><th>Stop</th><th>Qty</th><th>Exit</th><th>P&amp;L</th><th>R</th><th>Risk % of capital</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>` : ''}
+      <p class="muted small">Expectancy is the average result per trade in R (1R = the amount you planned to lose). Above 0 means the method made money on average. A small sample tells you little.</p>`
+      : '<p class="muted small">No trades yet. Save a trade to start your record.</p>';
   }
 
   // ---------- 5. Guide ----------
