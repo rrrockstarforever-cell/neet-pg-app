@@ -1,12 +1,16 @@
 // AI Chat front end. Plain JS, no build step.
 (() => {
   const STORE_KEY = 'ai-chat-v1';
+  const MAX_IMAGE_BYTES = 8 * 1024 * 1024;
+  const MAX_TEXT_BYTES = 2 * 1024 * 1024;
 
   const $ = (id) => document.getElementById(id);
   const els = {
     sidebar: $('sidebar'),
     chatList: $('chatList'),
+    projectList: $('projectList'),
     newChat: $('newChat'),
+    newProject: $('newProject'),
     toggleSidebar: $('toggleSidebar'),
     provider: $('provider'),
     model: $('model'),
@@ -16,28 +20,52 @@
     input: $('input'),
     send: $('send'),
     stop: $('stop'),
+    attach: $('attach'),
+    fileInput: $('fileInput'),
+    attachments: $('attachments'),
+    searchToggle: $('searchToggle'),
+    mic: $('mic'),
     openSettings: $('openSettings'),
     settingsDialog: $('settingsDialog'),
     systemPrompt: $('systemPrompt'),
+    searchKey: $('searchKey'),
+    voiceLang: $('voiceLang'),
     providerSettings: $('providerSettings'),
     clearAll: $('clearAll'),
+    projectDialog: $('projectDialog'),
+    projectForm: $('projectForm'),
+    projectTitle: $('projectTitle'),
+    projectName: $('projectName'),
+    projectInstructions: $('projectInstructions'),
+    deleteProject: $('deleteProject'),
+    cancelProject: $('cancelProject'),
   };
 
   let providers = [];
   let state = load();
   let busy = false;
   let controller = null;
+  let pending = [];          // attachments waiting to be sent: {name, kind, dataUrl?, text?}
+  let editingProjectId = null;
+  let recognition = null;
+  let listening = false;
+  let warnedStorage = false;
 
   // ---------- Storage ----------
   function defaultState() {
     return {
       chats: [],
       activeId: null,
+      projects: [],           // {id, name, instructions}
+      activeProjectId: null,  // null = all chats
       provider: 'openai',
-      models: {},      // providerId -> model name
-      keys: {},        // providerId -> API key (browser only)
-      baseUrls: {},    // providerId -> base URL override
+      models: {},             // providerId -> model name
+      keys: {},               // providerId -> API key (browser only)
+      baseUrls: {},           // providerId -> base URL override
       system: '',
+      webSearch: false,
+      searchKey: '',
+      voiceLang: 'en-US',
     };
   }
 
@@ -54,7 +82,10 @@
     try {
       localStorage.setItem(STORE_KEY, JSON.stringify(state));
     } catch {
-      // Storage full or blocked: the app still works for this session.
+      if (!warnedStorage) {
+        warnedStorage = true;
+        alert('Browser storage is full. Delete old chats or attachments to keep saving.');
+      }
     }
   }
 
@@ -62,6 +93,7 @@
   const uid = () => Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
   const activeChat = () => state.chats.find((c) => c.id === state.activeId) || null;
   const providerInfo = (id) => providers.find((p) => p.id === id);
+  const projectById = (id) => state.projects.find((p) => p.id === id) || null;
 
   function renderMarkdown(text) {
     if (window.marked && window.DOMPurify) {
@@ -70,6 +102,22 @@
     const div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
+  }
+
+  function plainText(markdown) {
+    const div = document.createElement('div');
+    div.innerHTML = renderMarkdown(markdown);
+    return div.textContent || '';
+  }
+
+  function readFile(file, mode) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = () => reject(reader.error);
+      if (mode === 'dataUrl') reader.readAsDataURL(file);
+      else reader.readAsText(file);
+    });
   }
 
   // ---------- Providers ----------
@@ -109,9 +157,45 @@
   }
 
   // ---------- Rendering ----------
+  function visibleChats() {
+    if (!state.activeProjectId) return state.chats;
+    return state.chats.filter((c) => c.projectId === state.activeProjectId);
+  }
+
+  function renderProjects() {
+    els.projectList.innerHTML = '';
+    const makeRow = (label, id, onEdit) => {
+      const row = document.createElement('div');
+      row.className = 'chat-item' + (state.activeProjectId === id ? ' active' : '');
+      const title = document.createElement('span');
+      title.className = 'title';
+      title.textContent = label;
+      row.appendChild(title);
+      if (onEdit) {
+        const edit = document.createElement('button');
+        edit.className = 'del';
+        edit.title = 'Edit project';
+        edit.textContent = '✎';
+        edit.addEventListener('click', (e) => {
+          e.stopPropagation();
+          openProjectDialog(id);
+        });
+        row.appendChild(edit);
+      }
+      row.addEventListener('click', () => {
+        state.activeProjectId = id;
+        save();
+        renderAll();
+      });
+      els.projectList.appendChild(row);
+    };
+    makeRow('All chats', null, null);
+    for (const p of state.projects) makeRow(p.name, p.id, true);
+  }
+
   function renderChatList() {
     els.chatList.innerHTML = '';
-    for (const chat of state.chats) {
+    for (const chat of visibleChats()) {
       const item = document.createElement('div');
       item.className = 'chat-item' + (chat.id === state.activeId ? ' active' : '');
       const title = document.createElement('span');
@@ -125,7 +209,7 @@
         e.stopPropagation();
         if (!confirm('Delete this chat?')) return;
         state.chats = state.chats.filter((c) => c.id !== chat.id);
-        if (state.activeId === chat.id) state.activeId = state.chats[0]?.id ?? null;
+        if (state.activeId === chat.id) state.activeId = null;
         save();
         renderAll();
       });
@@ -146,56 +230,104 @@
     if (!chat || chat.messages.length === 0) {
       const empty = document.createElement('div');
       empty.className = 'empty';
-      empty.innerHTML = '<h1>How can I help?</h1><p>Pick a provider and model above, add your API key in Settings, then start typing.</p>';
+      const proj = projectById(state.activeProjectId);
+      empty.innerHTML = `<h1>How can I help?</h1><p>${proj ? `Project: ${escapeHtml(proj.name)}. ` : ''}Pick a provider and model above, add your API key in Settings, then start typing.</p>`;
       els.messages.appendChild(empty);
       return;
     }
-    chat.messages.forEach((m, idx) => {
+    chat.messages.forEach((m) => {
       const wrap = document.createElement('div');
       wrap.className = `msg ${m.role}`;
+
+      if (m.role === 'user' && m.images && m.images.length) {
+        const imgRow = document.createElement('div');
+        imgRow.className = 'msg-images';
+        for (const src of m.images) {
+          const img = document.createElement('img');
+          img.src = src;
+          img.alt = 'Attached image';
+          imgRow.appendChild(img);
+        }
+        wrap.appendChild(imgRow);
+      }
+
       const bubble = document.createElement('div');
       bubble.className = 'bubble';
-      if (m.role === 'assistant') {
-        bubble.innerHTML = renderMarkdown(m.content || '…');
-      } else {
-        bubble.textContent = m.content;
-      }
+      if (m.role === 'assistant') bubble.innerHTML = renderMarkdown(m.content || '…');
+      else bubble.textContent = m.content;
       wrap.appendChild(bubble);
 
       if (m.role === 'assistant' && m.content) {
         const meta = document.createElement('div');
         meta.className = 'meta';
-        meta.textContent = m.model ? `${m.model}` : '';
-        const copy = document.createElement('button');
-        copy.className = 'copy';
-        copy.textContent = 'Copy';
-        copy.addEventListener('click', async () => {
+        meta.textContent = m.model || '';
+        meta.appendChild(actionButton('Copy', async (btn) => {
           try {
             await navigator.clipboard.writeText(m.content);
-            copy.textContent = 'Copied';
-            setTimeout(() => (copy.textContent = 'Copy'), 1200);
+            btn.textContent = 'Copied';
           } catch {
-            copy.textContent = 'Copy failed';
+            btn.textContent = 'Copy failed';
           }
-        });
-        meta.appendChild(copy);
+          setTimeout(() => (btn.textContent = 'Copy'), 1200);
+        }));
+        meta.appendChild(actionButton('Read aloud', (btn) => toggleSpeak(m.content, btn)));
         wrap.appendChild(meta);
       }
-      wrap.dataset.idx = idx;
       els.messages.appendChild(wrap);
     });
     els.messages.scrollTop = els.messages.scrollHeight;
   }
 
+  function actionButton(label, onClick) {
+    const b = document.createElement('button');
+    b.className = 'copy';
+    b.textContent = label;
+    b.addEventListener('click', () => onClick(b));
+    return b;
+  }
+
+  function renderAttachments() {
+    els.attachments.innerHTML = '';
+    pending.forEach((att, i) => {
+      const chip = document.createElement('div');
+      chip.className = 'chip';
+      if (att.kind === 'image') {
+        const img = document.createElement('img');
+        img.src = att.dataUrl;
+        img.alt = att.name;
+        chip.appendChild(img);
+      }
+      const name = document.createElement('span');
+      name.textContent = att.name;
+      const x = document.createElement('button');
+      x.textContent = '×';
+      x.title = 'Remove';
+      x.addEventListener('click', () => {
+        pending.splice(i, 1);
+        renderAttachments();
+      });
+      chip.append(name, x);
+      els.attachments.appendChild(chip);
+    });
+  }
+
+  function renderSearchToggle() {
+    els.searchToggle.classList.toggle('on', !!state.webSearch);
+    els.searchToggle.setAttribute('aria-pressed', String(!!state.webSearch));
+  }
+
   function renderAll() {
+    renderProjects();
     renderChatList();
     renderMessages();
+    renderAttachments();
+    renderSearchToggle();
     els.send.disabled = busy;
     els.stop.classList.toggle('hidden', !busy);
     els.send.classList.toggle('hidden', busy);
   }
 
-  // Updates only the last assistant bubble while streaming (avoids rebuilding the whole list).
+  // Updates only the last assistant bubble while streaming.
   function updateStreaming(chat) {
     const last = els.messages.lastElementChild;
     const msg = chat.messages[chat.messages.length - 1];
@@ -207,14 +339,122 @@
     els.messages.scrollTop = els.messages.scrollHeight;
   }
 
+  function escapeHtml(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  // ---------- Attachments ----------
+  async function addFiles(fileList) {
+    for (const file of fileList) {
+      try {
+        if (file.type.startsWith('image/')) {
+          if (file.size > MAX_IMAGE_BYTES) {
+            alert(`${file.name} is larger than 8 MB and was skipped.`);
+            continue;
+          }
+          const dataUrl = await readFile(file, 'dataUrl');
+          pending.push({ name: file.name, kind: 'image', dataUrl });
+        } else {
+          if (file.size > MAX_TEXT_BYTES) {
+            alert(`${file.name} is larger than 2 MB and was skipped.`);
+            continue;
+          }
+          const text = await readFile(file, 'text');
+          pending.push({ name: file.name, kind: 'text', text });
+        }
+      } catch {
+        alert(`Could not read ${file.name}.`);
+      }
+    }
+    renderAttachments();
+  }
+
+  // Builds the message text: the typed text plus any text file contents.
+  function buildUserMessage(text) {
+    const images = pending.filter((a) => a.kind === 'image').map((a) => a.dataUrl);
+    const texts = pending.filter((a) => a.kind === 'text');
+    let content = text;
+    for (const t of texts) {
+      content += `\n\n--- File: ${t.name} ---\n${t.text}`;
+    }
+    return { role: 'user', content: content.trim(), images };
+  }
+
+  // ---------- Voice ----------
+  function setupVoice() {
+    const Rec = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!Rec) {
+      els.mic.disabled = true;
+      els.mic.title = 'Voice input is not supported in this browser';
+      return;
+    }
+    recognition = new Rec();
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.onresult = (e) => {
+      const transcript = Array.from(e.results).map((r) => r[0].transcript).join(' ');
+      els.input.value = (els.input.value ? els.input.value + ' ' : '') + transcript.trim();
+      autosize();
+    };
+    recognition.onend = () => {
+      listening = false;
+      els.mic.classList.remove('on');
+    };
+    recognition.onerror = () => {
+      listening = false;
+      els.mic.classList.remove('on');
+    };
+  }
+
+  function toggleMic() {
+    if (!recognition) return;
+    if (listening) {
+      recognition.stop();
+      return;
+    }
+    recognition.lang = state.voiceLang || 'en-US';
+    try {
+      recognition.start();
+      listening = true;
+      els.mic.classList.add('on');
+    } catch {
+      listening = false;
+    }
+  }
+
+  let speakingBtn = null;
+  function toggleSpeak(markdown, btn) {
+    if (!('speechSynthesis' in window)) {
+      alert('Read aloud is not supported in this browser.');
+      return;
+    }
+    if (speakingBtn === btn) {
+      window.speechSynthesis.cancel();
+      speakingBtn = null;
+      btn.textContent = 'Read aloud';
+      return;
+    }
+    window.speechSynthesis.cancel();
+    if (speakingBtn) speakingBtn.textContent = 'Read aloud';
+    const utter = new SpeechSynthesisUtterance(plainText(markdown));
+    utter.lang = state.voiceLang || 'en-US';
+    utter.onend = () => {
+      speakingBtn = null;
+      btn.textContent = 'Read aloud';
+    };
+    speakingBtn = btn;
+    btn.textContent = 'Stop reading';
+    window.speechSynthesis.speak(utter);
+  }
+
   // ---------- Sending ----------
   async function send() {
     const text = els.input.value.trim();
-    if (!text || busy) return;
+    if ((!text && pending.length === 0) || busy) return;
 
     let chat = activeChat();
     if (!chat) {
-      chat = { id: uid(), title: 'New chat', messages: [] };
+      chat = { id: uid(), title: 'New chat', messages: [], projectId: state.activeProjectId };
       state.chats.unshift(chat);
       state.activeId = chat.id;
     }
@@ -226,11 +466,14 @@
       return;
     }
 
-    if (chat.messages.length === 0) chat.title = text.slice(0, 40);
-    chat.messages.push({ role: 'user', content: text });
+    const userMsg = buildUserMessage(text);
+    const attachedNames = pending.map((a) => a.name);
+    if (chat.messages.length === 0) chat.title = (text || attachedNames[0] || 'New chat').slice(0, 40);
+    chat.messages.push(userMsg);
     const reply = { role: 'assistant', content: '', model: `${providerInfo(provider)?.label ?? provider} · ${model}` };
     chat.messages.push(reply);
 
+    pending = [];
     els.input.value = '';
     autosize();
     busy = true;
@@ -238,7 +481,9 @@
     save();
     renderAll();
 
-    const history = chat.messages.slice(0, -1).map(({ role, content }) => ({ role, content }));
+    const history = chat.messages.slice(0, -1).map(({ role, content, images }) => ({ role, content, images: images || [] }));
+    const project = projectById(chat.projectId);
+    const systemParts = [state.system, project?.instructions].filter((s) => s && s.trim());
 
     try {
       const res = await fetch('/api/chat', {
@@ -248,10 +493,12 @@
         body: JSON.stringify({
           provider,
           model,
-          system: state.system,
+          system: systemParts.join('\n\n'),
           messages: history,
           apiKey: state.keys[provider] || '',
           baseUrl: state.baseUrls[provider] || '',
+          webSearch: !!state.webSearch,
+          searchKey: state.searchKey || '',
         }),
       });
       if (!res.ok) {
@@ -287,39 +534,85 @@
     els.input.style.height = Math.min(els.input.scrollHeight, 200) + 'px';
   }
 
+  // ---------- Projects ----------
+  function openProjectDialog(id) {
+    editingProjectId = id;
+    const p = projectById(id);
+    els.projectTitle.textContent = p ? 'Edit project' : 'New project';
+    els.projectName.value = p ? p.name : '';
+    els.projectInstructions.value = p ? p.instructions : '';
+    els.deleteProject.classList.toggle('hidden', !p);
+    els.projectDialog.showModal();
+  }
+
+  els.projectForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = els.projectName.value.trim();
+    if (!name) return;
+    const instructions = els.projectInstructions.value.trim();
+    const existing = projectById(editingProjectId);
+    if (existing) {
+      existing.name = name;
+      existing.instructions = instructions;
+    } else {
+      const project = { id: uid(), name, instructions };
+      state.projects.push(project);
+      state.activeProjectId = project.id;
+    }
+    els.projectDialog.close();
+    save();
+    renderAll();
+  });
+
+  els.deleteProject.addEventListener('click', () => {
+    const p = projectById(editingProjectId);
+    if (!p || !confirm(`Delete project "${p.name}"? Its chats will be kept in All chats.`)) return;
+    state.projects = state.projects.filter((x) => x.id !== p.id);
+    state.chats.forEach((c) => {
+      if (c.projectId === p.id) c.projectId = null;
+    });
+    if (state.activeProjectId === p.id) state.activeProjectId = null;
+    els.projectDialog.close();
+    save();
+    renderAll();
+  });
+
+  els.cancelProject.addEventListener('click', () => els.projectDialog.close());
+  els.newProject.addEventListener('click', () => openProjectDialog(null));
+
   // ---------- Settings ----------
   function openSettings() {
     els.systemPrompt.value = state.system;
+    els.searchKey.value = state.searchKey || '';
+    els.voiceLang.value = state.voiceLang || 'en-US';
     els.providerSettings.innerHTML = '';
     for (const p of providers) {
       const card = document.createElement('div');
       card.className = 'provider-card';
       const serverNote = p.serverKeyConfigured ? ' (server key configured)' : '';
       card.innerHTML = `
-        <h3>${p.label} ${p.serverKeyConfigured ? '<span class="badge">key set on server</span>' : ''}</h3>
+        <h3>${escapeHtml(p.label)} ${p.serverKeyConfigured ? '<span class="badge">key set on server</span>' : ''}</h3>
         <label class="label">API key${p.needsKey ? '' : ' (not needed)'}${serverNote}
           <input type="password" autocomplete="off" data-kind="key" data-id="${p.id}"
-                 value="${escapeAttr(state.keys[p.id] || '')}" placeholder="${p.needsKey ? 'Paste key here' : 'Not required'}" />
+                 value="${escapeHtml(state.keys[p.id] || '')}" placeholder="${p.needsKey ? 'Paste key here' : 'Not required'}" />
         </label>
         <label class="label">Base URL
           <input type="text" autocomplete="off" data-kind="base" data-id="${p.id}"
-                 value="${escapeAttr(state.baseUrls[p.id] ?? '')}" placeholder="${escapeAttr(p.baseUrl || 'https://your-endpoint/v1')}" />
+                 value="${escapeHtml(state.baseUrls[p.id] ?? '')}" placeholder="${escapeHtml(p.baseUrl || 'https://your-endpoint/v1')}" />
         </label>
         <label class="label wide">Default model
           <input type="text" autocomplete="off" data-kind="model" data-id="${p.id}"
-                 value="${escapeAttr(state.models[p.id] || '')}" placeholder="${escapeAttr(p.models[0] || 'model name')}" />
+                 value="${escapeHtml(state.models[p.id] || '')}" placeholder="${escapeHtml(p.models[0] || 'model name')}" />
         </label>`;
       els.providerSettings.appendChild(card);
     }
     els.settingsDialog.showModal();
   }
 
-  function escapeAttr(s) {
-    return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
-  }
-
   function saveSettings() {
     state.system = els.systemPrompt.value;
+    state.searchKey = els.searchKey.value.trim();
+    state.voiceLang = els.voiceLang.value.trim() || 'en-US';
     els.providerSettings.querySelectorAll('input[data-id]').forEach((input) => {
       const { kind, id } = input.dataset;
       const value = input.value.trim();
@@ -368,6 +661,25 @@
 
   els.stop.addEventListener('click', () => controller?.abort());
 
+  els.attach.addEventListener('click', () => els.fileInput.click());
+  els.fileInput.addEventListener('change', async () => {
+    await addFiles(els.fileInput.files);
+    els.fileInput.value = '';
+  });
+
+  els.searchToggle.addEventListener('click', () => {
+    if (!state.webSearch && !state.searchKey) {
+      alert('Add a Brave Search API key in Settings first (or set BRAVE_API_KEY on the server).');
+      openSettings();
+      return;
+    }
+    state.webSearch = !state.webSearch;
+    save();
+    renderSearchToggle();
+  });
+
+  els.mic.addEventListener('click', toggleMic);
+
   els.openSettings.addEventListener('click', openSettings);
   els.settingsDialog.addEventListener('close', saveSettings);
   els.clearAll.addEventListener('click', () => {
@@ -378,6 +690,14 @@
     renderAll();
   });
 
+  // Drag and drop files onto the composer.
+  els.composer.addEventListener('dragover', (e) => e.preventDefault());
+  els.composer.addEventListener('drop', (e) => {
+    e.preventDefault();
+    if (e.dataTransfer?.files?.length) addFiles(e.dataTransfer.files).then(renderAttachments);
+  });
+
   // ---------- Start ----------
+  setupVoice();
   loadProviders().then(renderAll);
 })();

@@ -12,7 +12,16 @@
   <div class="app">
     <aside class="sidebar" id="sidebar">
       <button class="btn primary" id="newChat">+ New chat</button>
+
+      <div class="section-title">
+        Projects
+        <button class="btn ghost small" id="newProject" title="New project">+</button>
+      </div>
+      <div class="project-list" id="projectList"></div>
+
+      <div class="section-title">Chats</div>
       <div class="chat-list" id="chatList"></div>
+
       <button class="btn ghost" id="openSettings">Settings &amp; API keys</button>
     </aside>
 
@@ -26,11 +35,18 @@
 
       <section class="messages" id="messages"></section>
 
-      <form class="composer" id="composer">
-        <textarea id="input" rows="1" placeholder="Message… (Enter to send, Shift+Enter for a new line)"></textarea>
-        <button type="button" class="btn danger hidden" id="stop">Stop</button>
-        <button type="submit" class="btn primary" id="send">Send</button>
-      </form>
+      <div class="composer-wrap">
+        <div class="attachments" id="attachments"></div>
+        <form class="composer" id="composer">
+          <button type="button" class="btn ghost icon" id="attach" title="Attach image or text file">&#128206;</button>
+          <input type="file" id="fileInput" class="hidden" multiple accept="image/*,.txt,.md,.csv,.json,.log,.js,.ts,.py,.html,.css" />
+          <button type="button" class="btn ghost icon toggle" id="searchToggle" title="Web search">&#127760; Search</button>
+          <textarea id="input" rows="1" placeholder="Message… (Enter to send, Shift+Enter for a new line)"></textarea>
+          <button type="button" class="btn ghost icon" id="mic" title="Speak your message">&#127908;</button>
+          <button type="button" class="btn danger hidden" id="stop">Stop</button>
+          <button type="submit" class="btn primary" id="send">Send</button>
+        </form>
+      </div>
     </main>
   </div>
 
@@ -46,11 +62,40 @@
         <textarea id="systemPrompt" rows="4" placeholder="e.g. You are a helpful tutor for medical students. Answer in English."></textarea>
       </label>
 
+      <div class="provider-card">
+        <h3>Web search (Brave Search API)</h3>
+        <label class="label wide">API key
+          <input type="password" autocomplete="off" id="searchKey" placeholder="Paste Brave Search key, or set BRAVE_API_KEY on the server" />
+        </label>
+        <label class="label wide">Voice language (for speaking and dictation)
+          <input type="text" id="voiceLang" placeholder="en-US" />
+        </label>
+      </div>
+
       <div id="providerSettings"></div>
 
       <div class="row end">
         <button type="button" class="btn ghost" id="clearAll">Delete all chats</button>
         <button type="submit" class="btn primary">Done</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="projectDialog">
+    <form method="dialog" class="settings" id="projectForm">
+      <h2 id="projectTitle">New project</h2>
+      <label class="label">Name
+        <input type="text" id="projectName" maxlength="60" />
+      </label>
+      <label class="label">Instructions (added to the system prompt for chats in this project)
+        <textarea id="projectInstructions" rows="5"></textarea>
+      </label>
+      <div class="row end">
+        <button type="button" class="btn danger" id="deleteProject">Delete project</button>
+        <div class="row">
+          <button type="button" class="btn ghost" id="cancelProject">Cancel</button>
+          <button type="submit" class="btn primary">Save</button>
+        </div>
       </div>
     </form>
   </dialog>

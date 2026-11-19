@@ -281,3 +281,49 @@ dialog::backdrop { background: rgba(0, 0, 0, 0.5); }
   .composer { width: calc(100% - 24px); }
   .provider-card { grid-template-columns: 1fr; }
 }
+
+/* Sidebar sections */
+.section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  padding: 6px 4px 0;
+}
+.project-list { display: flex; flex-direction: column; gap: 2px; max-height: 32%; overflow-y: auto; }
+.btn.small { padding: 2px 8px; font-size: 16px; }
+
+/* Composer extras */
+.composer-wrap {
+  max-width: 760px;
+  width: calc(100% - 32px);
+  margin: 0 auto 16px;
+}
+.composer-wrap .composer { width: 100%; margin: 0; }
+.composer .btn.icon { align-self: center; }
+.composer .toggle { font-size: 13px; white-space: nowrap; }
+.composer .toggle.on { background: var(--accent); color: var(--accent-text); }
+#mic.on { color: var(--danger); animation: pulse 1s infinite; }
+@keyframes pulse { 50% { opacity: 0.4; } }
+
+.attachments { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
+.chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--panel);
+  font-size: 13px;
+  max-width: 100%;
+}
+.chip img { width: 32px; height: 32px; object-fit: cover; border-radius: 4px; }
+.chip span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 200px; }
+.chip button { border: 0; background: none; color: var(--muted); cursor: pointer; font-size: 15px; }
+
+.msg-images { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; margin-bottom: 6px; }
+.msg-images img { max-width: 220px; max-height: 220px; border-radius: 10px; border: 1px solid var(--border); }
