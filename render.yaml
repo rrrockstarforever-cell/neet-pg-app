@@ -1,0 +1,16 @@
+# Render Blueprint: deploys the ai-chat app as a free web service.
+# In Render: New + -> Blueprint -> pick this repo and branch.
+# No API keys are set here. Enter your keys in the app's Settings instead,
+# so the public URL does not expose any key.
+services:
+  - type: web
+    name: ai-chat
+    runtime: node
+    rootDir: ai-chat
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
