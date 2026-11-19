@@ -25,6 +25,7 @@
       <div class="project-list" id="projectList"></div>
 
       <div class="section-title">Chats</div>
+      <input type="search" id="chatSearch" class="field" placeholder="Search chats" aria-label="Search chats" />
       <div class="chat-list" id="chatList"></div>
 
       <button class="btn ghost" id="openSettings">Settings &amp; API keys</button>
@@ -36,6 +37,7 @@
         <select id="provider" class="field" title="Provider"></select>
         <input id="model" class="field grow" list="modelList" placeholder="Model name" />
         <datalist id="modelList"></datalist>
+        <button class="btn ghost icon" id="exportChat" title="Export this chat as Markdown">&#10515;</button>
       </header>
 
       <section class="messages" id="messages"></section>

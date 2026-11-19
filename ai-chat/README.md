@@ -5,7 +5,10 @@ A Grok-style chat app where you choose the AI model. Use Claude, Gemini, ChatGPT
 ## Features
 
 - Streaming replies with a Stop button
-- Multiple saved chats (sidebar), delete chat, delete all
+- Multiple saved chats (sidebar), rename, search by title or content, delete chat, delete all
+- Edit a sent message and resend it, or regenerate the last reply
+- Export a chat as Markdown
+- Keyboard: Enter sends, Shift+Enter for a new line, Ctrl/Cmd+K for a new chat, Esc stops a reply
 - Switch provider and model at any time, per message
 - Markdown and code blocks, copy button on replies
 - Optional system prompt

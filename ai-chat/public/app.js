@@ -8,6 +8,8 @@
   const els = {
     sidebar: $('sidebar'),
     chatList: $('chatList'),
+    chatSearch: $('chatSearch'),
+    exportChat: $('exportChat'),
     projectList: $('projectList'),
     newChat: $('newChat'),
     newProject: $('newProject'),
@@ -162,8 +164,16 @@
 
   // ---------- Rendering ----------
   function visibleChats() {
-    if (!state.activeProjectId) return state.chats;
-    return state.chats.filter((c) => c.projectId === state.activeProjectId);
+    let list = state.activeProjectId
+      ? state.chats.filter((c) => c.projectId === state.activeProjectId)
+      : state.chats;
+    const q = (els.chatSearch.value || '').trim().toLowerCase();
+    if (q) {
+      list = list.filter((c) =>
+        c.title.toLowerCase().includes(q) ||
+        c.messages.some((m) => (m.content || '').toLowerCase().includes(q)));
+    }
+    return list;
   }
 
   function renderProjects() {
@@ -205,6 +215,18 @@
       const title = document.createElement('span');
       title.className = 'title';
       title.textContent = chat.title;
+      const rename = document.createElement('button');
+      rename.className = 'del';
+      rename.title = 'Rename chat';
+      rename.textContent = '✎';
+      rename.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const name = prompt('Rename chat', chat.title);
+        if (!name || !name.trim()) return;
+        chat.title = name.trim().slice(0, 80);
+        save();
+        renderAll();
+      });
       const del = document.createElement('button');
       del.className = 'del';
       del.title = 'Delete chat';
@@ -217,7 +239,7 @@
         save();
         renderAll();
       });
-      item.append(title, del);
+      item.append(title, rename, del);
       item.addEventListener('click', () => {
         state.activeId = chat.id;
         save();
@@ -239,7 +261,7 @@
       els.messages.appendChild(empty);
       return;
     }
-    chat.messages.forEach((m) => {
+    chat.messages.forEach((m, index) => {
       const wrap = document.createElement('div');
       wrap.className = `msg ${m.role}`;
 
@@ -261,10 +283,20 @@
       else bubble.textContent = m.content;
       wrap.appendChild(bubble);
 
+      if (m.role === 'user' && !busy) {
+        const meta = document.createElement('div');
+        meta.className = 'meta';
+        meta.appendChild(actionButton('Edit', () => editMessage(chat, index)));
+        wrap.appendChild(meta);
+      }
+
       if (m.role === 'assistant' && m.content) {
         const meta = document.createElement('div');
         meta.className = 'meta';
         meta.textContent = m.model || '';
+        if (index === chat.messages.length - 1 && !busy) {
+          meta.appendChild(actionButton('Regenerate', () => regenerate()));
+        }
         meta.appendChild(actionButton('Copy', async (btn) => {
           try {
             await navigator.clipboard.writeText(m.content);
@@ -381,7 +413,8 @@
     for (const t of texts) {
       content += `\n\n--- File: ${t.name} ---\n${t.text}`;
     }
-    return { role: 'user', content: content.trim(), images };
+    const files = texts.map((t) => ({ name: t.name, text: t.text }));
+    return { role: 'user', content: content.trim(), images, text, files };
   }
 
   // ---------- Voice ----------
@@ -452,9 +485,17 @@
   }
 
   // ---------- Sending ----------
+  function selectedModel() {
+    return (els.model.value || '').trim() || currentModel();
+  }
+
   async function send() {
     const text = els.input.value.trim();
     if ((!text && pending.length === 0) || busy) return;
+    if (!selectedModel()) {
+      alert('Enter a model name first.');
+      return;
+    }
 
     let chat = activeChat();
     if (!chat) {
@@ -463,23 +504,24 @@
       state.activeId = chat.id;
     }
 
-    const provider = state.provider;
-    const model = (els.model.value || '').trim() || currentModel();
-    if (!model) {
-      alert('Enter a model name first.');
-      return;
-    }
-
     const userMsg = buildUserMessage(text);
     const attachedNames = pending.map((a) => a.name);
     if (chat.messages.length === 0) chat.title = (text || attachedNames[0] || 'New chat').slice(0, 40);
     chat.messages.push(userMsg);
-    const reply = { role: 'assistant', content: '', model: `${providerInfo(provider)?.label ?? provider} · ${model}` };
-    chat.messages.push(reply);
 
     pending = [];
     els.input.value = '';
     autosize();
+    await generate(chat);
+  }
+
+  // Streams a new reply into the chat. The last message must be the user's.
+  async function generate(chat) {
+    const provider = state.provider;
+    const model = selectedModel();
+    const reply = { role: 'assistant', content: '', model: `${providerInfo(provider)?.label ?? provider} · ${model}` };
+    chat.messages.push(reply);
+
     busy = true;
     controller = new AbortController();
     save();
@@ -531,6 +573,56 @@
       save();
       renderAll();
     }
+  }
+
+  // Re-runs the last user message and replaces the last reply.
+  async function regenerate() {
+    const chat = activeChat();
+    if (busy || !chat) return;
+    if (chat.messages.at(-1)?.role === 'assistant') chat.messages.pop();
+    if (chat.messages.at(-1)?.role !== 'user') return;
+    if (!selectedModel()) {
+      alert('Enter a model name first.');
+      return;
+    }
+    await generate(chat);
+  }
+
+  // Puts a sent message back in the composer and drops it and everything after it.
+  function editMessage(chat, index) {
+    if (busy) return;
+    if (index < chat.messages.length - 1 && !confirm('Editing this message removes the replies after it. Continue?')) return;
+    const m = chat.messages[index];
+    chat.messages = chat.messages.slice(0, index);
+    pending = [
+      ...(m.images || []).map((dataUrl, i) => ({ name: `image-${i + 1}`, kind: 'image', dataUrl })),
+      ...(m.files || []).map((f) => ({ name: f.name, kind: 'text', text: f.text })),
+    ];
+    els.input.value = m.text ?? m.content;
+    save();
+    renderAll();
+    autosize();
+    els.input.focus();
+  }
+
+  function exportChat() {
+    const chat = activeChat();
+    if (!chat || chat.messages.length === 0) {
+      alert('Nothing to export yet.');
+      return;
+    }
+    const lines = [`# ${chat.title}`, ''];
+    for (const m of chat.messages) {
+      if (m.role === 'user') lines.push('## You', '', m.content, '');
+      else lines.push(`## Assistant${m.model ? ` (${m.model})` : ''}`, '', m.content, '');
+    }
+    const slug = chat.title.replace(/[^a-z0-9]+/gi, '-').replace(/^-+|-+$/g, '') || 'chat';
+    const url = URL.createObjectURL(new Blob([lines.join('\n')], { type: 'text/markdown' }));
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${slug}.md`;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
 
   function autosize() {
@@ -687,6 +779,19 @@
   });
 
   els.mic.addEventListener('click', toggleMic);
+
+  els.chatSearch.addEventListener('input', renderChatList);
+  els.exportChat.addEventListener('click', exportChat);
+
+  // Keyboard shortcuts: Ctrl/Cmd+K new chat, Esc stops a running reply.
+  document.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+      e.preventDefault();
+      els.newChat.click();
+    } else if (e.key === 'Escape' && busy) {
+      controller?.abort();
+    }
+  });
 
   els.openSettings.addEventListener('click', openSettings);
   els.settingsDialog.addEventListener('close', saveSettings);
